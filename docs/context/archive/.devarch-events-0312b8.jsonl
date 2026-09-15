@@ -1,0 +1,2 @@
+{"ts":"2026-09-14T23:51:18Z","kind":"hook","source":"session-start","msg":"Session 0312b8 started on main","detail":null,"branch":"main","session":"0312b8","gate":"session-init","budget":"0/0"}
+{"ts":"2026-09-14T23:53:25Z","kind":"hook","source":"session-finalize","msg":"Session ended — event log archived","detail":"0312b8","branch":"main","session":"0312b8","gate":"session-init","budget":"0/0"}

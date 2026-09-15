@@ -1,0 +1,11 @@
+# Oracle build artifacts and BASIC-PLUS save files
+original/underg
+original/underg.exe
+original/UNDER?.DAT
+
+# Node
+node_modules/
+dist/
+
+# OS
+.DS_Store

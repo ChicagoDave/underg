@@ -1,0 +1,104 @@
+# Session Plan: Port UNDERGROUND V1 (1979 BASIC-PLUS) to Chord, gated on branch-tester parity
+
+**Created**: 2026-09-14
+**Plan Status**: ACTIVE
+**Overall scope**: Port Gary Kleppe's UNDERGROUND V1 (RSTS/E BASIC-PLUS, 14-Mar-79) — 87 rooms x 14-column exit/attribute matrix, 45 object placements, ~20 parser verbs, all text — to Chord (Sharpee monorepo; **language version 3.6.0**, which is versioned separately from the `@sharpee/*` package lockstep — `packages/chord` v5.4.1 is the compiler's package version, not the language's), producing the branch-stories deliverable shape (`.story` entry, per-region `.chord` files, `.config.json` with IFID, `.tests.json` cards) with a deviation ledger recording every place Chord cannot reproduce the original's wording. Acceptance is gated on `@sharpee/branch-tester` running a card corpus generated from `bplus.c` (the verified BASIC-PLUS interpreter oracle), not on hand-written assertions.
+**Bounded contexts touched**: N/A — this is a content/language port (world data + parser-verb semantics into a story-authoring DSL), not domain-driven service work. Framed in plain technical terms per the "DDD does not apply" checklist (infrastructure/content-port shape, no bounded-context model in play).
+**Key domain language**: N/A (plain technical framing chosen; IF/Chord terms — room, exit, object, verb, deviation ledger, card, oracle — are used because they are what the source material and target language call these things, not as DDD artifacts).
+
+## References consulted
+- `docs/context/project-profile.md` — stack is explicitly "not yet established, pending the placement decision"; this plan's Phase 1 is that decision, so nothing here is assumed ahead of it.
+- `/Users/david/repos/sharpee/docs/architecture/chord-grammar-changes.md` (ratchet log, 117 entries) — the grammar is a closed set (Given 7); relevant constraints for this port: prose-block-only phrase text (no quoted one-liners) governs how LOOK-V1's room text becomes Chord prose; "conditional blocked exits" (`<dir> is blocked while <cond>: <key>`) is the direct target for V1's directional refusal messages; D9's three-ring boolean-state gate forbids modeling any yes/no world flag as a bare true/false — V1's lantern-lit/door-locked/etc. style state must become real `states:` pairs; ADR-327's player-is-a-role removal of `create the player` (entries 105-106) governs how the PC is declared; Z1 `first time` room blocks are the built-in mechanism for LOOK-V1's seen/unseen (room*100 vs +50) text split.
+- `/Users/david/repos/sharpee/docs/architecture/adrs/adr-327-explicit-references.md` — clause heads are actor-explicit (`on|after <actor> <gerund>`); `it`/`its` are removed from the language. Any verb/room authoring in this plan must be written in the current form, not the `it`-based form seen in older docs.
+- `/Users/david/repos/sharpee/docs/architecture/adrs/adr-328-actors-are-a-platform-concept.md` — actors (player and any addressed NPC-like entities) are symmetric at the platform level; relevant if V1's world has any non-player character logic to model, however thin.
+- `/Users/david/repos/sharpee/docs/architecture/adrs/adr-329-chord-acting-statement.md` — if any V1 verb effect requires scripting another entity's action, the acting statement (not `move`-as-teleport) is the current mechanism.
+- `/Users/david/repos/sharpee/docs/architecture/adrs/adr-074-ifid-requirements.md` — every story declares an IFID; for Chord stories the hard fail is at publish time (a missing IFID is a compile warning), so `underg.config.json` must carry a freshly minted IFID from the start.
+- `/Users/david/repos/sharpee/docs/architecture/adrs/adr-056-story-testing-framework.md`, `adr-073-transcript-story-testing.md` — origin ADRs for Sharpee's testing-first convention; superseded in file format (see below) but establish that a story ships with a behavioral test corpus, not prose-only.
+- `/Users/david/repos/sharpee/docs/architecture/adrs/adr-294-golden-transcripts-tester-rebuild.md`, `adr-300-addressable-channels-and-canonical-transcript.md`, `adr-307-testing-tree-model-v2.md`, `adr-340-testing-assertion-core.md` — the current branch-tester model: `.tests.json` tree-document cards (`opening`/`boot`/`turn`, with `branches`), a single shared assertion-core (`checkAssertion`/`checkStateAssertion`) used by both testers, and the Chord-spelled `[the] <name> is <state>` / `story.state = <value>` claim forms this port's cards must use for state assertions.
+- `/Users/david/repos/sharpee/docs/work/chord/dungeo-conversion.md` — the prior conversion-assessment method (bucket the source into converts-today / converts-under-design / stays-TS-hatch / out-of-scope / genuine-language-gaps, smallest-gap-first) that Phase 2 of this plan applies to Underground before any `.chord` authoring begins.
+- `/Users/david/repos/sharpee/docs/work/chord/grammar.md` (Phase A snapshot) and `/Users/david/repos/sharpee/docs/unofficial/reference/chord-grammar.md` (living reference) — structural reference for `create`/`define action`/`define trait`/statements/conditions used throughout Phases 3-4; the living reference is authoritative where the two disagree (Phase A snapshot predates most of the ratchet log).
+- `/Users/david/repos/sharpee/branch-stories/secret-letter/secret-letter.story` — the deviation-ledger convention this port's header must follow (a numbered list of every wording departure and why), and the "RETARGET vs. faithful port" framing question this plan answers as "faithful port, gated on the oracle" rather than a retarget.
+- `/Users/david/repos/sharpee/branch-stories/{secret-letter,fernhill,ides-of-march}/*.tests.json` — the concrete `opening`/`boot`/`turn` card shape (`contains`/`notContains`/`states`, `branches`) this port's `underg.tests.json` must match byte-for-shape.
+- `/Users/david/repos/sharpee/packages/branch-tester/README.md` — PARTIALLY STALE: documents the retired `.transcript` file format. The package's own source (`tree-document.ts`, `auto-assertion.ts`) and the goal's own statement ("there are no `.transcript` files in branch-stories") confirm the JSON card model is current; this plan follows the card model, not the README's examples.
+
+## Open questions this plan surfaces (not assumed)
+
+1. **Placement — RESOLVED 2026-09-14 by the owner: this work is self-contained in this repo (`~/repos/underg`).** The port is not a branch-story in `~/repos/sharpee`. The Chord toolchain is consumed as published npm packages — `@sharpee/devkit` (the `sharpee` CLI), `@sharpee/chord`, and `@sharpee/branch-tester` are all published at **5.4.1**, carrying Chord language **3.6.0**, so no submodule, no monorepo dependency, and no publish wait blocks Phases 2-7. Consequence carried forward: a language gap this port finds is a change in `sharpee` that must be published before this repo can consume it, so Phase 2's mapping table records gaps against the **published** 3.6.0 surface, not against the monorepo working tree. Phases 2-7 happen here; no re-plan in another repo, and rule 18b does not apply.
+
+2. **Verb mapping**: which of the ~20 verbs map onto existing Sharpee stdlib actions (taking, dropping, going, examining, etc. — likely aliases via grammar) versus need a Chord `define action` versus need a TS hatch. Phase 2 produces this mapping as a table before any verb is authored — not assumed here.
+3. **The line-975 bug — RESOLVED 2026-09-14 (Phase 1): keep the restoration; it is not a port deviation.** The vendored `original/UNDERG.BAS` already carries `975 ON ERROR GOTO 0` (verified at line 97 of the file), restored upstream on the evidence of the 01-Mar-79 listing. Three reasons it stands: the oracle and the port read the *same* source, so parity is preserved by construction rather than by choosing sides; the bug is unobservable in normal play, affecting only how a failed `CHAIN` at line 990 is reported (line 30's `erl-20%` test falls to `resume60`, printing a bogus "Password not found."); and it has no Chord analogue at all, because there is no `CHAIN` to fail. Recorded in the deviation ledger under upstream restorations, separate from deviations this port introduces.
+
+## Phases
+
+### Phase 1: Source acquisition, oracle verification, and placement decision
+- **Tier**: Medium
+- **Budget**: 250
+- **Domain focus**: establishing the executable oracle (`bplus.c` running the unmodified 1979 source) and resolving where this work happens before any Chord authoring starts.
+- **Entry state**: this repo has only DevArch scaffolding and no commits; no Sharpee toolchain is installed; none of the source material (`UNDERG-V1.BAS`, `LOOK-V1.BAS`, `check_data.py`, `V1-FINDINGS.md`, `README.md`, `bplus.c`) is vendored anywhere yet.
+- **Deliverable**:
+  - The V1 source tree from `github.com/gschmidl/interactive-fiction`, directory `Underground (Scans)/V1/`, vendored (or fetched via a committed script) into the chosen working location.
+  - `bplus.c` built and confirmed to run `UNDERG-V1.BAS` interactively; a captured smoke-test session (boot text plus a handful of commands) proving the oracle executes, verified line-for-line against the RSTS/E SIMH baseline claim in the source material.
+  - `check_data.py` run against the DATA block, confirming the 1263 values decode to the claimed 87x14 room/exit matrix and 45 object locations.
+  - `V1-FINDINGS.md` and `README.md` read; the line-975 bug and any revision-mixing/transcription-vs-reconstruction caveats summarized, with an explicit recorded decision on whether the bug is replicated (oracle parity) or fixed (and ledgered).
+  - Placement: already decided (Open Question 1) — self-contained in this repo, consuming `@sharpee/devkit` 5.4.1 from npm. Phase 1's remaining placement work is to *stand it up*: `npm install -g @sharpee/devkit` (or a local devDependency), `sharpee init`-style project scaffolding for `underg`, and a confirmed `sharpee build` + `sharpee build --test` round trip on a trivial stub story, proving the published toolchain works here before any real authoring begins.
+- **Exit state**: the oracle runs and is trusted; the world-data volume is confirmed; the line-975 bug decision is recorded; the published Chord toolchain is installed here and a stub story builds and tests green.
+- **Status**: DONE (2026-09-14) — oracle built and replaying green via `scripts/oracle-smoke.sh` against `tests/golden/oracle-smoke.txt`; DATA block validates at 1263 values (87x14 + 45); line-975 decision recorded (Open Question 3); placement stood up — devkit 5.4.1 / Chord 3.6.0 installed locally, stub story at `spikes/toolchain-smoke/` gate-clean, 4 cards / 7 assertions passing, browser build emitted.
+
+### Phase 2: World and verb extraction — mapping design
+- **Tier**: Medium
+- **Budget**: 250
+- **Domain focus**: turning the 1263 DATA values and the LOOK-V1 text table into a structured intermediate model, and the ~20-verb parser into a per-verb Chord mapping — all before any `.chord` file is written.
+- **Entry state**: Phase 1 done — oracle trusted, placement fixed.
+- **Deliverable**:
+  - A structured world-model document decoding the DATA block: 87 rooms with their 14-column exit/attribute rows as UNDERG-V1.BAS's own parsing logic reads them, and the 45 object-to-room placements.
+  - LOOK-V1.BAS's `room*100` (unseen) / `room*100+50` (seen) text table extracted verbatim into first-visit vs. subsequent-visit prose per room — quoted exactly, no paraphrase; this is the raw material Phase 3 turns into Chord prose blocks and Z1 `first time` blocks.
+  - A verb inventory (~20 entries) resolving Open Question 2: for each verb, its BASIC-PLUS parser handling (synonyms, special-cased nouns, quirks) and its proposed Chord target — stdlib grammar alias, `define action`, or TS hatch — using the dungeo-conversion.md bucket method (converts today / needs a hatch / genuine language gap), smallest-gap-first.
+  - Explicit call-outs for anything that doesn't fit Chord's current closed grammar (a candidate future ratchet-log entry) versus what today's grammar already covers (D1 state adjectives, conditional blocked exits, `must`, `refuse when`, Z1 first-time blocks).
+- **Exit state**: every room, exit, object, and verb has a named Chord target construct or a flagged, explicit gap — nothing is authored ad hoc in Phase 3/4 without having appeared here first.
+- **Status**: CURRENT (since 2026-09-14)
+
+### Phase 3: World authoring in Chord — rooms, exits, objects, prose
+- **Tier**: Large
+- **Budget**: 400
+- **Domain focus**: the 87-room/14-exit matrix and 45 objects as Chord `create` blocks, one `.chord` file per region (branch-stories convention).
+- **Entry state**: Phase 2's world-model document and verb mapping exist.
+- **Deliverable**: per-region `.chord` files covering all 87 rooms (grouped by V1's own geography — entrance/tunnels/vault or whatever the extracted map shows), every exit (including one-way and conditionally-blocked forms where V1 has directional refusals, via the ratchet's `<dir> is blocked while <cond>: <key>` form), the 45 objects placed with Identity plus the standard traits Phase 2 assigned them, and room prose using Z1 `first time` blocks for the seen/unseen split — verbatim from LOOK-V1 wherever Chord's prose-block form can carry it, with every place it cannot recorded immediately in a running deviation-ledger draft (not deferred to Phase 5).
+- **Exit state**: the full room/exit/object graph loads clean under the Chord loader (no load/analysis errors) and matches Phase 2's map one-to-one.
+- **Status**: PENDING
+
+### Phase 4: Verb and action layer
+- **Tier**: Large
+- **Budget**: 400
+- **Domain focus**: the ~20-verb parser as Chord grammar aliases, `define action` blocks, and `on`/`after` clause bodies.
+- **Entry state**: Phase 2's verb mapping exists; Phase 3's world is loadable (verbs need rooms/objects to test against, but see the note below on ordering).
+- **Deliverable**: every verb from Phase 2's inventory implemented per its assigned target — stdlib reuse via grammar aliases where the mapping said so, `define action` for the rest, refusals via `must`/`refuse when`, reactions via actor-explicit `on the player <gerund>` / `after the player <gerund>` clauses (ADR-327 — no bare `it`), and a documented, per-verb decision on the line-975 bug and any other V1-FINDINGS.md parser idiosyncrasy that verb touches.
+- **Exit state**: every verb the original parser accepted has a Chord equivalent or a documented, ledger-recorded gap; the story is playable by hand start-to-end.
+- **Status**: PENDING
+- **Note on ordering**: Phases 3 and 4 both depend only on Phase 2's output, not on each other — they are listed sequentially for narrative simplicity, not because rooms must exist before verbs. A session could interleave them per-region (author a region's rooms, then its region-specific verb behavior) if that proves more tractable once Phase 2's map is in hand.
+
+### Phase 5: Story assembly and initial deviation ledger
+- **Tier**: Medium
+- **Budget**: 200
+- **Domain focus**: the `.story` entry file, config, and the player-as-role declaration.
+- **Entry state**: Phases 3 and 4 complete — world and verbs both load and run.
+- **Deliverable**: `underg.story` wiring the region imports in arbitration order (ADR-251; imports are a paste at their own position, so order is semantic — per the secret-letter precedent), `underg.config.json` with a freshly minted IFID (ADR-074), the player declared `playable` and assigned via a `before the game starts … end before` block (ADR-327 D9/D10 — `create the player` is removed), and a complete first-pass deviation ledger in the `.story` header (secret-letter convention) enumerating every wording departure introduced in Phases 3-4 and why, plus the line-975 bug decision from Phase 1.
+- **Exit state**: `underg.story` builds clean end-to-end with no analysis errors; the ledger accounts for every deviation introduced so far.
+- **Status**: PENDING
+
+### Phase 6: Oracle-driven card generation tooling
+- **Tier**: Large
+- **Budget**: 400
+- **Domain focus**: generating `underg.tests.json` cards from `bplus.c`'s real output, per the acceptance-gate requirement that the original's real text is the assertion source.
+- **Entry state**: `underg.story` builds; the oracle (Phase 1) is trusted and scriptable.
+- **Deliverable**: a script/tool that drives `bplus.c` with scripted command sequences, captures its real output, and converts that output into `opening`/`boot`/`turn` cards (`contains`/`notContains`/`states` assertions, `branches` where V1's paths diverge) — never hand-written prose. An initial corpus covering the main walkthrough plus the highest-value branches, scaled against the existing worked examples (fernhill 84 turns, ides-of-march 37, secret-letter 564) — Underground's 87-room scale suggests a corpus toward the secret-letter end of that range.
+- **Exit state**: the generation tooling exists and is reusable; a first run of `underg.tests.json` against the Chord port produces a baseline pass/fail report (not required to be green yet).
+- **Status**: PENDING
+
+### Phase 7: Parity closure
+- **Tier**: Large
+- **Budget**: 400
+- **Domain focus**: closing the gap between the Chord port and the oracle-derived assertions until `@sharpee/branch-tester` is green.
+- **Entry state**: Phase 6's baseline report exists, naming every current mismatch.
+- **Deliverable**: iterate the `.chord` files and/or the card corpus (expanding coverage where the baseline found gaps) until the full `underg.tests.json` card set passes under branch-tester; every remaining, unavoidable difference from the original recorded as a final deviation-ledger entry with its reason; a closing note comparing this port's scale (rooms, verbs, cards) against the worked examples it followed.
+- **Exit state**: the branch-tester parity gate passes; the deviation ledger is complete and closed; the port meets the acceptance gate stated in the goal.
+- **Status**: PENDING

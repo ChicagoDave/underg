@@ -1,0 +1,18 @@
+Are you recalling a saved game?
+If you want to recall this game at a later date, the password is A.
+you are on a path which winds north into a dense forest.
+The west end of the path goes into a small building.
+You are in a one-room building.Stairs lead down.
+There is an electric lamp here.
+There is a bottle of water here.
+There is a penny here.
+You are in a one-room building.Stairs lead down.
+There is an electric lamp here.
+There is a bottle of water here.
+There is a penny here.
+Outside building
+You are on a path which winds through the forest.The path
+here bends from south to west.
+There is a rock here.
+It isn't here.
+I don't know what that means.

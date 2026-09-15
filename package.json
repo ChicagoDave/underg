@@ -1,0 +1,15 @@
+{
+  "name": "underg",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Chord port of UNDERGROUND V1 (Gary Kleppe, 1979, RSTS/E BASIC-PLUS)",
+  "scripts": {
+    "build": "sharpee build",
+    "test": "sharpee build --test"
+  },
+  "devDependencies": {
+    "@sharpee/devkit": "5.4.1",
+    "@sharpee/platform-browser": "^5.4.1",
+    "@sharpee/sharpee": "^5.4.1"
+  }
+}
