@@ -21,6 +21,46 @@
 - `/Users/david/repos/sharpee/branch-stories/{secret-letter,fernhill,ides-of-march}/*.tests.json` — the concrete `opening`/`boot`/`turn` card shape (`contains`/`notContains`/`states`, `branches`) this port's `underg.tests.json` must match byte-for-shape.
 - `/Users/david/repos/sharpee/packages/branch-tester/README.md` — PARTIALLY STALE: documents the retired `.transcript` file format. The package's own source (`tree-document.ts`, `auto-assertion.ts`) and the goal's own statement ("there are no `.transcript` files in branch-stories") confirm the JSON card model is current; this plan follows the card model, not the README's examples.
 
+## Governing principle — reproduce the story as coded
+
+**Owner's direction, 2026-09-14: the port reproduces UNDERGROUND as the 1979
+program is written, not as it was meant to work.** Where the code and the
+apparent intent disagree, the code wins. Bugs in the original are behaviour to
+be carried over, not defects to be fixed.
+
+This is the standing answer to the whole gap list in `mapping.md`, not a ruling
+on one item. It settles, without needing to be re-asked:
+
+- **G8** — `LEASH` addresses the rat (both map to `T%=31`) and the leash is
+  unaddressable. Reproduced.
+- **G1** — the parser accepts verb and noun in either position. Reproduced.
+- **G5** — five-character noun truncation over-accepts. Reproduced.
+- **The five verb conflations** (WEAR=TAKE, GIVE=THROW, EAT=DRINK,
+  UNLOCK=OPEN, PULL=PUSH). Reproduced, at the cost of the corresponding stdlib
+  actions never firing.
+- **G6/G7** — the death-resurrection loop and the lamp-timer interruption are
+  behaviour, and are ported as behaviour.
+
+**What this does to the deviation ledger.** It is no longer a record of choices
+this port made. Every entry is now one thing only: a place where Chord 3.6.0
+*cannot* express what the original does, with the construct that is missing.
+That makes the ledger reviewable against the language rather than against
+taste, and makes each entry a candidate ratchet-log item in `sharpee` rather
+than an apology.
+
+**Every defect carried over is registered.** `original-issues.md` is the
+O-register: one entry per defect, typo, or oddity in the 1979 program, each
+with a disposition (REPRODUCE / RESTORED-UPSTREAM / BLOCKED), so a future reader
+who notices that the leash cannot be picked up finds the record and stops rather
+than "fixing" it. It is deliberately separate from the repo's own DevArch issue
+store, which holds D-n items we intend to fix.
+
+The one thing this principle does not license is inventing behaviour where the
+source is absent rather than wrong. `LOOK.BAS` 10370-10500 and a handful of
+`UNDERG.BAS` lines are reconstructed rather than transcribed (see
+`original/README-reconstruction.md`); those stay flagged as reconstruction, and
+the line-975 restoration stays recorded as upstream, separate from both.
+
 ## Open questions this plan surfaces (not assumed)
 
 1. **Placement — RESOLVED 2026-09-14 by the owner: this work is self-contained in this repo (`~/repos/underg`).** The port is not a branch-story in `~/repos/sharpee`. The Chord toolchain is consumed as published npm packages — `@sharpee/devkit` (the `sharpee` CLI), `@sharpee/chord`, and `@sharpee/branch-tester` are all published at **5.4.1**, carrying Chord language **3.6.0**, so no submodule, no monorepo dependency, and no publish wait blocks Phases 2-7. Consequence carried forward: a language gap this port finds is a change in `sharpee` that must be published before this repo can consume it, so Phase 2's mapping table records gaps against the **published** 3.6.0 surface, not against the monorepo working tree. Phases 2-7 happen here; no re-plan in another repo, and rule 18b does not apply.
@@ -55,7 +95,7 @@
   - A verb inventory (~20 entries) resolving Open Question 2: for each verb, its BASIC-PLUS parser handling (synonyms, special-cased nouns, quirks) and its proposed Chord target — stdlib grammar alias, `define action`, or TS hatch — using the dungeo-conversion.md bucket method (converts today / needs a hatch / genuine language gap), smallest-gap-first.
   - Explicit call-outs for anything that doesn't fit Chord's current closed grammar (a candidate future ratchet-log entry) versus what today's grammar already covers (D1 state adjectives, conditional blocked exits, `must`, `refuse when`, Z1 first-time blocks).
 - **Exit state**: every room, exit, object, and verb has a named Chord target construct or a flagged, explicit gap — nothing is authored ad hoc in Phase 3/4 without having appeared here first.
-- **Status**: CURRENT (since 2026-09-14)
+- **Status**: DONE (2026-09-14) — world decoded by `scripts/extract_world.py` into `extracted/world.json` (87 rooms, 231 exits, 31 refusal-coded exits, 45 objects, 1263 DATA values) and held to the original by `tests/test_extract_world.py` (8 tests green, every expectation anchored in the source or the oracle transcript, not in the extractor's output). Verb mapping table and the enumerated gap list at `docs/work/port-underground-v1-chord/mapping.md`. Headline counts: 15 verbs, not ~20 — 8 alias onto stdlib, 5 need `define action`, 0 need a TS hatch; 8 gaps (G1-G8) have no declarative target, of which G8 is a vocabulary collision in the 1979 source that needs David's call.
 
 ### Phase 3: World authoring in Chord — rooms, exits, objects, prose
 - **Tier**: Large
@@ -64,7 +104,7 @@
 - **Entry state**: Phase 2's world-model document and verb mapping exist.
 - **Deliverable**: per-region `.chord` files covering all 87 rooms (grouped by V1's own geography — entrance/tunnels/vault or whatever the extracted map shows), every exit (including one-way and conditionally-blocked forms where V1 has directional refusals, via the ratchet's `<dir> is blocked while <cond>: <key>` form), the 45 objects placed with Identity plus the standard traits Phase 2 assigned them, and room prose using Z1 `first time` blocks for the seen/unseen split — verbatim from LOOK-V1 wherever Chord's prose-block form can carry it, with every place it cannot recorded immediately in a running deviation-ledger draft (not deferred to Phase 5).
 - **Exit state**: the full room/exit/object graph loads clean under the Chord loader (no load/analysis errors) and matches Phase 2's map one-to-one.
-- **Status**: PENDING
+- **Status**: BLOCKED (2026-09-14) — on G9, a Chord gap: an entity's identifier and its printed name cannot differ, so the 27 of 87 rooms that share a short name cannot be authored faithfully. The maze (rooms 61-71) makes a suffix workaround a gameplay change rather than a wording one. Evidence and candidate shapes in `chord-gap-g9.md`; the decision belongs in `sharpee`. Everything else Phase 3 needs is ready: the world is decoded and verified, object names/vocabulary/presence text included.
 
 ### Phase 4: Verb and action layer
 - **Tier**: Large

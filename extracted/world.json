@@ -1,0 +1,1972 @@
+{
+  "source": {
+    "underg": "UNDERG.BAS",
+    "look": "LOOK.BAS"
+  },
+  "counts": {
+    "rooms": 87,
+    "objects": 45,
+    "data_values": 1263
+  },
+  "directions": [
+    "north",
+    "east",
+    "west",
+    "south",
+    "northeast",
+    "northwest",
+    "southeast",
+    "southwest",
+    "up",
+    "down",
+    "in",
+    "out",
+    "door",
+    "barrier"
+  ],
+  "rooms": {
+    "1": {
+      "id": 1,
+      "name": "Building",
+      "description": [
+        "You are in a one-room building.Stairs lead down."
+      ],
+      "exits": {
+        "east": 8,
+        "down": 2,
+        "out": 8,
+        "door": 8
+      },
+      "refusals": {}
+    },
+    "2": {
+      "id": 2,
+      "name": "Basement",
+      "description": [
+        "This is the basement of the building.To the north is a great door",
+        "which appears to be locked from the other side."
+      ],
+      "exits": {
+        "up": 1
+      },
+      "refusals": {
+        "north": {
+          "code": -1,
+          "kind": "refuse",
+          "message": "The door is closed.",
+          "note": null
+        },
+        "in": {
+          "code": -1,
+          "kind": "refuse",
+          "message": "The door is closed.",
+          "note": null
+        },
+        "out": {
+          "code": -1,
+          "kind": "refuse",
+          "message": "The door is closed.",
+          "note": null
+        },
+        "door": {
+          "code": -1,
+          "kind": "refuse",
+          "message": "The door is closed.",
+          "note": null
+        }
+      }
+    },
+    "3": {
+      "id": 3,
+      "name": "Path",
+      "description": [
+        "You are on a path which winds through the forest.The path",
+        "here bends from south to west."
+      ],
+      "exits": {
+        "north": 7,
+        "east": 9,
+        "west": 4,
+        "south": 8
+      },
+      "refusals": {}
+    },
+    "4": {
+      "id": 4,
+      "name": "cave enterance",
+      "description": [
+        "The path here goes into a cave tunnel.It exits to the south."
+      ],
+      "exits": {
+        "north": 15,
+        "south": 3,
+        "down": 15,
+        "in": 15,
+        "out": 3
+      },
+      "refusals": {}
+    },
+    "5": {
+      "id": 5,
+      "name": "cave exit",
+      "description": [
+        "You are in the forest.To the west is the exit to a cave,",
+        "with a steep ramp preventing entry into the cave."
+      ],
+      "exits": {
+        "north": 8,
+        "east": 7,
+        "west": 3,
+        "south": 6
+      },
+      "refusals": {
+        "up": {
+          "code": -3,
+          "kind": "refuse",
+          "message": "You can't get up the ramp.",
+          "note": null
+        },
+        "down": {
+          "code": -3,
+          "kind": "refuse",
+          "message": "You can't get up the ramp.",
+          "note": null
+        },
+        "in": {
+          "code": -3,
+          "kind": "refuse",
+          "message": "You can't get up the ramp.",
+          "note": null
+        }
+      }
+    },
+    "6": {
+      "id": 6,
+      "name": "Forest.",
+      "description": [
+        "you are in a dense forest, with trees all around."
+      ],
+      "exits": {
+        "north": 9,
+        "east": 5,
+        "west": 8,
+        "south": 7
+      },
+      "refusals": {}
+    },
+    "7": {
+      "id": 7,
+      "name": "Forest.",
+      "description": [
+        "you are in a dense forest, with trees all around."
+      ],
+      "exits": {
+        "north": 3,
+        "east": 7,
+        "west": 5,
+        "south": 6
+      },
+      "refusals": {}
+    },
+    "8": {
+      "id": 8,
+      "name": "Outside building",
+      "description": [
+        "you are on a path which winds north into a dense forest.",
+        "The west end of the path goes into a small building."
+      ],
+      "exits": {
+        "north": 3,
+        "east": 6,
+        "west": 1,
+        "south": 5,
+        "in": 1,
+        "door": 1
+      },
+      "refusals": {}
+    },
+    "9": {
+      "id": 9,
+      "name": "Lake shore",
+      "description": [
+        "You are on the southwest shore of a small lake."
+      ],
+      "exits": {
+        "west": 3,
+        "south": 6
+      },
+      "refusals": {
+        "north": {
+          "code": -2,
+          "kind": "refuse",
+          "message": "I wouldn't advise you to drown yourself.",
+          "note": null
+        },
+        "east": {
+          "code": -2,
+          "kind": "refuse",
+          "message": "I wouldn't advise you to drown yourself.",
+          "note": null
+        },
+        "northeast": {
+          "code": -2,
+          "kind": "refuse",
+          "message": "I wouldn't advise you to drown yourself.",
+          "note": null
+        },
+        "down": {
+          "code": -2,
+          "kind": "refuse",
+          "message": "I wouldn't advise you to drown yourself.",
+          "note": null
+        },
+        "in": {
+          "code": -2,
+          "kind": "refuse",
+          "message": "I wouldn't advise you to drown yourself.",
+          "note": null
+        }
+      }
+    },
+    "10": {
+      "id": 10,
+      "name": "Observation platform",
+      "description": [
+        "You are standing on an observation platform overlooking a",
+        "forest with both a lake and a building."
+      ],
+      "exits": {
+        "down": 23
+      },
+      "refusals": {}
+    },
+    "11": {
+      "id": 11,
+      "name": "Light room",
+      "description": [
+        "You are in a room with white,glowing chemicals on the walls.",
+        "The room is filled with a blinding light.There is an exit NE."
+      ],
+      "exits": {
+        "northeast": 18,
+        "out": 27
+      },
+      "refusals": {}
+    },
+    "12": {
+      "id": 12,
+      "name": "Volcano view",
+      "description": [
+        "You are on a path going SE to E, overlooking a great active volcano."
+      ],
+      "exits": {
+        "east": 41,
+        "southeast": 42
+      },
+      "refusals": {}
+    },
+    "13": {
+      "id": 13,
+      "name": "Observatory",
+      "description": [
+        "This was an observatory for the people of the ancient cities."
+      ],
+      "exits": {
+        "east": 30,
+        "out": 30
+      },
+      "refusals": {}
+    },
+    "14": {
+      "id": 14,
+      "name": "Spaceship",
+      "description": [
+        "You are in spaceship lit by red and blue lights on it's",
+        "sides. The spaceship's manual controls are damaged."
+      ],
+      "exits": {
+        "in": 32,
+        "out": 32
+      },
+      "refusals": {}
+    },
+    "15": {
+      "id": 15,
+      "name": "Tunnel",
+      "description": [
+        "You are in a dark north-south tunnel."
+      ],
+      "exits": {
+        "north": 16,
+        "south": 4,
+        "up": 4,
+        "down": 16,
+        "in": 16,
+        "out": 4
+      },
+      "refusals": {}
+    },
+    "16": {
+      "id": 16,
+      "name": "Junction of tunnels",
+      "description": [
+        "You are at the junction of three tunnels, bearings N-S,",
+        "E-W, and NE-SW."
+      ],
+      "exits": {
+        "north": 33,
+        "east": 21,
+        "west": 29,
+        "south": 15,
+        "northeast": 22,
+        "southwest": 17,
+        "up": 15
+      },
+      "refusals": {}
+    },
+    "17": {
+      "id": 17,
+      "name": "Diagonal passage",
+      "description": [
+        "You are in a diagonal (NE-SW) passage."
+      ],
+      "exits": {
+        "northeast": 16,
+        "southwest": 18
+      },
+      "refusals": {}
+    },
+    "18": {
+      "id": 18,
+      "name": "Top of ramp.",
+      "description": [
+        "You are in a room at the top of a long, steep ramp.",
+        "Passages lead north,south,east, and SE."
+      ],
+      "exits": {
+        "north": 11,
+        "east": 17,
+        "south": 20,
+        "southeast": 19,
+        "southwest": 5,
+        "down": 5,
+        "out": 5
+      },
+      "refusals": {}
+    },
+    "19": {
+      "id": 19,
+      "name": "North of door",
+      "description": [
+        "You are at the north end of a large door.",
+        "The door is locked."
+      ],
+      "exits": {
+        "north": 18
+      },
+      "refusals": {
+        "south": {
+          "code": -1,
+          "kind": "refuse",
+          "message": "The door is closed.",
+          "note": null
+        },
+        "in": {
+          "code": -1,
+          "kind": "refuse",
+          "message": "The door is closed.",
+          "note": null
+        },
+        "out": {
+          "code": -1,
+          "kind": "refuse",
+          "message": "The door is closed.",
+          "note": null
+        },
+        "door": {
+          "code": -1,
+          "kind": "refuse",
+          "message": "The door is closed.",
+          "note": null
+        }
+      }
+    },
+    "20": {
+      "id": 20,
+      "name": "Edge of bog",
+      "description": [
+        "You are at the edge of a large bog.A passage leads NE."
+      ],
+      "exits": {
+        "northeast": 18
+      },
+      "refusals": {
+        "west": {
+          "code": -2,
+          "kind": "refuse",
+          "message": "I wouldn't advise you to drown yourself.",
+          "note": null
+        },
+        "south": {
+          "code": -2,
+          "kind": "refuse",
+          "message": "I wouldn't advise you to drown yourself.",
+          "note": null
+        },
+        "southwest": {
+          "code": -2,
+          "kind": "refuse",
+          "message": "I wouldn't advise you to drown yourself.",
+          "note": null
+        }
+      }
+    },
+    "21": {
+      "id": 21,
+      "name": "E/W tunnel",
+      "description": [
+        "You are in an E/W tunnel with stairs going up."
+      ],
+      "exits": {
+        "east": 24,
+        "west": 16,
+        "up": 23
+      },
+      "refusals": {}
+    },
+    "22": {
+      "id": 22,
+      "name": "E/W tunnel",
+      "description": [
+        "You are in an E/W tunnel with stairs going up."
+      ],
+      "exits": {
+        "east": 24,
+        "west": 16,
+        "up": 23
+      },
+      "refusals": {}
+    },
+    "23": {
+      "id": 23,
+      "name": "You are in a small room with stairs going north,south,and up.",
+      "description": [
+        "You are in a small room with stairs going north,south,and up."
+      ],
+      "exits": {
+        "north": 22,
+        "south": 21,
+        "up": 10
+      },
+      "refusals": {}
+    },
+    "24": {
+      "id": 24,
+      "name": "Mine enterance",
+      "description": [
+        "You are at the enterance to an abandoned mine. Exits go NW and SW,",
+        "and a dark mine corridor is below."
+      ],
+      "exits": {
+        "northeast": 22,
+        "southeast": 21,
+        "up": 25,
+        "down": 25
+      },
+      "refusals": {}
+    },
+    "25": {
+      "id": 25,
+      "name": "Mine",
+      "description": [
+        "You are in a dark mine corridor.  the corridor continues",
+        "up and down. The floor is a grating."
+      ],
+      "exits": {
+        "up": 24,
+        "down": 26
+      },
+      "refusals": {}
+    },
+    "26": {
+      "id": 26,
+      "name": "Mine",
+      "description": [
+        "You are in a dark mine corridor.  the corridor continues",
+        "up and down. The floor is a grating."
+      ],
+      "exits": {
+        "up": 25,
+        "down": 27
+      },
+      "refusals": {}
+    },
+    "27": {
+      "id": 27,
+      "name": "Mine",
+      "description": [
+        "You are in a dark mine corridor.  the corridor continues",
+        "up and down. The floor is a grating."
+      ],
+      "exits": {
+        "up": 26,
+        "down": 28
+      },
+      "refusals": {}
+    },
+    "28": {
+      "id": 28,
+      "name": "Carbide room",
+      "description": [
+        "This room is the bottom of the mine. The ground contains",
+        "deposits of carbide (CaC) and gold.The only exit is up."
+      ],
+      "exits": {
+        "up": 27,
+        "out": 27
+      },
+      "refusals": {}
+    },
+    "29": {
+      "id": 29,
+      "name": "Control room",
+      "description": [
+        "This room was once the control room for an ancient spaceport.",
+        "There are cspace maps, tracking devices, and other",
+        "intricate devices on the walls."
+      ],
+      "exits": {
+        "west": 30,
+        "southeast": 16
+      },
+      "refusals": {}
+    },
+    "30": {
+      "id": 30,
+      "name": "Waiting room",
+      "description": [
+        "This was a waiting room for passengers on spaceships.",
+        "There are doors to the north,west,and NE."
+      ],
+      "exits": {
+        "north": 13,
+        "west": 31,
+        "northeast": 29,
+        "in": 30
+      },
+      "refusals": {}
+    },
+    "31": {
+      "id": 31,
+      "name": "Launching area",
+      "description": [
+        "You are on a launching area for spaceships."
+      ],
+      "exits": {
+        "east": 30,
+        "out": 30
+      },
+      "refusals": {}
+    },
+    "32": {
+      "id": 32,
+      "name": "Strange planet",
+      "description": [
+        "You are on a building on some strange planet. A door goes out."
+      ],
+      "exits": {
+        "in": 14
+      },
+      "refusals": {
+        "out": {
+          "code": -6,
+          "kind": "deadly",
+          "message": "You are on the surface on the planet, which has an atmosphere of cyanide gas.",
+          "note": null
+        }
+      }
+    },
+    "33": {
+      "id": 33,
+      "name": "Elevator",
+      "description": [
+        "You are in an elevator."
+      ],
+      "exits": {},
+      "refusals": {}
+    },
+    "34": {
+      "id": 34,
+      "name": "Sphere room",
+      "description": [
+        "This room has the shape of a giant sphere, with holes in all of the",
+        "major directions."
+      ],
+      "exits": {
+        "north": 61,
+        "east": 35,
+        "west": 41,
+        "south": 33,
+        "in": 78,
+        "barrier": 35
+      },
+      "refusals": {
+        "down": {
+          "code": -5,
+          "kind": "refuse",
+          "message": "You cannot reach the hole.",
+          "note": null
+        }
+      }
+    },
+    "35": {
+      "id": 35,
+      "name": "Enterance to empty barrel",
+      "description": [
+        "You are in a room to the west of an empty barrel-shaped room."
+      ],
+      "exits": {
+        "east": 36,
+        "west": 34,
+        "down": 36,
+        "door": 36
+      },
+      "refusals": {}
+    },
+    "36": {
+      "id": 36,
+      "name": "Empty barrel",
+      "description": [
+        "You are in a large empty barrel."
+      ],
+      "exits": {
+        "north": 37,
+        "down": 36,
+        "door": 36
+      },
+      "refusals": {
+        "east": {
+          "code": -4,
+          "kind": "refuse",
+          "message": "The barrel's spinning motion prevents you from moving this way.",
+          "note": null
+        }
+      }
+    },
+    "37": {
+      "id": 37,
+      "name": "Exit from empty barrel",
+      "description": [
+        "You are east of the empty barrel.A passage goes NW."
+      ],
+      "exits": {
+        "northwest": 39,
+        "out": 39
+      },
+      "refusals": {
+        "west": {
+          "code": -4,
+          "kind": "refuse",
+          "message": "The barrel's spinning motion prevents you from moving this way.",
+          "note": null
+        },
+        "in": {
+          "code": -4,
+          "kind": "refuse",
+          "message": "The barrel's spinning motion prevents you from moving this way.",
+          "note": null
+        },
+        "barrier": {
+          "code": -4,
+          "kind": "refuse",
+          "message": "The barrel's spinning motion prevents you from moving this way.",
+          "note": null
+        }
+      }
+    },
+    "38": {
+      "id": 38,
+      "name": "Recording studio",
+      "description": [
+        "This is a former recording studio for Gnome Records L.T.D."
+      ],
+      "exits": {
+        "south": 39,
+        "out": 39
+      },
+      "refusals": {}
+    },
+    "39": {
+      "id": 39,
+      "name": "E. end of cylindrical room",
+      "description": [
+        "You are at the east end of a long,cylindrical room",
+        "with a passage to the north. Written here is ",
+        "\"GET ME OUT OF HERE!!!\""
+      ],
+      "exits": {
+        "north": 38,
+        "east": 37,
+        "west": 40
+      },
+      "refusals": {}
+    },
+    "40": {
+      "id": 40,
+      "name": "W. end of cylindrical room",
+      "description": [
+        "You are at the west end of the cylindrical room,",
+        "with a hole on the ceiling. There is an empty barrel fastened",
+        "to the floor."
+      ],
+      "exits": {
+        "east": 39,
+        "barrier": 34
+      },
+      "refusals": {
+        "up": {
+          "code": -5,
+          "kind": "refuse",
+          "message": "You cannot reach the hole.",
+          "note": null
+        }
+      }
+    },
+    "41": {
+      "id": 41,
+      "name": "Mountain passage",
+      "description": [
+        "You are walking along a passage on the side of a mountain.",
+        "Below you are some ancient buildings."
+      ],
+      "exits": {
+        "south": 12,
+        "southwest": 34
+      },
+      "refusals": {}
+    },
+    "42": {
+      "id": 42,
+      "name": "You are on the north side of a giant chasm.",
+      "description": [
+        "You are on the north side of a giant chasm."
+      ],
+      "exits": {
+        "east": 12,
+        "west": 43
+      },
+      "refusals": {}
+    },
+    "43": {
+      "id": 43,
+      "name": "North side of chasm",
+      "description": [
+        "North side of chasm"
+      ],
+      "exits": {
+        "north": 44,
+        "northeast": 42
+      },
+      "refusals": {}
+    },
+    "44": {
+      "id": 44,
+      "name": "You are on a bridge which spans the giant chasm.",
+      "description": [
+        "You are on a bridge which spans the giant chasm."
+      ],
+      "exits": {
+        "north": 45,
+        "northeast": 43
+      },
+      "refusals": {}
+    },
+    "45": {
+      "id": 45,
+      "name": "You are on the far side of the chasm. A passage goes east to west.",
+      "description": [
+        "You are on the far side of the chasm. A passage goes east to west."
+      ],
+      "exits": {
+        "east": 48,
+        "west": 46,
+        "south": 44
+      },
+      "refusals": {}
+    },
+    "46": {
+      "id": 46,
+      "name": "This is a room with exits north and south.",
+      "description": [
+        "This is a room with exits north and south."
+      ],
+      "exits": {
+        "north": 47,
+        "northeast": 45
+      },
+      "refusals": {}
+    },
+    "47": {
+      "id": 47,
+      "name": "Garbage dump",
+      "description": [
+        "You are in what once was the garbage dump of the ancient cities,",
+        "although the garbage has been eaten by rats."
+      ],
+      "exits": {
+        "south": 46,
+        "out": 46
+      },
+      "refusals": {}
+    },
+    "48": {
+      "id": 48,
+      "name": "You are in a hall with doors west, east, and south.",
+      "description": [
+        "You are in a hall with doors west, east, and south."
+      ],
+      "exits": {
+        "east": 53,
+        "west": 49,
+        "south": 45,
+        "out": 45
+      },
+      "refusals": {}
+    },
+    "49": {
+      "id": 49,
+      "name": "Dwarf city",
+      "description": [
+        "You are in the city of the dwarfs. The buildings are too small",
+        "to enter. Passages go north and south."
+      ],
+      "exits": {
+        "north": 50,
+        "northeast": 48
+      },
+      "refusals": {}
+    },
+    "50": {
+      "id": 50,
+      "name": "Dwarf door",
+      "description": [
+        "You are standing west of a large door, probably built by dwarfs."
+      ],
+      "exits": {
+        "north": 51,
+        "northeast": 49,
+        "out": 51,
+        "door": 51,
+        "barrier": 51
+      },
+      "refusals": {}
+    },
+    "51": {
+      "id": 51,
+      "name": "you are in a short passage running E/W.",
+      "description": [
+        "you are in a short passage running E/W."
+      ],
+      "exits": {
+        "north": 52,
+        "east": 52
+      },
+      "refusals": {}
+    },
+    "52": {
+      "id": 52,
+      "name": "Well",
+      "description": [
+        "You are at the top of a well, which appears to be bottomless."
+      ],
+      "exits": {
+        "west": 51,
+        "out": 51
+      },
+      "refusals": {}
+    },
+    "53": {
+      "id": 53,
+      "name": "Enterance to city",
+      "description": [
+        "You are at the enterance to a large and beautiful ancient city."
+      ],
+      "exits": {
+        "north": 48,
+        "northeast": 54,
+        "out": 54,
+        "door": 48
+      },
+      "refusals": {}
+    },
+    "54": {
+      "id": 54,
+      "name": "City",
+      "description": [
+        "You are in the center of the ancient city. there are enterable",
+        "buildings on your east, west, and south. There is a path to the",
+        "north, and a road goins NW, where it is written:",
+        "        \"You must have at least 380 points to travel"
+      ],
+      "exits": {
+        "north": 53,
+        "south": 57,
+        "northeast": 56,
+        "northwest": 55
+      },
+      "refusals": {
+        "southeast": {
+          "code": -10,
+          "kind": "special",
+          "message": null,
+          "note": "Line 3090 gates on score: above 380 points the destination is room 86, otherwise the woman ends the game outright."
+        }
+      }
+    },
+    "55": {
+      "id": 55,
+      "name": "This was the post office for the ancient city.",
+      "description": [
+        "This was the post office for the ancient city."
+      ],
+      "exits": {
+        "south": 54
+      },
+      "refusals": {}
+    },
+    "56": {
+      "id": 56,
+      "name": "Space warp enterance",
+      "description": [
+        "You are at the south edge of the city. On your south is a",
+        "space warp, used for instant transportation in the city long ago."
+      ],
+      "exits": {
+        "north": 54,
+        "northeast": 58,
+        "in": 58
+      },
+      "refusals": {}
+    },
+    "57": {
+      "id": 57,
+      "name": "Vault of city",
+      "description": [
+        "You are standing south of the vault of the ancient city, which",
+        "contains it's most valuable treasure. written on the vault:",
+        "        \"This vault is designed to keep out all human intruders."
+      ],
+      "exits": {
+        "east": 54,
+        "south": 58
+      },
+      "refusals": {}
+    },
+    "58": {
+      "id": 58,
+      "name": "You are in a perfectly square room with exits in four directions.",
+      "description": [
+        "You are in a perfectly square room with exits in four directions."
+      ],
+      "exits": {
+        "north": 59,
+        "east": 85,
+        "west": 60
+      },
+      "refusals": {
+        "south": {
+          "code": -8,
+          "kind": "deadly",
+          "message": "You are INSIDE an active volcano. Lava flies about in all directions.",
+          "note": null
+        }
+      }
+    },
+    "59": {
+      "id": 59,
+      "name": "You are in a passage with only one exit.",
+      "description": [
+        "You are in a passage with only one exit."
+      ],
+      "exits": {
+        "north": 10
+      },
+      "refusals": {
+        "northeast": {
+          "code": -7,
+          "kind": "refuse",
+          "message": "This passage has been somehow blocked.",
+          "note": "Also written at run time: line 2070 sets this code on the exit you just used when leaving room 58."
+        }
+      }
+    },
+    "60": {
+      "id": 60,
+      "name": "You are in a passage with only one exit.",
+      "description": [
+        "You are in a passage with only one exit."
+      ],
+      "exits": {},
+      "refusals": {
+        "east": {
+          "code": -7,
+          "kind": "refuse",
+          "message": "This passage has been somehow blocked.",
+          "note": "Also written at run time: line 2070 sets this code on the exit you just used when leaving room 58."
+        },
+        "west": {
+          "code": -9,
+          "kind": "special",
+          "message": null,
+          "note": "Line 2960 draws a random room 1-85 that the player has already visited and moves them there."
+        }
+      }
+    },
+    "61": {
+      "id": 61,
+      "name": "You are in a maze of twisty little passages, all alike.",
+      "description": [
+        "You are in a maze of twisty little passages, all alike."
+      ],
+      "exits": {
+        "east": 62,
+        "west": 63,
+        "south": 34
+      },
+      "refusals": {}
+    },
+    "62": {
+      "id": 62,
+      "name": "You are in a maze of twisty little passages, all alike.",
+      "description": [
+        "You are in a maze of twisty little passages, all alike."
+      ],
+      "exits": {
+        "north": 63,
+        "east": 73,
+        "west": 61,
+        "south": 72
+      },
+      "refusals": {}
+    },
+    "63": {
+      "id": 63,
+      "name": "You are in a maze of twisty little passages, all alike.",
+      "description": [
+        "You are in a maze of twisty little passages, all alike."
+      ],
+      "exits": {
+        "north": 64,
+        "east": 62,
+        "west": 67,
+        "south": 61
+      },
+      "refusals": {}
+    },
+    "64": {
+      "id": 64,
+      "name": "You are in a maze of twisty little passages, all alike.",
+      "description": [
+        "You are in a maze of twisty little passages, all alike."
+      ],
+      "exits": {
+        "east": 65,
+        "west": 64,
+        "south": 63
+      },
+      "refusals": {}
+    },
+    "65": {
+      "id": 65,
+      "name": "You are in a maze of twisty little passages, all alike.",
+      "description": [
+        "You are in a maze of twisty little passages, all alike."
+      ],
+      "exits": {
+        "east": 66,
+        "west": 64
+      },
+      "refusals": {}
+    },
+    "66": {
+      "id": 66,
+      "name": "You are in a maze of twisty little passages, all alike.",
+      "description": [
+        "You are in a maze of twisty little passages, all alike."
+      ],
+      "exits": {
+        "north": 66,
+        "east": 66,
+        "west": 66,
+        "south": 66,
+        "up": 65,
+        "down": 74
+      },
+      "refusals": {}
+    },
+    "67": {
+      "id": 67,
+      "name": "You are in a maze of twisty little passages, all alike.",
+      "description": [
+        "You are in a maze of twisty little passages, all alike."
+      ],
+      "exits": {
+        "north": 68,
+        "east": 70,
+        "west": 63
+      },
+      "refusals": {}
+    },
+    "68": {
+      "id": 68,
+      "name": "You are in a maze of twisty little passages, all alike.",
+      "description": [
+        "You are in a maze of twisty little passages, all alike."
+      ],
+      "exits": {
+        "north": 69,
+        "east": 67,
+        "west": 68,
+        "south": 68
+      },
+      "refusals": {}
+    },
+    "69": {
+      "id": 69,
+      "name": "You are in a maze of twisty little passages, all alike.",
+      "description": [
+        "You are in a maze of twisty little passages, all alike."
+      ],
+      "exits": {
+        "north": 77,
+        "west": 68
+      },
+      "refusals": {}
+    },
+    "70": {
+      "id": 70,
+      "name": "You are in a maze of twisty little passages, all alike.",
+      "description": [
+        "You are in a maze of twisty little passages, all alike."
+      ],
+      "exits": {
+        "north": 75,
+        "south": 67
+      },
+      "refusals": {}
+    },
+    "71": {
+      "id": 71,
+      "name": "You are in a maze of twisty little passages, all alike.",
+      "description": [
+        "You are in a maze of twisty little passages, all alike."
+      ],
+      "exits": {
+        "north": 71,
+        "east": 76,
+        "west": 70,
+        "south": 75
+      },
+      "refusals": {}
+    },
+    "72": {
+      "id": 72,
+      "name": "Dead end.",
+      "description": [
+        "Dead end."
+      ],
+      "exits": {
+        "north": 62,
+        "out": 62
+      },
+      "refusals": {}
+    },
+    "73": {
+      "id": 73,
+      "name": "Dead end.",
+      "description": [
+        "Dead end."
+      ],
+      "exits": {
+        "west": 62,
+        "out": 62
+      },
+      "refusals": {}
+    },
+    "74": {
+      "id": 74,
+      "name": "Dead end.",
+      "description": [
+        "Dead end."
+      ],
+      "exits": {
+        "down": 74,
+        "out": 74
+      },
+      "refusals": {}
+    },
+    "75": {
+      "id": 75,
+      "name": "Dead end.",
+      "description": [
+        "Dead end."
+      ],
+      "exits": {
+        "north": 71,
+        "out": 71
+      },
+      "refusals": {}
+    },
+    "76": {
+      "id": 76,
+      "name": "Dead end.",
+      "description": [
+        "Dead end."
+      ],
+      "exits": {
+        "west": 71,
+        "out": 71
+      },
+      "refusals": {}
+    },
+    "77": {
+      "id": 77,
+      "name": "Dark room",
+      "description": [
+        "You are in an extremely dark room, filled with black gas",
+        "which obscures your vision. There is a hole going down>"
+      ],
+      "exits": {
+        "down": 40
+      },
+      "refusals": {}
+    },
+    "78": {
+      "id": 78,
+      "name": "Gate",
+      "description": [
+        "You are at the gate of the City of Gnome, one of the three",
+        "ancient underground cities. On your west is a steep cliff."
+      ],
+      "exits": {
+        "north": 79,
+        "south": 34
+      },
+      "refusals": {}
+    },
+    "79": {
+      "id": 79,
+      "name": "City of Gnome",
+      "description": [
+        "You are in the City of Gnome.There are passages north and south."
+      ],
+      "exits": {
+        "north": 82,
+        "east": 80,
+        "south": 78
+      },
+      "refusals": {}
+    },
+    "80": {
+      "id": 80,
+      "name": "Closet",
+      "description": [
+        "You are in one of the closets in the City of Gnome."
+      ],
+      "exits": {
+        "west": 79,
+        "out": 79
+      },
+      "refusals": {}
+    },
+    "81": {
+      "id": 81,
+      "name": "Closet",
+      "description": [
+        "You are in one of the closets in the City of Gnome."
+      ],
+      "exits": {
+        "south": 83,
+        "out": 83
+      },
+      "refusals": {}
+    },
+    "82": {
+      "id": 82,
+      "name": "Alaska room",
+      "description": [
+        "This is the Alaska room. The temperature is a balmy 40 degrees",
+        "below zero (233 degrees Kelvin)."
+      ],
+      "exits": {
+        "north": 84,
+        "south": 79
+      },
+      "refusals": {}
+    },
+    "83": {
+      "id": 83,
+      "name": "This room has exits NW and North.",
+      "description": [
+        "This room has exits NW and North."
+      ],
+      "exits": {
+        "north": 81,
+        "northwest": 84
+      },
+      "refusals": {}
+    },
+    "84": {
+      "id": 84,
+      "name": "You are in a room with exits S and SE.",
+      "description": [
+        "You are in a room with exits S and SE."
+      ],
+      "exits": {
+        "west": 82,
+        "northwest": 83
+      },
+      "refusals": {}
+    },
+    "85": {
+      "id": 85,
+      "name": null,
+      "description": [],
+      "exits": {},
+      "refusals": {}
+    },
+    "86": {
+      "id": 86,
+      "name": "You are in a room which exits to the south.",
+      "description": [
+        "You are in a room which exits to the south."
+      ],
+      "exits": {
+        "west": 54
+      },
+      "refusals": {}
+    },
+    "87": {
+      "id": 87,
+      "name": "You are in a room with four walls and no exits.",
+      "description": [
+        "You are in a room with four walls and no exits."
+      ],
+      "exits": {},
+      "refusals": {}
+    }
+  },
+  "objects": {
+    "1": {
+      "id": 1,
+      "inventory_name": "Platinum wire.",
+      "presence": [
+        "There is a coil of platinum wire here!"
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "WIRE",
+        "COIL",
+        "PLATI"
+      ],
+      "start_room": 29
+    },
+    "2": {
+      "id": 2,
+      "inventory_name": "Uranium in container.",
+      "presence": [
+        "There is a pile of uranium here!"
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "URANI"
+      ],
+      "start_room": 32
+    },
+    "3": {
+      "id": 3,
+      "inventory_name": "Ancient statue.",
+      "presence": [
+        "There is an ancient statue here!"
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "STATU"
+      ],
+      "start_room": 0
+    },
+    "4": {
+      "id": 4,
+      "inventory_name": "Gold nuggets.",
+      "presence": [
+        "There are gold nuggets here!"
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "GOLD",
+        "NUGGE"
+      ],
+      "start_room": 0
+    },
+    "5": {
+      "id": 5,
+      "inventory_name": "Gold record.",
+      "presence": [
+        "There is a solid gold record here!"
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "RECOR"
+      ],
+      "start_room": 38
+    },
+    "6": {
+      "id": 6,
+      "inventory_name": "Gold garbage can.",
+      "presence": [
+        "There is a solid gold garbage can here!"
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "CAN"
+      ],
+      "start_room": 47
+    },
+    "7": {
+      "id": 7,
+      "inventory_name": "Gold pet's dish.",
+      "presence": [
+        "There is a gold pet's dish here!"
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "DISH"
+      ],
+      "start_room": 81
+    },
+    "8": {
+      "id": 8,
+      "inventory_name": "Gnomes' silver.",
+      "presence": [],
+      "needs_review": [
+        {
+          "line": 10080,
+          "source": "ifO%(8%)=x%thenifx%=80%then&\"There is silver in the safe!\"else&\"There is silver here!\"",
+          "strings": [
+            "There is silver in the safe!",
+            "There is silver here!"
+          ]
+        }
+      ],
+      "vocabulary": [
+        "SILVE"
+      ],
+      "start_room": 0
+    },
+    "9": {
+      "id": 9,
+      "inventory_name": "Large diamonds.",
+      "presence": [
+        "There are large diamonds here!"
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "DIAMO"
+      ],
+      "start_room": 0
+    },
+    "10": {
+      "id": 10,
+      "inventory_name": "Gold telescope.",
+      "presence": [
+        "There is a solid gold telescope here!"
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "TELES"
+      ],
+      "start_room": 13
+    },
+    "11": {
+      "id": 11,
+      "inventory_name": "Large emerald.",
+      "presence": [
+        "There is a large emerald here!"
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "EMERA"
+      ],
+      "start_room": 42
+    },
+    "12": {
+      "id": 12,
+      "inventory_name": "Rare coins.",
+      "presence": [
+        "There are rare coins here!"
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "COINS"
+      ],
+      "start_room": 0
+    },
+    "13": {
+      "id": 13,
+      "inventory_name": "Rare stamps.",
+      "presence": [
+        "There are rare stamps here!"
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "STAMP"
+      ],
+      "start_room": 55
+    },
+    "14": {
+      "id": 14,
+      "inventory_name": "Black pearl.",
+      "presence": [
+        "There is a black pearl here!"
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "PEARL"
+      ],
+      "start_room": 77
+    },
+    "15": {
+      "id": 15,
+      "inventory_name": "Golden key.",
+      "presence": [
+        "There is a golden key here!"
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "KEY"
+      ],
+      "start_room": 0
+    },
+    "16": {
+      "id": 16,
+      "inventory_name": "Cat's leash.",
+      "presence": [
+        "There is a cat's leash here."
+      ],
+      "needs_review": [],
+      "vocabulary": [],
+      "start_room": 81
+    },
+    "17": {
+      "id": 17,
+      "inventory_name": "Electric lamp.",
+      "presence": [],
+      "needs_review": [
+        {
+          "line": 10170,
+          "source": "ifO%(17%)=x%thenifx%(5%)then&\"There is a lit lamp here.\"else&\"There is an electric lamp here.\"",
+          "strings": [
+            "There is a lit lamp here.",
+            "There is an electric lamp here."
+          ]
+        }
+      ],
+      "vocabulary": [
+        "LAMP"
+      ],
+      "start_room": 1
+    },
+    "18": {
+      "id": 18,
+      "inventory_name": "Glass bottle.",
+      "presence": [],
+      "needs_review": [
+        {
+          "line": 10180,
+          "source": "ifo%(18%)=x%thenifo%(19%)=x%then&\"There is a bottle of water here.\"else&\"There is an empty bottle here.\"",
+          "strings": [
+            "There is a bottle of water here.",
+            "There is an empty bottle here."
+          ]
+        }
+      ],
+      "vocabulary": [
+        "BOTTL"
+      ],
+      "start_room": 1
+    },
+    "19": {
+      "id": 19,
+      "inventory_name": "Water in the bottle.",
+      "presence": [],
+      "needs_review": [
+        {
+          "line": 10180,
+          "source": "ifo%(18%)=x%thenifo%(19%)=x%then&\"There is a bottle of water here.\"else&\"There is an empty bottle here.\"",
+          "strings": [
+            "There is a bottle of water here.",
+            "There is an empty bottle here."
+          ]
+        }
+      ],
+      "vocabulary": [
+        "WATER"
+      ],
+      "start_room": 1
+    },
+    "20": {
+      "id": 20,
+      "inventory_name": "Pair of sunglasses.",
+      "presence": [
+        "There is a pair of sunglasses here."
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "SUNGL",
+        "GLASS"
+      ],
+      "start_room": 2
+    },
+    "21": {
+      "id": 21,
+      "inventory_name": "Rock.",
+      "presence": [
+        "There is a rock here."
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "ROCK"
+      ],
+      "start_room": 3
+    },
+    "22": {
+      "id": 22,
+      "inventory_name": "Laser pistol.",
+      "presence": [
+        "There is a laser pistol here."
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "LASER",
+        "PISTO",
+        "GUN"
+      ],
+      "start_room": 4
+    },
+    "23": {
+      "id": 23,
+      "inventory_name": "Lump of coal.",
+      "presence": [
+        "There is a lump of coal here."
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "LUMP",
+        "COAL"
+      ],
+      "start_room": 26
+    },
+    "24": {
+      "id": 24,
+      "inventory_name": "Minuature sun in container.",
+      "presence": [
+        "There is a minuature sun here."
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "SUN"
+      ],
+      "start_room": 11
+    },
+    "25": {
+      "id": 25,
+      "inventory_name": "Radiation-proof container.",
+      "presence": [
+        "There is a radiation-proof container here."
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "CONTA"
+      ],
+      "start_room": 30
+    },
+    "26": {
+      "id": 26,
+      "inventory_name": "Space gloves.",
+      "presence": [
+        "There is a pair of astronauts' gloves here."
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "GLOVE"
+      ],
+      "start_room": 30
+    },
+    "27": {
+      "id": 27,
+      "inventory_name": "Remote-control box.",
+      "presence": [
+        "There is a box here, with a button, marked \"Spaceship Remote Control\"."
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "BOX",
+        "BUTTO"
+      ],
+      "start_room": 29
+    },
+    "28": {
+      "id": 28,
+      "inventory_name": "Old skeleton's bone.",
+      "presence": [
+        "There is a bone (probably from an old skeleton) here."
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "BONE"
+      ],
+      "start_room": 69
+    },
+    "29": {
+      "id": 29,
+      "inventory_name": "Piece of cheese.",
+      "presence": [
+        "There is a piece of cheese here."
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "CHEES"
+      ],
+      "start_room": 68
+    },
+    "30": {
+      "id": 30,
+      "inventory_name": "Penny.",
+      "presence": [
+        "There is a penny here."
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "PENNY",
+        "COIN"
+      ],
+      "start_room": 1
+    },
+    "31": {
+      "id": 31,
+      "inventory_name": "Dead rat.",
+      "presence": [],
+      "needs_review": [
+        {
+          "line": 10310,
+          "source": "ifo%(31%)=x% thenifx%(11%)=30%then&\"There is a hungry rat here.\"else&\"There is a dead rat here.\"",
+          "strings": [
+            "There is a hungry rat here.",
+            "There is a dead rat here."
+          ]
+        }
+      ],
+      "vocabulary": [
+        "LEASH",
+        "RAT"
+      ],
+      "start_room": 46
+    },
+    "32": {
+      "id": 32,
+      "inventory_name": "Cat on leash.",
+      "presence": [],
+      "needs_review": [
+        {
+          "line": 10320,
+          "source": "ifo%(32%)=x%thenifx%(11%)=31%then&\"there is a hungry cat here.\"else&\"There is a cat here.\"",
+          "strings": [
+            "there is a hungry cat here.",
+            "There is a cat here."
+          ]
+        }
+      ],
+      "vocabulary": [
+        "CAT"
+      ],
+      "start_room": 83
+    },
+    "33": {
+      "id": 33,
+      "inventory_name": null,
+      "presence": [],
+      "needs_review": [
+        {
+          "line": 10330,
+          "source": "&\"There is a woman standing here.\"ifo%(33%)=x%:ifo%(34%)=X%thenifX%(9%)then&\"The vault is open.\"else&\"The vault is closed.\"",
+          "strings": [
+            "There is a woman standing here.",
+            "The vault is open.",
+            "The vault is closed."
+          ]
+        }
+      ],
+      "vocabulary": [
+        "WOMAN",
+        "GIRL",
+        "PERSO",
+        "FEMAL"
+      ],
+      "start_room": 0
+    },
+    "34": {
+      "id": 34,
+      "inventory_name": null,
+      "presence": [],
+      "needs_review": [
+        {
+          "line": 10330,
+          "source": "&\"There is a woman standing here.\"ifo%(33%)=x%:ifo%(34%)=X%thenifX%(9%)then&\"The vault is open.\"else&\"The vault is closed.\"",
+          "strings": [
+            "There is a woman standing here.",
+            "The vault is open.",
+            "The vault is closed."
+          ]
+        }
+      ],
+      "vocabulary": [
+        "VAULT"
+      ],
+      "start_room": 57
+    },
+    "35": {
+      "id": 35,
+      "inventory_name": null,
+      "presence": [
+        "A dwarf guards the way north."
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "DWARF"
+      ],
+      "start_room": 49
+    },
+    "36": {
+      "id": 36,
+      "inventory_name": null,
+      "presence": [
+        "There is a dog lying on the floor."
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "DOG"
+      ],
+      "start_room": 84
+    },
+    "37": {
+      "id": 37,
+      "inventory_name": null,
+      "presence": [
+        "A Gnome is here."
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "GNOME"
+      ],
+      "start_room": 78
+    },
+    "38": {
+      "id": 38,
+      "inventory_name": null,
+      "presence": [
+        "There is a safe here."
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "SAFE"
+      ],
+      "start_room": 80
+    },
+    "39": {
+      "id": 39,
+      "inventory_name": null,
+      "presence": [
+        "There is a message written here."
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "MESSA"
+      ],
+      "start_room": 79
+    },
+    "40": {
+      "id": 40,
+      "inventory_name": null,
+      "presence": [
+        "The floor of this room is covered with ice."
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "ICE"
+      ],
+      "start_room": 82
+    },
+    "41": {
+      "id": 41,
+      "inventory_name": null,
+      "presence": [
+        "There is a robot here."
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "ROBOT"
+      ],
+      "start_room": 16
+    },
+    "42": {
+      "id": 42,
+      "inventory_name": null,
+      "presence": [
+        "There is a cart here."
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "CART",
+        "WAGON"
+      ],
+      "start_room": 20
+    },
+    "43": {
+      "id": 43,
+      "inventory_name": null,
+      "presence": [
+        "There is a lever on the wall."
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "LEVER",
+        "SWITC"
+      ],
+      "start_room": 33
+    },
+    "44": {
+      "id": 44,
+      "inventory_name": null,
+      "presence": [
+        "The north wall of this room is a giant computer."
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "COMPU"
+      ],
+      "start_room": 29
+    },
+    "45": {
+      "id": 45,
+      "inventory_name": null,
+      "presence": [
+        "The north wall looks vulnerable."
+      ],
+      "needs_review": [],
+      "vocabulary": [
+        "WALL"
+      ],
+      "start_room": 86
+    }
+  }
+}
