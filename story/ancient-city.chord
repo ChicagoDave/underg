@@ -3,7 +3,7 @@
 ## Room 53. LOOK.BAS 5300 and 5350.
 
 create the City Enterance
-  a room
+  a room, dark while not lit-up
   room name:
     Enterance to city
   exits, one-way: north to the Hall of Doors, northeast to the City, out to the City
@@ -18,7 +18,7 @@ create the City Enterance
 ## Room 54. LOOK.BAS 5400 and 5450.
 
 create the City
-  a room
+  a room, dark while not lit-up
   room name:
     City
   exits, one-way: north to the City Enterance, south to the Vault of City, northeast to the Space Warp Enterance, northwest to the Post Office
@@ -34,7 +34,7 @@ create the City
 ## Room 55. LOOK.BAS 5500 and 5550.
 
 create the Post Office
-  a room
+  a room, dark while not lit-up
   room name:
     This was the post office for the ancient city.
   exits, one-way: south to the City
@@ -44,7 +44,7 @@ create the Post Office
 ## Room 56. LOOK.BAS 5600 and 5650.
 
 create the Space Warp Enterance
-  a room
+  a room, dark while not lit-up
   room name:
     Space warp enterance
   exits, one-way: north to the City, northeast to the Square Room, in to the Square Room
@@ -55,10 +55,11 @@ create the Space Warp Enterance
 ## Room 57. LOOK.BAS 5700 and 5750.
 
 create the Vault of City
-  a room
+  a room, dark while not lit-up
   room name:
     Vault of city
   exits, one-way: east to the City, south to the Square Room
+  west to the North of Door, one-way while the vault is forced
 
   You are standing south of the vault of the ancient city, which{br}
   contains it's most valuable treasure. written on the vault:{br}
@@ -68,18 +69,21 @@ create the Vault of City
 ## Room 58. LOOK.BAS 5800 and 5850.
 
 create the Square Room
-  a room
+  a room, dark while not lit-up
   room name:
     You are in a perfectly square room with exits in four directions.
-  exits, one-way: north to the One-Exit Passage 59, east to the Room 85, west to the One-Exit Passage 60
-  south is deadly: inside-volcano
+  exits, one-way: north to the North One-Exit Passage, east to the Nameless Room, west to the West One-Exit Passage
+  north is blocked while the North One-Exit Passage is entered: passage-blocked
+  east is blocked while the Nameless Room is entered: passage-blocked
+  west is blocked while the West One-Exit Passage is entered: passage-blocked
 
   You are in a perfectly square room with exits in four directions.
 
 ## Room 59. LOOK.BAS 5900 and 5950.
 
-create the One-Exit Passage 59
-  a room
+create the North One-Exit Passage
+  a room, dark while not lit-up
+  states: untrodden, entered
   room name:
     You are in a passage with only one exit.
   exits, one-way: north to the Observation Platform
@@ -87,38 +91,60 @@ create the One-Exit Passage 59
 
   You are in a passage with only one exit.
 
+  after the player entering
+    change the North One-Exit Passage to entered when the North One-Exit Passage is untrodden
+  end after
+
 ## Room 60. LOOK.BAS 6000 and 6050.
 
-create the One-Exit Passage 60
-  a room
+create the West One-Exit Passage
+  a room, dark while not lit-up
+  states: untrodden, entered
   room name:
     You are in a passage with only one exit.
   east is blocked: passage-blocked
 
   You are in a passage with only one exit.
 
+  after the player entering
+    change the West One-Exit Passage to entered when the West One-Exit Passage is untrodden
+  end after
+
 ## Room 60, west: code -9, not authored here. Line 2960 draws a random room 1-85 that the player has already visited and moves them there.
 
-## Room 85. LOOK.BAS 8500 and 8550.
+## Nameless Room. LOOK.BAS 8500 and 8550.
 
-create the Room 85
-  a room
+create the Nameless Room
+  a room, dark while not lit-up
+  states: untrodden, entered
+
+  after the player entering
+    change the Nameless Room to entered when the Nameless Room is untrodden
+  end after
 
 ## Room 86. LOOK.BAS 8600 and 8650.
 
 create the Room 86
-  a room
+  a room, dark while not lit-up
   room name:
     You are in a room which exits to the south.
   exits, one-way: west to the City
+  north to the Room 87, one-way while the wall is breached
 
   You are in a room which exits to the south.
 
 ## Room 87. LOOK.BAS 8700 and 8750.
 
 create the Room 87
-  a room
+  a room, dark while not lit-up
   room name:
     You are in a room with four walls and no exits.
 
   You are in a room with four walls and no exits.
+
+  after the player entering
+    phrase woman-wants-laser
+    move the woman to the Room 87
+    set the player's lamp-life to 296
+  end after
+

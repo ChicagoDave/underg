@@ -6,12 +6,14 @@ create the Maze
   a region
 
   rooms Maze 61 to 71
+    dark while not lit-up
     room name:
       You are in a maze of twisty little passages, all alike.
 
     You are in a maze of twisty little passages, all alike.
 
   rooms Dead End 72 to 76
+    dark while not lit-up
     room name:
       Dead end.
 

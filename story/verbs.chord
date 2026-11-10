@@ -1,0 +1,1185 @@
+## The verbs of UNDERGROUND V1, one action per handler of UNDERG.BAS. Line
+## numbers in the comments are the 1979 program's. Taking, dropping, going
+## and looking are the platform's own actions, bent to the original by the
+## traits and clauses here and in the object files; every other verb is
+## defined here, because the original gives each one a handler that tests the
+## noun itself.
+
+## Line 980: a room numbered above 14 is dark unless the sun lies in it, or
+## the lamp is there (carried or not), lit, and has power left. Room 77 is
+## dark whatever the lamp does.
+
+define condition sun-lights: the minuature sun is here and not the player holds the minuature sun
+
+define condition lamp-lights: the electric lamp is shining and the electric lamp is here and the player's lamp-life <= 300
+
+define condition lit-up: sun-lights or lamp-lights
+
+## Objects 0 to 32 can be carried and objects 0 to 15 are treasures (lines
+## 3051 and 3052 draw both lines). The traits mark them for a reader. They
+## cannot be tested: `the item is a treasure` compiles and is always false
+## for a story trait, so the handlers below name the sixteen treasures.
+
+define trait portable
+  phrases en-US
+    carried-about:
+      It can be carried.
+end trait
+
+define trait treasure
+  phrases en-US
+    worth-points:
+      It is worth 25 points in the building.
+end trait
+
+## GET, TAKE, CARRY and WEAR, lines 2085 to 2170. The count of line 2095
+## refuses a tenth thing; it is kept on the player because nothing in Chord
+## counts what a person holds. Line 2140, which would make the cat need its
+## leash, cannot be reached in the original (2130 jumps past it), so it is
+## not here either.
+
+define action picking-up
+  grammar
+    get the item
+    take the item
+    carry the item
+    wear the item
+  refuse without item: what
+  refuse when the player holds the item: not-here
+  refuse when the item is scenery: dont-be-stupid
+  refuse when the item is the rat and the rat is hungry: dont-be-stupid
+  refuse when the item is the cat and the cat is aloof: dont-be-stupid
+  refuse when the item is the cat and the cat is hungry: dont-be-stupid
+  refuse when the player's burden > 8: too-many
+  refuse when the item is the large emerald: emerald-falls
+  refuse when the item is the minuature sun and not the player holds the space gloves: bare-hands
+  refuse when the item is the uranium and not the player holds the space gloves: bare-hands
+  refuse when the item is the minuature sun and not the player holds the radiation-proof container: nothing-to-carry
+  refuse when the item is the uranium and not the player holds the radiation-proof container: nothing-to-carry
+  raise the player's burden by 1
+  lower the player's score by 25 when (the item is the something valuable or the item is the platinum wire or the item is the uranium or the item is the ancient statue or the item is the gold nuggets or the item is the gold record or the item is the gold garbage or the item is the gold pet's dish or the item is the silver or the item is the large diamonds or the item is the gold telescope or the item is the large emerald or the item is the rare coins or the item is the rare stamps or the item is the black pearl or the item is the golden key) and the player is in the Building
+  raise the player's burden by 1 when the item is the glass bottle and the water is here and not the player holds the water
+  move the water to the Adventurer when the item is the glass bottle and the water is here and not the player holds the water
+  raise the player's burden by 1 when the item is the water and not the player holds the glass bottle
+  move the glass bottle to the Adventurer when the item is the water and not the player holds the glass bottle
+  move the item to the Adventurer
+  phrase now-wearing when the item is the sunglasses
+  phrase now-wearing when the item is the space gloves
+  phrase done when the item is not the sunglasses and the item is not the space gloves
+
+define action picking-up-nothing
+  grammar
+    get
+    take
+    carry
+    wear
+  refuse what
+
+## INVEN, lines 1240 to 1246: one line per thing carried, in object order.
+
+define action inventorying
+  grammar
+    inven
+    inventory
+  phrase carried-me when the player holds the something valuable
+  phrase carried-wire when the player holds the platinum wire
+  phrase carried-uranium when the player holds the uranium
+  phrase carried-statue when the player holds the ancient statue
+  phrase carried-nuggets when the player holds the gold nuggets
+  phrase carried-record when the player holds the gold record
+  phrase carried-can when the player holds the gold garbage can
+  phrase carried-dish when the player holds the gold pet's dish
+  phrase carried-silver when the player holds the Gnomes' silver
+  phrase carried-diamonds when the player holds the large diamonds
+  phrase carried-telescope when the player holds the gold telescope
+  phrase carried-emerald when the player holds the large emerald
+  phrase carried-coins when the player holds the rare coins
+  phrase carried-stamps when the player holds the rare stamps
+  phrase carried-pearl when the player holds the black pearl
+  phrase carried-key when the player holds the golden key
+  phrase carried-leash when the player holds the cat's leash
+  phrase carried-lamp when the player holds the electric lamp
+  phrase carried-bottle when the player holds the glass bottle
+  phrase carried-water when the player holds the water
+  phrase carried-sunglasses when the player holds the sunglasses
+  phrase carried-rock when the player holds the rock
+  phrase carried-pistol when the player holds the laser pistol
+  phrase carried-coal when the player holds the lump of coal
+  phrase carried-sun when the player holds the minuature sun
+  phrase carried-container when the player holds the radiation-proof container
+  phrase carried-gloves when the player holds the space gloves
+  phrase carried-box when the player holds the remote-control box
+  phrase carried-bone when the player holds the bone
+  phrase carried-cheese when the player holds the piece of cheese
+  phrase carried-penny when the player holds the penny
+  phrase carried-rat when the player holds the rat
+  phrase carried-cat when the player holds the cat
+
+  phrases en-US
+    carried-me:
+      Something valuable.
+    carried-wire:
+      Platinum wire.
+    carried-uranium:
+      Uranium in container.
+    carried-statue:
+      Ancient statue.
+    carried-nuggets:
+      Gold nuggets.
+    carried-record:
+      Gold record.
+    carried-can:
+      Gold garbage can.
+    carried-dish:
+      Gold pet's dish.
+    carried-silver:
+      Gnomes' silver.
+    carried-diamonds:
+      Large diamonds.
+    carried-telescope:
+      Gold telescope.
+    carried-emerald:
+      Large emerald.
+    carried-coins:
+      Rare coins.
+    carried-stamps:
+      Rare stamps.
+    carried-pearl:
+      Black pearl.
+    carried-key:
+      Golden key.
+    carried-leash:
+      Cat's leash.
+    carried-lamp:
+      Electric lamp.
+    carried-bottle:
+      Glass bottle.
+    carried-water:
+      Water in the bottle.
+    carried-sunglasses:
+      Pair of sunglasses.
+    carried-rock:
+      Rock.
+    carried-pistol:
+      Laser pistol.
+    carried-coal:
+      Lump of coal.
+    carried-sun:
+      Minuature sun in container.
+    carried-container:
+      Radiation-proof container.
+    carried-gloves:
+      Space gloves.
+    carried-box:
+      Remote-control box.
+    carried-bone:
+      Old skeleton's bone.
+    carried-cheese:
+      Piece of cheese.
+    carried-penny:
+      Penny.
+    carried-rat:
+      Dead rat.
+    carried-cat:
+      Cat on leash.
+
+## LIGHT and ON, EXTIN and OFF, lines 2760 to 2810. The noun is never read:
+## LIGHT ROCK lights the lamp.
+
+define action lighting
+  grammar
+    light
+    light the thing
+    on
+    on the thing
+  the player must hold the electric lamp: no-lamp
+  refuse when the player's lamp-life > 300: lamp-no-power
+  refuse when the electric lamp is shining: already-on
+  change the electric lamp to shining
+  phrase lamp-is-lit
+
+  phrases en-US
+    no-lamp:
+      You don't have a lamp.
+    lamp-no-power:
+      The lamp has no more power.
+    already-on:
+      It's already on.
+    lamp-is-lit:
+      The lamp is lit.
+
+define action extinguishing
+  grammar
+    extinguish
+    extinguish the thing
+    extin
+    extin the thing
+    off
+    off the thing
+  the player must hold the electric lamp: no-lamp
+  the electric lamp must be shining: lamp-not-on
+  change the electric lamp to dormant
+  phrase lamp-is-out
+
+  phrases en-US
+    lamp-not-on:
+      It isn't on.
+    lamp-is-out:
+      The lamp is extinguished.
+
+## A flag the long handlers use to remember that they have already spoken,
+## because a Chord body has no "else": each line carries its own condition.
+
+create the narrator
+  a thing
+  states, reversible: quiet, speaking, spoken
+
+## A second flag, for THROW: whether the throw is still an ordinary drop.
+
+create the umpire
+  a thing
+  states, reversible: watching, satisfied
+
+## An action's `must` and `refuse` lines are all tried before its body runs,
+## whatever order they are written in. So a handler that changes something
+## and then answers is written entirely as body lines, with the narrator
+## marking which answer has been given.
+
+## DROP, lines 2180 to 2250. The special cases come in the original's order.
+## A thing dropped is a thing dropped: every case but room 85's still lands
+## the thing here before it is eaten, taken or thrown down a well.
+
+define action dropping-it
+  grammar
+    drop the item
+  refuse without item: what
+  the player must hold the item: not-carrying
+  refuse when the item is the large emerald: emerald-stuck
+  refuse when the item is the radiation-proof container and the player holds the minuature sun: drop-contents-first
+  refuse when the item is the radiation-proof container and the player holds the uranium: drop-contents-first
+  change the narrator to quiet
+  phrase woman-picks-up-laser when the item is the laser pistol and the woman is here
+  raise the player's score by 100 when the item is the laser pistol and the woman is here and the player is in the Room 87
+  win game-is-yours when the item is the laser pistol and the woman is here and the player is in the Room 87
+  phrase wall-materializes when the item is the laser pistol and the player is in the Room 86
+  change the wall to solid when the item is the laser pistol and the player is in the Room 86 and the wall is breached
+  phrase sun-melts-ice when the item is the minuature sun and the ice is here
+  move the large diamonds here when the item is the minuature sun and the ice is here
+  remove the ice when the item is the minuature sun and the ice is here
+  lower the player's burden by 1
+  lower the player's burden by 1 when the item is the glass bottle and the player holds the water
+  lower the player's burden by 1 when the item is the water and the player holds the glass bottle
+  move the water here when the item is the glass bottle and the player holds the water
+  move the glass bottle here when the item is the water and the player holds the glass bottle
+  raise the player's score by 25 when (the item is the something valuable or the item is the platinum wire or the item is the uranium or the item is the ancient statue or the item is the gold nuggets or the item is the gold record or the item is the gold garbage or the item is the gold pet's dish or the item is the silver or the item is the large diamonds or the item is the gold telescope or the item is the large emerald or the item is the rare coins or the item is the rare stamps or the item is the black pearl or the item is the golden key) and the player is in the Building
+  move the item here
+  change the narrator to spoken when the player is in the Nameless Room
+  move the item to the City when the player is in the Nameless Room
+  move the player to the City when the player is in the Nameless Room
+  phrase cat-eats-rat when the item is the rat and the cat is here
+  change the cat to fed when the item is the rat and the cat is here
+  change the narrator to spoken when the item is the rat and the cat is here
+  remove the rat when the item is the rat and the cat is here
+  phrase dog-takes-bone when the item is the bone and the dog is here
+  change the narrator to spoken when the item is the bone and the dog is here
+  remove the dog when the item is the bone and the dog is here
+  remove the bone when the item is the bone and the narrator is spoken
+  phrase dwarf-eats-coal when the item is the lump of coal and the player is in the Dwarf City
+  change the narrator to spoken when the item is the lump of coal and the player is in the Dwarf City
+  remove the dwarf when the item is the lump of coal and the player is in the Dwarf City
+  remove the lump of coal when the item is the lump of coal and the player is in the Dwarf City
+  phrase cat-opens-vault when the item is the cat and the player is in the Vault of City
+  change the narrator to spoken when the item is the cat and the player is in the Vault of City
+  change the vault to forced when the item is the cat and the player is in the Vault of City and the vault is sealed
+  move the golden key to the Vault of City when the item is the cat and the player is in the Vault of City
+  remove the cat when the item is the cat and the player is in the Vault of City
+  change the narrator to spoken when the item is the penny and the player is in the Well
+  move the rare coins to the Well when the item is the penny and the player is in the Well
+  remove the penny when the item is the penny and the player is in the Well
+  phrase rat-eats-cheese when the item is the piece of cheese and the rat is here and the rat is hungry
+  phrase animal-sniffs when the item is the piece of cheese and the rat is here and the rat is dead
+  phrase animal-sniffs when the item is the piece of cheese and the cat is here and not the rat is here
+  change the narrator to spoken when the item is the piece of cheese and the rat is here
+  change the narrator to spoken when the item is the piece of cheese and the cat is here
+  change the cat to hungry when the item is the piece of cheese and the rat is here and the rat is hungry
+  remove the piece of cheese when the item is the piece of cheese and the rat is here and the rat is hungry
+  change the rat to dead when the item is the rat and the rat is here and the rat is hungry and the cat is hungry
+  change the rat to dead when the cat is hungry and the rat is hungry
+  phrase done when the narrator is quiet
+
+## THROW, TOSS and GIVE, lines 2260 to 2270. A rock thrown at something
+## living has its own outcomes; anything else thrown is dropped, by the same
+## lines as DROP (the original jumps to 2210).
+
+define action throwing-it
+  grammar
+    throw the item
+    toss the item
+    give the item
+  refuse without item: what
+  the player must hold the item: not-carrying
+  refuse when the item is the rock and the robot is here and not the Gnome is here and not the woman is here and not the dwarf is here: rock-bounces
+  refuse when the item is the rock and the dog is here and not the Gnome is here and not the woman is here and not the dwarf is here: spca
+  refuse when the item is the rock and the cat is here and not the Gnome is here and not the woman is here and not the dwarf is here: spca
+  refuse when the item is the large emerald: emerald-stuck
+  refuse when the item is the radiation-proof container and the player holds the minuature sun: drop-contents-first
+  refuse when the item is the radiation-proof container and the player holds the uranium: drop-contents-first
+  change the narrator to quiet
+  change the umpire to watching when the umpire is satisfied
+  phrase woman-catches-laser when the item is the laser pistol and the woman is here
+  raise the player's score by 100 when the item is the laser pistol and the woman is here and the player is in the Room 87
+  win game-is-yours when the item is the laser pistol and the woman is here and the player is in the Room 87
+  change the narrator to speaking when the item is the rock and the Gnome is here and the narrator is quiet
+  phrase rock-hits-gnome when the narrator is speaking
+  remove the Gnome when the narrator is speaking
+  change the umpire to satisfied when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  lose woman-stunned when the item is the rock and the woman is here and the narrator is quiet
+  change the narrator to speaking when the item is the rock and the dwarf is here and the narrator is quiet
+  phrase dwarf-dodges when the narrator is speaking
+  change the story to dying when the narrator is speaking
+  change the umpire to satisfied when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to quiet when the umpire is watching and the narrator is spoken
+  phrase woman-picks-up-laser when the item is the laser pistol and the woman is here and the umpire is watching
+  raise the player's score by 100 when the item is the laser pistol and the woman is here and the player is in the Room 87 and the umpire is watching
+  win game-is-yours when the item is the laser pistol and the woman is here and the player is in the Room 87 and the umpire is watching
+  phrase wall-materializes when the item is the laser pistol and the player is in the Room 86 and the umpire is watching
+  change the wall to solid when the item is the laser pistol and the player is in the Room 86 and the wall is breached and the umpire is watching
+  phrase sun-melts-ice when the item is the minuature sun and the ice is here and the umpire is watching
+  move the large diamonds here when the item is the minuature sun and the ice is here and the umpire is watching
+  remove the ice when the item is the minuature sun and the ice is here and the umpire is watching
+  lower the player's burden by 1 when the umpire is watching
+  lower the player's burden by 1 when the item is the glass bottle and the player holds the water and the umpire is watching
+  lower the player's burden by 1 when the item is the water and the player holds the glass bottle and the umpire is watching
+  move the water here when the item is the glass bottle and the player holds the water and the umpire is watching
+  move the glass bottle here when the item is the water and the player holds the glass bottle and the umpire is watching
+  raise the player's score by 25 when (the item is the something valuable or the item is the platinum wire or the item is the uranium or the item is the ancient statue or the item is the gold nuggets or the item is the gold record or the item is the gold garbage or the item is the gold pet's dish or the item is the silver or the item is the large diamonds or the item is the gold telescope or the item is the large emerald or the item is the rare coins or the item is the rare stamps or the item is the black pearl or the item is the golden key) and the player is in the Building and the umpire is watching
+  move the item here when the umpire is watching
+  change the narrator to spoken when the player is in the Nameless Room and the umpire is watching
+  move the item to the City when the player is in the Nameless Room and the umpire is watching
+  move the player to the City when the player is in the Nameless Room and the umpire is watching
+  phrase cat-eats-rat when the item is the rat and the cat is here and the umpire is watching
+  change the cat to fed when the item is the rat and the cat is here and the umpire is watching
+  change the narrator to spoken when the item is the rat and the cat is here and the umpire is watching
+  remove the rat when the item is the rat and the cat is here and the umpire is watching
+  phrase dog-takes-bone when the item is the bone and the dog is here and the umpire is watching
+  change the narrator to spoken when the item is the bone and the dog is here and the umpire is watching
+  remove the dog when the item is the bone and the dog is here and the umpire is watching
+  remove the bone when the item is the bone and the narrator is spoken and the umpire is watching
+  phrase dwarf-eats-coal when the item is the lump of coal and the player is in the Dwarf City and the umpire is watching
+  change the narrator to spoken when the item is the lump of coal and the player is in the Dwarf City and the umpire is watching
+  remove the dwarf when the item is the lump of coal and the player is in the Dwarf City and the umpire is watching
+  remove the lump of coal when the item is the lump of coal and the player is in the Dwarf City and the umpire is watching
+  phrase cat-opens-vault when the item is the cat and the player is in the Vault of City and the umpire is watching
+  change the narrator to spoken when the item is the cat and the player is in the Vault of City and the umpire is watching
+  change the vault to forced when the item is the cat and the player is in the Vault of City and the vault is sealed and the umpire is watching
+  move the golden key to the Vault of City when the item is the cat and the player is in the Vault of City and the umpire is watching
+  remove the cat when the item is the cat and the player is in the Vault of City and the umpire is watching
+  change the narrator to spoken when the item is the penny and the player is in the Well and the umpire is watching
+  move the rare coins to the Well when the item is the penny and the player is in the Well and the umpire is watching
+  remove the penny when the item is the penny and the player is in the Well and the umpire is watching
+  phrase rat-eats-cheese when the item is the piece of cheese and the rat is here and the rat is hungry and the umpire is watching
+  phrase animal-sniffs when the item is the piece of cheese and the rat is here and the rat is dead and the umpire is watching
+  phrase animal-sniffs when the item is the piece of cheese and the cat is here and not the rat is here and the umpire is watching
+  change the narrator to spoken when the item is the piece of cheese and the rat is here and the umpire is watching
+  change the narrator to spoken when the item is the piece of cheese and the cat is here and the umpire is watching
+  change the cat to hungry when the item is the piece of cheese and the rat is here and the rat is hungry and the umpire is watching
+  remove the piece of cheese when the item is the piece of cheese and the rat is here and the rat is hungry and the umpire is watching
+  change the rat to dead when the item is the rat and the rat is here and the rat is hungry and the cat is hungry and the umpire is watching
+  change the rat to dead when the cat is hungry and the rat is hungry and the umpire is watching
+  phrase done when the narrator is quiet and the umpire is watching
+
+## DRINK and EAT, lines 2280 to 2290.
+
+define action swallowing
+  grammar
+    drink the item
+    eat the item
+  refuse without item: what
+  the player must hold the item: not-carrying
+  refuse when the item is the water: water-polluted
+  refuse when the item is not the piece of cheese: dont-be-funny
+  phrase cheese-poisoned
+  change the story to dying
+
+## OPEN and UNLOCK, lines 2300 to 2370. OPEN VAULT, as coded, puts the
+## player in room 58.
+
+define action opening-it
+  grammar
+    open the item
+    unlock the item
+    unloc the item
+  refuse when the item is the safe: safe-needs-combination
+  refuse when the item is not the vault: no-lock
+  move the player to the Square Room
+
+define action opening-nothing
+  grammar
+    open
+    unlock
+    unloc
+  refuse when the player is in the Dwarf Door: door-is-open-stupid
+  refuse when the player is in the Basement: locked-from-other-side
+  the player must be in the North of Door: nothing-locked
+  the player must hold the golden key: no-key
+  phrase pushed-through-door
+  move the player to the Basement
+
+## KILL, HIT, FIGHT and ATTACK, lines 2380 to 2400.
+
+define action killing
+  grammar
+    kill the target
+    hit the target
+    fight the target
+    attack the target
+    attac the target
+  refuse without target: what
+  refuse when the target is the cat: spca
+  refuse when the target is the dog: spca
+  refuse when the target is the dwarf: bare-hands-ineffective
+  refuse when the target is the Gnome: bare-hands-ineffective
+  refuse when the target is the robot: bare-hands-ineffective
+  refuse when the target is the woman: invisible-force
+  refuse are-you-crazy
+
+define action killing-nothing
+  grammar
+    kill
+    hit
+    fight
+    attack
+    attac
+  refuse what
+
+## SHOOT and FIRE, lines 2410 to 2490, with a target named.
+
+define action shooting
+  grammar
+    shoot the target
+    fire the target
+  the player must hold the laser pistol: no-gun
+  refuse when the player's shots > 5: laser-empty
+  refuse when the target is the laser pistol: specify-target
+  raise the player's shots by 1
+  change the narrator to quiet
+  lose chain-reaction when the target is the uranium
+  change the narrator to speaking when the target is the rat and the narrator is quiet
+  phrase laser-alarm when the narrator is speaking
+  change the story to dying when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the target is the dwarf and the narrator is quiet
+  phrase laser-alarm when the narrator is speaking
+  change the story to dying when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the target is the Gnome and the narrator is quiet
+  phrase laser-alarm when the narrator is speaking
+  change the story to dying when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the target is the woman and the narrator is quiet
+  phrase harmless-colors when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the target is the wall and the narrator is quiet
+  phrase hole-blasted when the narrator is speaking
+  change the wall to breached when the wall is solid and the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the target is the computer and the narrator is quiet
+  phrase computer-destroyed when the narrator is speaking
+  change the computer to wrecked when the computer is humming and the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the target is the cat and the narrator is quiet
+  phrase spca when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the target is the dog and the narrator is quiet
+  phrase spca when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the target is the radiation-proof container and the narrator is quiet
+  phrase no-damage when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the target is the glass bottle and the narrator is quiet
+  phrase no-damage when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the target is the vault and the narrator is quiet
+  phrase no-damage when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the target is the safe and the narrator is quiet
+  phrase no-damage when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the target is the message and the narrator is quiet
+  phrase no-damage when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the target is the ice and the narrator is quiet
+  phrase no-damage when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  phrase disintegrates when the narrator is quiet
+  lower the player's score by 25 when the narrator is quiet and (the target is the something valuable or the target is the platinum wire or the target is the uranium or the target is the ancient statue or the target is the gold nuggets or the target is the gold record or the target is the gold garbage or the target is the gold pet's dish or the target is the silver or the target is the large diamonds or the target is the gold telescope or the target is the large emerald or the target is the rare coins or the target is the rare stamps or the target is the black pearl or the target is the golden key) and the target is in the Building
+  lower the player's burden by 1 when the narrator is quiet and the player holds the target
+  remove the target when the narrator is quiet
+
+## SHOOT with no target takes the highest-numbered of objects 31 to 45 that
+## is in the room (line 2425). The ones that answer back are written out.
+
+define action shooting-blind
+  grammar
+    shoot
+    fire
+  the player must hold the laser pistol: no-gun
+  refuse when the player's shots > 5: laser-empty
+  change the narrator to quiet
+  change the narrator to speaking when the wall is here and the narrator is quiet
+  raise the player's shots by 1 when the narrator is speaking
+  phrase hole-blasted when the narrator is speaking
+  change the wall to breached when the wall is solid and the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the computer is here and the narrator is quiet
+  raise the player's shots by 1 when the narrator is speaking
+  phrase computer-destroyed when the narrator is speaking
+  change the computer to wrecked when the computer is humming and the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the lever is here and the narrator is quiet
+  raise the player's shots by 1 when the narrator is speaking
+  phrase disintegrates when the narrator is speaking
+  remove the lever when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the cart is here and the narrator is quiet
+  raise the player's shots by 1 when the narrator is speaking
+  phrase disintegrates when the narrator is speaking
+  remove the cart when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the robot is here and the narrator is quiet
+  raise the player's shots by 1 when the narrator is speaking
+  phrase disintegrates when the narrator is speaking
+  remove the robot when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the ice is here and the narrator is quiet
+  raise the player's shots by 1 when the narrator is speaking
+  phrase no-damage when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the message is here and the narrator is quiet
+  raise the player's shots by 1 when the narrator is speaking
+  phrase no-damage when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the safe is here and the narrator is quiet
+  raise the player's shots by 1 when the narrator is speaking
+  phrase no-damage when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the Gnome is here and the narrator is quiet
+  raise the player's shots by 1 when the narrator is speaking
+  phrase laser-alarm when the narrator is speaking
+  change the story to dying when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the dog is here and the narrator is quiet
+  raise the player's shots by 1 when the narrator is speaking
+  phrase spca when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the dwarf is here and the narrator is quiet
+  raise the player's shots by 1 when the narrator is speaking
+  phrase laser-alarm when the narrator is speaking
+  change the story to dying when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the vault is here and the narrator is quiet
+  raise the player's shots by 1 when the narrator is speaking
+  phrase no-damage when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the woman is here and the narrator is quiet
+  raise the player's shots by 1 when the narrator is speaking
+  phrase harmless-colors when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the cat is here and not the player holds the cat and the narrator is quiet
+  raise the player's shots by 1 when the narrator is speaking
+  phrase spca when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the rat is here and not the player holds the rat and the narrator is quiet
+  raise the player's shots by 1 when the narrator is speaking
+  phrase laser-alarm when the narrator is speaking
+  change the story to dying when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  phrase specify-target when the narrator is quiet
+
+## RUB, lines 2500 to 2510. Rubbing is the only way to pick the emerald up.
+
+define action rubbing
+  grammar
+    rub the item
+  refuse without item: what
+  refuse when the item is not the large emerald: nothing-happens
+  change the narrator to quiet
+  change the narrator to spoken when the player holds the large emerald
+  phrase emerald-sticks when the narrator is quiet
+  raise the player's burden by 1 when the narrator is quiet
+  lower the player's score by 25 when the narrator is quiet and the player is in the Building
+  move the large emerald to the Adventurer when the narrator is quiet
+  phrase emerald-falls when the narrator is spoken
+  lower the player's burden by 1 when the narrator is spoken
+  raise the player's score by 25 when the narrator is spoken and the player is in the Building
+  move the large emerald here when the narrator is spoken
+  phrase done
+
+## POUR, lines 2520 to 2540. The water goes wherever it was.
+
+define action pouring
+  grammar
+    pour
+  change the narrator to quiet
+  lower the player's burden by 1 when the player holds the water
+  remove the water
+  change the narrator to speaking when the player is in the Carbide Room and the narrator is quiet
+  phrase mine-explodes when the narrator is speaking
+  change the story to dying when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the player is in the Mine 25 and the narrator is quiet
+  phrase explosion-below when the narrator is speaking
+  move the gold nuggets to the Carbide Room when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the player is in the Mine 26 and the narrator is quiet
+  phrase explosion-below when the narrator is speaking
+  move the gold nuggets to the Carbide Room when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the player is in the Mine 27 and the narrator is quiet
+  phrase explosion-below when the narrator is speaking
+  move the gold nuggets to the Carbide Room when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  phrase nothing-happens when the narrator is quiet
+
+define action pouring-it
+  grammar
+    pour the item
+  refuse when the item is not the water: are-you-crazy
+  change the narrator to quiet
+  lower the player's burden by 1 when the player holds the water
+  remove the water
+  change the narrator to speaking when the player is in the Carbide Room and the narrator is quiet
+  phrase mine-explodes when the narrator is speaking
+  change the story to dying when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the player is in the Mine 25 and the narrator is quiet
+  phrase explosion-below when the narrator is speaking
+  move the gold nuggets to the Carbide Room when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the player is in the Mine 26 and the narrator is quiet
+  phrase explosion-below when the narrator is speaking
+  move the gold nuggets to the Carbide Room when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the player is in the Mine 27 and the narrator is quiet
+  phrase explosion-below when the narrator is speaking
+  move the gold nuggets to the Carbide Room when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  phrase nothing-happens when the narrator is quiet
+
+## FILL, lines 2550 to 2560. At the lake and the bog line 2560 writes
+## X%(19%), past the end of a twelve-element array; the error trap at 3200
+## ends the program without a word. The oracle does exactly that, so FILL
+## where there is water ends the game.
+
+define action filling
+  grammar
+    fill
+  refuse when the player is not in the Lake Shore and the player is not in the Edge of Bog: saliva
+  lose
+
+define action filling-it
+  grammar
+    fill the item
+  refuse when the item is not the glass bottle: are-you-crazy
+  refuse when the player is not in the Lake Shore and the player is not in the Edge of Bog: saliva
+  lose
+
+## READ, lines 2570 to 2640. READ WATER prints the penny's legend, as coded.
+
+define action reading-it
+  grammar
+    read the item
+  refuse without item: what
+  refuse when the item is the gold record: record-label
+  refuse when the item is the glass bottle: bottle-label
+  refuse when the item is the water: penny-legend
+  refuse when the item is the vault: suggest-look
+  refuse when the item is the message: safe-message
+  refuse nothing-written
+
+## FEED, lines 2650 to 2750.
+
+define action feeding
+  grammar
+    feed the animal
+  refuse without animal: what
+  refuse when the animal is not the rat and the animal is not the cat and the animal is not the woman and the animal is not the dwarf and the animal is not the dog: not-alive
+  refuse when the animal is the woman: no-food
+  refuse when the animal is the rat and not the player holds the piece of cheese: no-food
+  refuse when the animal is the cat and not the player holds the rat: no-food
+  refuse when the animal is the dwarf and not the player holds the lump of coal: no-food
+  refuse when the animal is the dog and not the player holds the bone: no-food
+  lower the player's burden by 1
+  phrase rat-eats-cheese when the animal is the rat
+  remove the piece of cheese when the animal is the rat
+  change the cat to hungry when the animal is the rat and the cat is aloof
+  change the rat to dead when the animal is the rat and the rat is hungry
+  phrase cat-eats-rat when the animal is the cat
+  remove the rat when the animal is the cat
+  change the cat to fed when the animal is the cat and the cat is hungry
+  phrase dwarf-eats-coal when the animal is the dwarf
+  remove the lump of coal when the animal is the dwarf
+  remove the dwarf when the animal is the dwarf
+  phrase dog-takes-bone when the animal is the dog
+  remove the bone when the animal is the dog
+  remove the dog when the animal is the dog
+
+## PUSH, PRESS and PULL, lines 2820 to 2840.
+
+define action pressing
+  grammar
+    push the item
+    press the item
+    pull the item
+  refuse without item: nothing-happens
+  change the narrator to quiet
+  change the narrator to speaking when the item is the remote-control box and the computer is humming and the narrator is quiet
+  phrase ship-crushes when the player is in the Launching Area and the narrator is speaking
+  phrase done when not the player is in the Launching Area and the narrator is speaking
+  change the story to dying when the player is in the Launching Area and the narrator is speaking
+  change the umpire to watching when the umpire is satisfied and the narrator is speaking
+  change the umpire to satisfied when the Spaceship is at-port and the narrator is speaking
+  change the Spaceship to on-planet when the Spaceship is at-port and the narrator is speaking
+  change the Spaceship to at-port when the umpire is watching and the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the item is the cart and the player is in the Edge of Bog and the narrator is quiet
+  phrase cart-rolls when the narrator is speaking
+  move the ancient statue to the Edge of Bog when the narrator is speaking
+  remove the cart when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the item is the woman and the narrator is quiet
+  phrase woman-irritated when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  change the narrator to speaking when the item is the lever and the narrator is quiet
+  change the umpire to watching when the umpire is satisfied and the narrator is speaking
+  change the umpire to satisfied when the Elevator is at-sphere and the narrator is speaking
+  change the Elevator to at-junction when the Elevator is at-sphere and the narrator is speaking
+  change the Elevator to between-floors when the umpire is watching and the narrator is speaking
+  change the Elevator to at-sphere when the umpire is watching and the narrator is speaking
+  phrase done when the narrator is speaking
+  change the narrator to spoken when the narrator is speaking
+  phrase nothing-happens when the narrator is quiet
+
+## JUMP, LEAP, HOP and DIVE, lines 2850 to 2860. Off a height it kills. Anywhere
+## else the original falls into the laser code with no target and stops.
+
+define action leaping
+  grammar
+    jump
+    leap
+    hop
+    dive
+  change the narrator to quiet
+  change the narrator to spoken when the player is in the Observation Platform
+  change the narrator to spoken when the player is in the Volcano View
+  change the narrator to spoken when the player is in the Mountain Passage
+  change the narrator to spoken when the player is in the North Side of Chasm
+  change the narrator to spoken when the player is in the Chasm Bridge
+  change the narrator to spoken when the player is in the Far Side of Chasm
+  change the narrator to spoken when the player is in the Well
+  change the narrator to spoken when the player is in the Gate
+  phrase splat when the narrator is spoken
+  change the story to dying when the narrator is spoken
+  lose disintegrates when the narrator is quiet
+
+## 2-7-3, lines 1290 to 1300.
+
+define action dialling
+  grammar
+    two-seven-three
+  refuse when the safe is sprung: hut-hut-hike
+  the player must be in the Closet 80: hut-hut-hike
+  phrase safe-slides-open
+  change the safe to sprung
+  move the Gnomes' silver to the Closet 80
+
+## SCORE, lines 1270 to 1280.
+
+define action tallying
+  grammar
+    score
+  phrase score-line with points = the player's score with moves = the player's turns
+  phrase class-f when the player's score < 100
+  phrase class-e when the player's score >= 100 and the player's score < 200
+  phrase class-d when the player's score >= 200 and the player's score < 300
+  phrase class-c when the player's score >= 300 and the player's score < 400
+  phrase class-b when the player's score >= 400 and the player's score < 500
+  phrase class-a when the player's score >= 500
+
+## The two fatal ways out, codes -6 and -8 of line 2870. They are actions
+## and not `is deadly` exits because the platform's death ends the game, and
+## the original's does not.
+
+define action stepping-onto-the-planet while the player is in the Strange Planet
+  grammar
+    out
+    exit
+    leave
+  phrase cyanide-atmosphere
+  change the story to dying
+
+define action stepping-into-the-volcano while the player is in the Square Room
+  grammar
+    south
+    s
+  phrase inside-volcano
+  change the story to dying
+
+## Three exits lead to a different room by state (lines 2820 and 2840 rewrite
+## the map). A room has one exit per direction in Chord, so the second
+## destination of each is an action that exists only in that room and state.
+
+define action leaving-the-docked-ship while the player is in the Spaceship and the Spaceship is at-port
+  grammar
+    out
+    exit
+    leave
+    door
+  move the player to the Waiting Room
+
+define action boarding-the-docked-ship while the player is in the Waiting Room and the Spaceship is at-port
+  grammar
+    west
+    w
+  move the player to the Spaceship
+
+define action leaving-the-raised-elevator while the player is in the Elevator and the Elevator is at-sphere
+  grammar
+    south
+    s
+  move the player to the Sphere Room
+
+## Lines 2020 to 2050: leaving a room by a way that exists, while its
+## guardian is there, is fatal. Each is an action and not a clause on the
+## room because a clause may not change anything and then refuse.
+
+define action leaving-the-gnome while the player is in the Gate and the Gnome is here
+  grammar
+    north
+    n
+    south
+    s
+  phrase deadly-knife
+  change the story to dying
+
+define action leaving-the-dog while the player is in the Room 84 and the dog is here
+  grammar
+    west
+    w
+    northwest
+    nw
+  phrase dog-barks
+  change the story to dying
+
+define action leaving-the-robot while the player is in the Junction of Tunnels and the robot is here
+  grammar
+    north
+    n
+    east
+    e
+    west
+    w
+    south
+    s
+    northeast
+    ne
+    southwest
+    sw
+    up
+    u
+    climb
+  phrase robot-fires
+  change the story to dying
+
+## Line 2020: the dwarf lets you go any way but north.
+
+define action passing-the-dwarf while the player is in the Dwarf City and the dwarf is here
+  grammar
+    north
+    n
+  phrase deadly-knife
+  change the story to dying
+
+## The four replies of lines 1940 to 1970.
+
+define action cursing
+  grammar
+    fuck
+  phrase headache
+
+  phrases en-US
+    headache:
+      Not now-- I've got a headache.
+
+define action crapping
+  grammar
+    shit
+  phrase toilet
+
+  phrases en-US
+    toilet:
+      Does this room look like a toilet?
+
+define action helling
+  grammar
+    hell
+  phrase get-there-yourself
+  phrase what-about-it
+
+  phrases en-US
+    get-there-yourself:
+      I can't help you there. You'll have to get there by yourself.
+
+define action damning
+  grammar
+    damn
+  phrase no-swearing
+  phrase what-about-it
+
+  phrases en-US
+    no-swearing:
+      Swearing is not allowed in this game. What the hell is wrong with you?
+
+define phrases en-US
+  nothing:
+    {br}
+  not-carrying:
+    You aren't carrying it.
+  woman-picks-up-laser:
+    The woman picks up the laser, examines it, and causes it to disappear.
+  woman-catches-laser:
+    The woman catches the laser, examines it, and causes it to disappear.
+  wall-materializes:
+    The wall materializes back over the hole.
+  sun-melts-ice:
+    The sun melts the ice.
+  cat-eats-rat:
+    The cat eats the rat and appears ready for travel.
+  dog-takes-bone:
+    The dog takes the bone and leaves.
+  dwarf-eats-coal:
+    The dwarf eats your coal and leaves.
+  cat-opens-vault:
+    The cat pushes open the vault, then walks away in search of more food.{br}
+    Inside the vault is a golden key!
+  rat-eats-cheese:
+    The rat eats the cheese and immediately dies.
+  animal-sniffs:
+    The animal sniffs at the cheese, and refuses it.
+  rock-hits-gnome:
+    The rock hits the Gnome on the head, and he falls down the cliff.
+  woman-stunned:
+    The rock hits the woman on the head, but she is only stunned.{br}
+    She seems to be very angry at you. Your surroundings fade...
+  dwarf-dodges:
+    The dwarf dodges the rock quickly, and throws his weapon, killing you.
+  rock-bounces:
+    The rock bounces harmlessly off of the robot.
+  water-polluted:
+    The water in this game is polluted and unfit to drink.
+  cheese-poisoned:
+    The cheese tastes strange. Evidently it was poisoned, because you died  immediately after eating it.
+  dont-be-funny:
+    Don't be funny.
+  safe-needs-combination:
+    You cannot open the safe without a combination.
+  no-lock:
+    It doesn't have a lock.
+  door-is-open-stupid:
+    The door IS open, stupid!
+  locked-from-other-side:
+    The door is locked from the other side.
+  nothing-locked:
+    Nothing here is locked.
+  no-key:
+    You don't have a key.
+  pushed-through-door:
+    As you unlock the door, you are pushed through it. The door locks behind you.
+  bare-hands-ineffective:
+    Your bare hands are ineffective.
+  invisible-force:
+    An invisible force deflects your fists.
+  no-gun:
+    You don't have a gun.
+  laser-empty:
+    Your laser appears to be empty.
+  specify-target:
+    You must specify a target.
+  chain-reaction:
+    You are about to destroy an entire planet with a chain reaction.{br}
+    You must be immediately removed from this game to prevent this...
+  laser-alarm:
+    A laser-sensitive alarm rings, and a blast from the ceiling{br}
+    kills you.
+  harmless-colors:
+    The laser blast breaks up into a harmless display of colors.
+  hole-blasted:
+    A hole is blasted in the wall, wide enough for you to get through.
+  computer-destroyed:
+    The computer is destroyed.
+  no-damage:
+    The laser beam strikes it's target and does no damage.
+  disintegrates:
+    The laser beam strikes it's target and disintegrates it.
+  emerald-sticks:
+    The emerald sticks to your hand.
+  mine-explodes:
+    There is a loud explosion here, and you are blasted into millions of{br}
+    pieces.
+  explosion-below:
+    There is a loud explosion below you.
+  saliva:
+    With what? Saliva?
+  record-label:
+    GNOME RECORDS, L. T. D.{br}
+    EVERY TITLE A GUARANTEED GOLD RECORD{br}
+    "GNOME ME" BY GERRY AND THE GNOMES{br}
+    PRODUCED BY ARTHUR H. GNOME{br}
+    MFG. BY GNOME RECORDS L. T. D.
+  bottle-label:
+    WATER:{br}
+    NO DEPOSIT{br}
+    NO RETURN
+  penny-legend:
+    In god we trust{br}
+    Liberty{br}
+    1979
+  suggest-look:
+    I suggest you LOOK to see what is written on it.
+  safe-message:
+    The safe of the Gnomes is near--{br}
+    The combination is 2-7-36
+  nothing-written:
+    There is nothing written on it.
+  not-alive:
+    It isn't alive.
+  no-food:
+    There is nothing here you can use for food.
+  ship-crushes:
+    A spaceship lands on the launch area and crushes you.
+  cart-rolls:
+    The cart rolls into the bog.{br}
+    An ancient statue flies out!
+  woman-irritated:
+    The woman is mildly irritated at your action. An invisible force pushes you into the wall.
+  splat:
+    A A A A a a a a a . . .                    <splat>
+  hut-hut-hike:
+    Hut-Hut-Hike!
+  safe-slides-open:
+    The Gnomes' safe slides open. There is silver inside!
+  score-line:
+    You have scored {verbatim:points} points out of 500 possible in {verbatim:moves} turns.
+  class-f:
+    This puts you in class F.
+  class-e:
+    This puts you in class E.
+  class-d:
+    This puts you in class D.
+  class-c:
+    This puts you in class C.
+  class-b:
+    This puts you in class B.
+  class-a:
+    This puts you in class A.
+  game-is-yours:
+    A cloud of smoke envelopes both you and the woman...
+
+    You are somewhere overlooking the entire UNDERGROUND game.{br}
+    There is a forest, with a building and a path leading through{br}
+    the forest and into a cave. There is a lake in the middle of the{br}
+    forest. Somehow you can see into the cave. There are three ancient{br}
+    cities in the cave, two populated by short beings, the other abandoned.{br}
+    A chasm separates two of the cities from the greater part of{br}
+    cave. The cave also contains a room shaped like a barrel, above an{br}
+    abandoned mine. To the north of the cave are a maze of passages and{br}
+    an active volcano. To the south is a small swamp.
+
+    Around you are various gold objects, plus countless other valuable{br}
+    objects.
+
+    A woman is standing before you. She says,{br}
+    "The UNDERGROUND game is now yours. You now have all of it's{br}
+    treasures, and all of it's secrets, inhabitants, and other objects.
+  woman-wants-laser:
+    A woman appears in a cloud of smoke and asks you for your laser.
+  you-are-dead:
+    You are dead.
+  three-deaths:
+    Sorry, but people who are incompetent enough to die three times in the{br}
+    same game don't deserve the chance to make it four.
+  deadly-knife:
+    As you go, you are intercepted by a deadly knife.
+  dog-barks:
+    The dog barks wildly, and the City of Gnome awakens, all carrying{br}
+    knives.
+  ice-slippery:
+    The ice is to slippery for you to move on.
+  robot-fires:
+    On your way out, the robot fires a laser blast which kills you.
+  paralyzed:
+    You are somehow paralyzed by the woman.
+  blinded:
+    Some light in the room you have entered momentarily blinds you.
+  lamp-running-out:
+    Your lamp is running out of power.
+  lamp-out-of-power:
+    Your lamp has run out of power.
+  what-about-it:
+    What about it?
+  too-many:
+    You can't carry so many things at once.
+  bare-hands:
+    You can't touch that with bare hands.
+  nothing-to-carry:
+    You have nothing in which to carry that.
+  drop-contents-first:
+    You must drop it's contents first.
+  emerald-falls:
+    The emerald falls out of your hand.
+  emerald-stuck:
+    The emerald is stuck to your hand.
+  not-here:
+    It isn't here.
+  now-wearing:
+    You are now wearing them.
+  dont-be-stupid:
+    Don't be stupid.
+  done:
+    Done.
+  what:
+    What?
+  nothing-happens:
+    Nothing happens.
+  are-you-crazy:
+    Are you crazy?
+  spca:
+    S.P.C.A. and humane society regulations clearly prohibit you from doing that.
+
+## The platform's own words, replaced by the original's.
+
+override message looking-room-dark
+  I can't see a thing.
+end override
+
+override message going-too-dark
+  I can't see a thing.
+end override
+
+override message going-no-exit-that-way
+  You can't move in that direction.
+end override
+
+override message going-cant-go
+  You can't move in that direction.
+end override
+
+override message going-no-exit
+  You can't move in that direction.
+end override
+
+override message going-no-exits
+  You can't move in that direction.
+end override

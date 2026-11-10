@@ -35,6 +35,20 @@ from scaffold_world import PASSAGE_COLUMNS, REFUSAL_KEYS  # noqa: E402
 # defect.
 UNAUTHORED_SPECIALS = {(54, "southeast"), (60, "west")}
 
+# Phase 4 made some of the map move, as the original's does at run time. These
+# are the places where the compiled world is allowed to differ from the DATA
+# block, each with the 1979 line that rewrites it.
+#   Exits that exist only in a state (an IR exit carrying a `condition`) and
+#   are not in the DATA block at all:
+CONDITIONAL_EXITS_ADDED = {
+    (14, "passage:door"),  # 2820: the ship's door, once it has flown
+    (33, "south"),         # 2070: the elevator leads back where you came from
+    (57, "west"),          # 2985: the vault, once the cat has opened it
+    (86, "north"),         # 2460: the hole blasted in the wall
+}
+#   The two fatal exits, which are actions so that dying can be survived:
+DEADLY_AS_ACTIONS = {(32, "out"), (58, "south")}
+
 
 def _direction_key(column: str) -> str:
     return f"passage:{column}" if column in PASSAGE_COLUMNS else column
@@ -105,22 +119,28 @@ def compare(world: dict, names: dict, ir: dict) -> list[str]:
                 want_exits.add((_direction_key(direction), entity["id"]))
 
         got_exits = {(e["direction"], e["to"]["id"]) for e in entity["exits"]}
+        conditional = {(e["direction"], e["to"]["id"]) for e in entity["exits"] if e.get("condition")}
         for direction, target in sorted(want_exits - got_exits, key=str):
             problems.append(f"{where}: missing exit {direction} to {target}")
         for direction, target in sorted(got_exits - want_exits, key=str):
+            if (direction, target) in conditional and (number, direction) in CONDITIONAL_EXITS_ADDED:
+                continue
             problems.append(f"{where}: exit {direction} to {target} is not in the original")
         for exit_ in entity["exits"]:
             if "passage" not in exit_ and not exit_.get("oneWay"):
                 problems.append(f"{where}: exit {exit_['direction']} is two-way; every 1979 exit is one-way")
 
-        got_blocked = {b["direction"]: b["phraseKey"] for b in entity["blockedExits"]}
+        # A blocked line with a condition is a way that closes during play
+        # (room 58, line 2070); only the standing refusals are the DATA block's.
+        got_blocked = {b["direction"]: b["phraseKey"] for b in entity["blockedExits"] if not b.get("condition")}
+        want_deadly = {d: k for d, k in want_deadly.items() if (number, d) not in DEADLY_AS_ACTIONS}
         got_deadly = {d["direction"]: d["phraseKey"] for d in entity["deadlyExits"]}
         if got_blocked != want_blocked:
             problems.append(f"{where}: blocked exits are {got_blocked}, the original has {want_blocked}")
         if got_deadly != want_deadly:
             problems.append(f"{where}: deadly exits are {got_deadly}, the original has {want_deadly}")
         for refusal in room["refusals"].values():
-            if refusal["message"] and _text(phrases, REFUSAL_KEYS[refusal["code"]]) != refusal["message"]:
+            if refusal["message"] and _text(phrases, REFUSAL_KEYS[refusal["code"]]) != _joined(refusal["message"].split("\n")):
                 problems.append(f"{where}: phrase {REFUSAL_KEYS[refusal['code']]} is not {refusal['message']!r}")
 
     if seen_specials != UNAUTHORED_SPECIALS:

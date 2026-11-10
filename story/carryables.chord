@@ -3,7 +3,7 @@
 ## Object 16. Carried name: "Cat's leash.". Words: none.
 
 create the cat's leash
-  a thing
+  a thing, portable
   in the Closet 81
 
   phrase present while not the player holds the cat's leash:
@@ -13,7 +13,8 @@ create the cat's leash
 ## Its line changes with state: lit, it is "There is a lit lamp here.". Phase 4.
 
 create the electric lamp
-  a thing, switchable, light-source
+  a thing, portable
+  states, reversible: dormant, shining
   aka lamp
   in the Building
 
@@ -24,7 +25,7 @@ create the electric lamp
 ## Its line changes with state: without the water it is "There is an empty bottle here.". Phase 4.
 
 create the glass bottle
-  a thing
+  a thing, portable
   aka bottl, bottle
   in the Building
 
@@ -35,13 +36,13 @@ create the glass bottle
 ## Its line changes with state: the bottle's line speaks for it; it has none of its own. Phase 4.
 
 create the water
-  a thing
+  a thing, portable
   in the Building
 
 ## Object 20. Carried name: "Pair of sunglasses.". Words: SUNGL, GLASS.
 
 create the sunglasses
-  a thing
+  a thing, portable
   aka sungl, glass, glasses
   in the Basement
 
@@ -51,7 +52,7 @@ create the sunglasses
 ## Object 21. Carried name: "Rock.". Words: ROCK.
 
 create the rock
-  a thing
+  a thing, portable
   in the Path
 
   phrase present while not the player holds the rock:
@@ -60,7 +61,7 @@ create the rock
 ## Object 22. Carried name: "Laser pistol.". Words: LASER, PISTO, GUN.
 
 create the laser pistol
-  a thing
+  a thing, portable
   aka laser, pisto, pistol, gun
   in the Cave Enterance
 
@@ -70,7 +71,7 @@ create the laser pistol
 ## Object 23. Carried name: "Lump of coal.". Words: LUMP, COAL.
 
 create the lump of coal
-  a thing
+  a thing, portable
   aka lump, coal
   in the Mine 26
 
@@ -80,7 +81,7 @@ create the lump of coal
 ## Object 24. Carried name: "Minuature sun in container.". Words: SUN.
 
 create the minuature sun
-  a thing
+  a thing, portable
   aka sun
   in the Light Room
 
@@ -90,7 +91,7 @@ create the minuature sun
 ## Object 25. Carried name: "Radiation-proof container.". Words: CONTA.
 
 create the radiation-proof container
-  a thing
+  a thing, portable
   aka conta, container
   in the Waiting Room
 
@@ -100,7 +101,7 @@ create the radiation-proof container
 ## Object 26. Carried name: "Space gloves.". Words: GLOVE.
 
 create the space gloves
-  a thing
+  a thing, portable
   aka glove, gloves
   in the Waiting Room
 
@@ -110,7 +111,7 @@ create the space gloves
 ## Object 27. Carried name: "Remote-control box.". Words: BOX, BUTTO.
 
 create the remote-control box
-  a thing
+  a thing, portable
   aka box, butto, button
   in the Control Room
 
@@ -120,7 +121,7 @@ create the remote-control box
 ## Object 28. Carried name: "Old skeleton's bone.". Words: BONE.
 
 create the bone
-  a thing
+  a thing, portable
   in the Maze 69
 
   phrase present while not the player holds the bone:
@@ -129,7 +130,7 @@ create the bone
 ## Object 29. Carried name: "Piece of cheese.". Words: CHEES.
 
 create the piece of cheese
-  a thing
+  a thing, portable
   aka chees, cheese
   in the Maze 68
 
@@ -139,7 +140,7 @@ create the piece of cheese
 ## Object 30. Carried name: "Penny.". Words: PENNY, COIN.
 
 create the penny
-  a thing
+  a thing, portable
   aka coin
   in the Building
 
@@ -150,9 +151,10 @@ create the penny
 ## Its line changes with state: once fed it is "There is a dead rat here.". Phase 4.
 
 create the rat
-  a thing
+  a thing, portable
   aka leash
   in the North-South Room
+  states: hungry, dead
 
   phrase present while not the player holds the rat:
     There is a hungry rat here.
@@ -161,8 +163,10 @@ create the rat
 ## Its line changes with state: once the rat is dead it is "there is a hungry cat here.". Phase 4.
 
 create the cat
-  a thing
+  a thing, portable
   in the Room 83
+  states: aloof, hungry, fed
 
   phrase present while not the player holds the cat:
     There is a cat here.
+

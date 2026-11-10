@@ -1,9 +1,19 @@
-## Objects 1 to 15, the treasures.
+## Objects 0 to 15, the treasures.
+
+## Object 0. Carried name: "Something valuable." Word: ME.
+## Line 70 sets O%(0%)=39%, outside the DATA block, so the decode does not
+## hold it. It lies unannounced in the room whose wall reads "GET ME OUT OF
+## HERE!!!", and TAKE ME picks it up.
+
+create the something valuable
+  a thing, portable, treasure
+  aka me
+  in the East End of Cylindrical Room
 
 ## Object 1. Carried name: "Platinum wire.". Words: WIRE, COIL, PLATI.
 
 create the platinum wire
-  a thing
+  a thing, portable, treasure
   aka wire, coil, plati, platinum
   in the Control Room
 
@@ -13,7 +23,7 @@ create the platinum wire
 ## Object 2. Carried name: "Uranium in container.". Words: URANI.
 
 create the uranium
-  a thing
+  a thing, portable, treasure
   aka urani
   in the Strange Planet
 
@@ -23,7 +33,7 @@ create the uranium
 ## Object 3. Carried name: "Ancient statue.". Words: STATU.
 
 create the ancient statue
-  a thing
+  a thing, portable, treasure
   aka statu, statue
 
   phrase present while not the player holds the ancient statue:
@@ -32,7 +42,7 @@ create the ancient statue
 ## Object 4. Carried name: "Gold nuggets.". Words: GOLD, NUGGE.
 
 create the gold nuggets
-  a thing
+  a thing, portable, treasure
   aka gold, nugge, nuggets, nugget
 
   phrase present while not the player holds the gold nuggets:
@@ -41,7 +51,7 @@ create the gold nuggets
 ## Object 5. Carried name: "Gold record.". Words: RECOR.
 
 create the gold record
-  a thing
+  a thing, portable, treasure
   aka recor, record
   in the Recording Studio
 
@@ -51,7 +61,7 @@ create the gold record
 ## Object 6. Carried name: "Gold garbage can.". Words: CAN.
 
 create the gold garbage can
-  a thing
+  a thing, portable, treasure
   aka can
   in the Garbage Dump
 
@@ -61,7 +71,7 @@ create the gold garbage can
 ## Object 7. Carried name: "Gold pet's dish.". Words: DISH.
 
 create the gold pet's dish
-  a thing
+  a thing, portable, treasure
   aka dish
   in the Closet 81
 
@@ -72,7 +82,7 @@ create the gold pet's dish
 ## Its line changes with state: in room 80 it is "There is silver in the safe!". Phase 4.
 
 create the Gnomes' silver
-  a thing
+  a thing, portable, treasure
   aka silve, silver
 
   phrase present while not the player holds the Gnomes' silver:
@@ -81,7 +91,7 @@ create the Gnomes' silver
 ## Object 9. Carried name: "Large diamonds.". Words: DIAMO.
 
 create the large diamonds
-  a thing
+  a thing, portable, treasure
   aka diamo, diamonds, diamond
 
   phrase present while not the player holds the large diamonds:
@@ -90,7 +100,7 @@ create the large diamonds
 ## Object 10. Carried name: "Gold telescope.". Words: TELES.
 
 create the gold telescope
-  a thing
+  a thing, portable, treasure
   aka teles, telescope
   in the Observatory
 
@@ -100,7 +110,7 @@ create the gold telescope
 ## Object 11. Carried name: "Large emerald.". Words: EMERA.
 
 create the large emerald
-  a thing
+  a thing, portable, treasure
   aka emera, emerald
   in the Chasm Rim
 
@@ -110,7 +120,7 @@ create the large emerald
 ## Object 12. Carried name: "Rare coins.". Words: COINS.
 
 create the rare coins
-  a thing
+  a thing, portable, treasure
   aka coins
 
   phrase present while not the player holds the rare coins:
@@ -119,7 +129,7 @@ create the rare coins
 ## Object 13. Carried name: "Rare stamps.". Words: STAMP.
 
 create the rare stamps
-  a thing
+  a thing, portable, treasure
   aka stamp, stamps
   in the Post Office
 
@@ -129,7 +139,7 @@ create the rare stamps
 ## Object 14. Carried name: "Black pearl.". Words: PEARL.
 
 create the black pearl
-  a thing
+  a thing, portable, treasure
   aka pearl
   in the Dark Room
 
@@ -139,7 +149,7 @@ create the black pearl
 ## Object 15. Carried name: "Golden key.". Words: KEY.
 
 create the golden key
-  a thing
+  a thing, portable, treasure
   aka key
 
   phrase present while not the player holds the golden key:

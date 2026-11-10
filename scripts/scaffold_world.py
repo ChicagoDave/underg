@@ -37,6 +37,7 @@ REGION_FILES: dict[str, tuple[str, list[int]]] = {
     "ancient-city": ("The ancient city, its vault, and the rooms past the space warp.", [*range(53, 61), 85, 86, 87]),
     "gnome-city": ("The City of Gnome.", [*range(78, 85)]),
 }
+START_ROOM = 8
 MAZE_ROOMS = range(61, 72)
 DEAD_END_ROOMS = range(72, 77)
 
@@ -296,7 +297,8 @@ def render_files(world: dict, names: dict) -> dict[str, str]:
 
     files["phrases.chord"] = _phrases_file(world)
     imports = [*REGION_FILES, "maze", *OBJECT_FILES, "phrases"]
-    files["underg.story"] = _story_file(imports, room_names[1])
+    # UNDERG.BAS line 70: `X%(0%)=8%`. The game opens outside the building.
+    files["underg.story"] = _story_file(imports, room_names[START_ROOM])
     return {name: "\n".join(lines) + "\n" for name, lines in files.items()}
 
 

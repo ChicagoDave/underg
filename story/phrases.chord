@@ -17,4 +17,5 @@ define phrases en-US
   passage-blocked:
     This passage has been somehow blocked.
   inside-volcano:
-    You are INSIDE an active volcano. Lava flies about in all directions.
+    You are INSIDE an active volcano. Lava flies about in all directions.    The lava seems to be very hot, from the way it burns you when you{br}
+    touch it.

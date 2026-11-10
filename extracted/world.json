@@ -979,7 +979,7 @@
         "south": {
           "code": -8,
           "kind": "deadly",
-          "message": "You are INSIDE an active volcano. Lava flies about in all directions.",
+          "message": "You are INSIDE an active volcano. Lava flies about in all directions.    The lava seems to be very hot, from the way it burns you when you \ntouch it.",
           "note": null
         }
       }

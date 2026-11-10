@@ -3,7 +3,7 @@
 ## Room 24. LOOK.BAS 2400 and 2450.
 
 create the Mine Enterance
-  a room
+  a room, dark while not lit-up
   room name:
     Mine enterance
   exits, one-way: northeast to the East-West Tunnel 22, southeast to the East-West Tunnel 21, up to the Mine 25, down to the Mine 25
@@ -14,7 +14,7 @@ create the Mine Enterance
 ## Room 25. LOOK.BAS 2500 and 2550.
 
 create the Mine 25
-  a room
+  a room, dark while not lit-up
   room name:
     Mine
   exits, one-way: up to the Mine Enterance, down to the Mine 26
@@ -25,7 +25,7 @@ create the Mine 25
 ## Room 26. LOOK.BAS 2600 and 2650.
 
 create the Mine 26
-  a room
+  a room, dark while not lit-up
   room name:
     Mine
   exits, one-way: up to the Mine 25, down to the Mine 27
@@ -36,7 +36,7 @@ create the Mine 26
 ## Room 27. LOOK.BAS 2700 and 2750.
 
 create the Mine 27
-  a room
+  a room, dark while not lit-up
   room name:
     Mine
   exits, one-way: up to the Mine 26, down to the Carbide Room
@@ -47,7 +47,7 @@ create the Mine 27
 ## Room 28. LOOK.BAS 2800 and 2850.
 
 create the Carbide Room
-  a room
+  a room, dark while not lit-up
   room name:
     Carbide room
   exits, one-way: up to the Mine 27, out to the Mine 27

@@ -3,7 +3,7 @@
 ## Room 49. LOOK.BAS 4900 and 4950.
 
 create the Dwarf City
-  a room
+  a room, dark while not lit-up
   room name:
     Dwarf city
   exits, one-way: north to the Dwarf Door, northeast to the Hall of Doors
@@ -14,7 +14,7 @@ create the Dwarf City
 ## Room 50. LOOK.BAS 5000 and 5050.
 
 create the Dwarf Door
-  a room
+  a room, dark while not lit-up
   room name:
     Dwarf door
   exits, one-way: north to the Short Passage, northeast to the Dwarf City, out to the Short Passage
@@ -34,7 +34,7 @@ create the Dwarf Door
 ## Room 51. LOOK.BAS 5100 and 5150.
 
 create the Short Passage
-  a room
+  a room, dark while not lit-up
   room name:
     you are in a short passage running E/W.
   exits, one-way: north to the Well, east to the Well
@@ -44,7 +44,7 @@ create the Short Passage
 ## Room 52. LOOK.BAS 5200 and 5250.
 
 create the Well
-  a room
+  a room, dark while not lit-up
   room name:
     Well
   exits, one-way: west to the Short Passage, out to the Short Passage

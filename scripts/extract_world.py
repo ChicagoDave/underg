@@ -61,7 +61,8 @@ EXIT_CODES = {
     -6:  ("deadly",  "You are on the surface on the planet, which has an atmosphere of cyanide gas.", None),
     -7:  ("refuse",  "This passage has been somehow blocked.",
           "Also written at run time: line 2070 sets this code on the exit you just used when leaving room 58."),
-    -8:  ("deadly",  "You are INSIDE an active volcano. Lava flies about in all directions.", None),
+    -8:  ("deadly",  "You are INSIDE an active volcano. Lava flies about in all directions."
+                     "    The lava seems to be very hot, from the way it burns you when you \ntouch it.", None),  # two printed lines
     -9:  ("special", None,
           "Line 2960 draws a random room 1-85 that the player has already visited and moves them there."),
     -10: ("special", None,

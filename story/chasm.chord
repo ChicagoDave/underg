@@ -13,7 +13,7 @@ create the Volcano View
 ## Room 41. LOOK.BAS 4100 and 4150.
 
 create the Mountain Passage
-  a room
+  a room, dark while not lit-up
   room name:
     Mountain passage
   exits, one-way: south to the Volcano View, southwest to the Sphere Room
@@ -24,7 +24,7 @@ create the Mountain Passage
 ## Room 42. LOOK.BAS 4200 and 4250.
 
 create the Chasm Rim
-  a room
+  a room, dark while not lit-up
   room name:
     You are on the north side of a giant chasm.
   exits, one-way: east to the Volcano View, west to the North Side of Chasm
@@ -34,7 +34,7 @@ create the Chasm Rim
 ## Room 43. LOOK.BAS 4300 and 4350.
 
 create the North Side of Chasm
-  a room
+  a room, dark while not lit-up
   room name:
     North side of chasm
   exits, one-way: north to the Chasm Bridge, northeast to the Chasm Rim
@@ -44,7 +44,7 @@ create the North Side of Chasm
 ## Room 44. LOOK.BAS 4400 and 4450.
 
 create the Chasm Bridge
-  a room
+  a room, dark while not lit-up
   room name:
     You are on a bridge which spans the giant chasm.
   exits, one-way: north to the Far Side of Chasm, northeast to the North Side of Chasm
@@ -54,7 +54,7 @@ create the Chasm Bridge
 ## Room 45. LOOK.BAS 4500 and 4550.
 
 create the Far Side of Chasm
-  a room
+  a room, dark while not lit-up
   room name:
     You are on the far side of the chasm. A passage goes east to west.
   exits, one-way: east to the Hall of Doors, west to the North-South Room, south to the Chasm Bridge
@@ -64,7 +64,7 @@ create the Far Side of Chasm
 ## Room 46. LOOK.BAS 4600 and 4650.
 
 create the North-South Room
-  a room
+  a room, dark while not lit-up
   room name:
     This is a room with exits north and south.
   exits, one-way: north to the Garbage Dump, northeast to the Far Side of Chasm
@@ -74,7 +74,7 @@ create the North-South Room
 ## Room 47. LOOK.BAS 4700 and 4750.
 
 create the Garbage Dump
-  a room
+  a room, dark while not lit-up
   room name:
     Garbage dump
   exits, one-way: south to the North-South Room, out to the North-South Room
@@ -85,7 +85,7 @@ create the Garbage Dump
 ## Room 48. LOOK.BAS 4800 and 4850.
 
 create the Hall of Doors
-  a room
+  a room, dark while not lit-up
   room name:
     You are in a hall with doors west, east, and south.
   exits, one-way: east to the City Enterance, west to the Dwarf City, south to the Far Side of Chasm, out to the Far Side of Chasm

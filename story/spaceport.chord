@@ -16,7 +16,15 @@ create the Spaceship
   a room
   room name:
     Spaceship
-  exits, one-way: in to the Strange Planet, out to the Strange Planet
+  states, reversible: on-first-planet, at-port, on-planet
+  exits, one-way: in to the Strange Planet
+  out to the Strange Planet, one-way while not the Spaceship is at-port
+
+  passage to the Strange Planet
+    grammar
+      door
+    while the Spaceship is on-planet
+  end passage
 
   You are in spaceship lit by red and blue lights on it's{br}
   sides. The spaceship's manual controls are damaged.
@@ -24,7 +32,7 @@ create the Spaceship
 ## Room 29. LOOK.BAS 2900 and 2950.
 
 create the Control Room
-  a room
+  a room, dark while not lit-up
   room name:
     Control room
   exits, one-way: west to the Waiting Room, southeast to the Junction of Tunnels
@@ -36,10 +44,11 @@ create the Control Room
 ## Room 30. LOOK.BAS 3000 and 3050.
 
 create the Waiting Room
-  a room
+  a room, dark while not lit-up
   room name:
     Waiting room
-  exits, one-way: north to the Observatory, west to the Launching Area, northeast to the Control Room, in to the Waiting Room
+  exits, one-way: north to the Observatory, northeast to the Control Room, in to the Waiting Room
+  west to the Launching Area, one-way while not the Spaceship is at-port
 
   This was a waiting room for passengers on spaceships.{br}
   There are doors to the north,west,and NE.
@@ -47,7 +56,7 @@ create the Waiting Room
 ## Room 31. LOOK.BAS 3100 and 3150.
 
 create the Launching Area
-  a room
+  a room, dark while not lit-up
   room name:
     Launching area
   exits, one-way: east to the Waiting Room, out to the Waiting Room
@@ -57,10 +66,9 @@ create the Launching Area
 ## Room 32. LOOK.BAS 3200 and 3250.
 
 create the Strange Planet
-  a room
+  a room, dark while not lit-up
   room name:
     Strange planet
-  exits, one-way: in to the Spaceship
-  out is deadly: cyanide-atmosphere
+  in to the Spaceship, one-way while not the Spaceship is at-port
 
   You are on a building on some strange planet. A door goes out.

@@ -51,18 +51,13 @@ class StoryMatchesTheDecode(_Compiled):
         headings = {phrases[f"maze-{n}.room-name"]["variants"][0]["text"] for n in range(61, 72)}
         self.assertEqual(headings, {"You are in a maze of twisty little passages, all alike."})
 
-    def test_the_player_starts_in_the_building(self) -> None:
-        """Room 1, where the oracle's golden transcript opens."""
+    def test_the_player_starts_outside_the_building(self) -> None:
+        """Room 8: UNDERG.BAS line 70 sets X%(0%)=8%, and the oracle's golden
+        transcript opens on room 8's two lines."""
+        golden = (REPO / "tests" / "golden" / "oracle-smoke.txt").read_text().splitlines()
+        self.assertEqual(golden[2], self.world["rooms"]["8"]["description"][0])
         player = next(e for e in self.ir["entities"] if e["isPlayable"])
-        self.assertEqual(player["placement"]["place"], "building")
-
-    def test_the_story_files_are_what_the_scaffold_writes(self) -> None:
-        """Until Phase 4 edits them by hand, the files on disk are the
-        scaffold's output. When that stops being true this test goes, and the
-        parity test above is what remains."""
-        for name, content in scaffold_world.render_files(self.world, self.names).items():
-            self.assertEqual((REPO / "story" / name).read_text(), content, name)
-
+        self.assertEqual(player["placement"]["place"], "outside-building")
 
 class ParityCheckBites(_Compiled):
     """Each test breaks one thing in a copy of the compiled story and asserts
@@ -91,17 +86,25 @@ class ParityCheckBites(_Compiled):
         self.entity(ir, "Lake Shore")["blockedExits"].pop()
         self.assertTrue(any("room 9 " in p and "blocked exits" in p for p in self.problems(ir)))
 
-    def test_a_deadly_exit_made_merely_blocked_is_reported(self) -> None:
+    def test_a_fatal_exit_written_as_a_platform_death_is_reported(self) -> None:
+        """Room 32's way out is an action, so that dying there can be survived.
+        A plain `is deadly` line in its place would end the game outright."""
         ir = self.broken()
-        room = self.entity(ir, "Strange Planet")
-        room["blockedExits"].append(room["deadlyExits"].pop())
+        self.entity(ir, "Strange Planet")["deadlyExits"].append({"direction": "out", "phraseKey": "cyanide-atmosphere"})
         found = self.problems(ir)
         self.assertTrue(any("room 32 " in p and "deadly exits" in p for p in found), found)
+
+    def test_an_unconditional_exit_where_the_map_only_opens_later_is_reported(self) -> None:
+        """The hole in room 86's wall exists only once it is blasted."""
+        ir = self.broken()
+        exit_ = next(e for e in self.entity(ir, "Room 86")["exits"] if e["direction"] == "north")
+        del exit_["condition"]
+        self.assertTrue(any("room 86 " in p and "not in the original" in p for p in self.problems(ir)))
 
     def test_an_authored_computed_exit_is_reported(self) -> None:
         """Room 60 west is code -9; a plain exit there would be an invention."""
         ir = self.broken()
-        room = self.entity(ir, "One-Exit Passage 60")
+        room = self.entity(ir, "West One-Exit Passage")
         room["exits"].append({"direction": "west", "to": {"kind": "room", "id": "building"}, "via": None, "oneWay": True})
         self.assertTrue(any("room 60 " in p and "not in the original" in p for p in self.problems(ir)))
 
@@ -121,7 +124,7 @@ class ParityCheckBites(_Compiled):
 
     def test_a_missing_room_is_reported(self) -> None:
         ir = self.broken()
-        ir["entities"] = [e for e in ir["entities"] if e["name"] != "Room 85"]
+        ir["entities"] = [e for e in ir["entities"] if e["name"] != "Nameless Room"]
         found = self.problems(ir)
         self.assertTrue(any("86 rooms" in p for p in found), found)
         self.assertTrue(any(p.startswith("room 85:") for p in found), found)
@@ -162,8 +165,9 @@ class ParityCheckBites(_Compiled):
 
 class ScaffoldRefuses(unittest.TestCase):
     def test_existing_files_are_not_overwritten_without_force(self) -> None:
-        """REJECTS WHEN: story files exist and --force is absent. The file on
-        disk must be untouched afterwards."""
+        """REJECTS WHEN: story files exist and --force is absent. The files
+        are hand-edited now (Phase 4), so an overwrite would destroy work: the
+        file on disk must be untouched afterwards."""
         target = REPO / "story" / "surface.chord"
         before = target.read_bytes()
         self.assertEqual(scaffold_world.main([]), 1)

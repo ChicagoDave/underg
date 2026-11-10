@@ -14,6 +14,7 @@ create the woman
 
 create the vault
   a thing, scenery
+  states: sealed, forced
   in the Vault of City
 
   phrase present:
@@ -50,6 +51,7 @@ create the Gnome
 
 create the safe
   a thing, scenery
+  states: shut, sprung
   in the Closet 80
 
   phrase present:
@@ -107,6 +109,7 @@ create the lever
 
 create the computer
   a thing, scenery
+  states: humming, wrecked
   aka compu
   in the Control Room
 
@@ -117,6 +120,7 @@ create the computer
 
 create the wall
   a thing, scenery
+  states, reversible: solid, breached
   in the Room 86
 
   phrase present:

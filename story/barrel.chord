@@ -3,20 +3,27 @@
 ## Room 33. LOOK.BAS 3300 and 3350.
 
 create the Elevator
-  a room
+  a room, dark while not lit-up
   room name:
     Elevator
+  states, reversible: at-junction, between-floors, at-sphere
+  south to the Junction of Tunnels, one-way while the Elevator is at-junction
 
   You are in an elevator.
 
 ## Room 34. LOOK.BAS 3400 and 3450.
 
 create the Sphere Room
-  a room
+  a room, dark while not lit-up
   room name:
     Sphere room
   exits, one-way: north to the Maze 61, east to the Barrel Enterance, west to the Mountain Passage, south to the Elevator, in to the Gate
   down is blocked: cannot-reach-hole
+
+  after the player entering
+    change the Elevator to between-floors when the Elevator is at-junction
+    change the Elevator to at-sphere when the Elevator is between-floors
+  end after
 
   passage to the Barrel Enterance
     grammar
@@ -29,7 +36,7 @@ create the Sphere Room
 ## Room 35. LOOK.BAS 3500 and 3550.
 
 create the Barrel Enterance
-  a room
+  a room, dark while not lit-up
   room name:
     Enterance to empty barrel
   exits, one-way: east to the Empty Barrel, west to the Sphere Room, down to the Empty Barrel
@@ -44,7 +51,7 @@ create the Barrel Enterance
 ## Room 36. LOOK.BAS 3600 and 3650.
 
 create the Empty Barrel
-  a room
+  a room, dark while not lit-up
   room name:
     Empty barrel
   exits, one-way: north to the Barrel Exit, down to the Empty Barrel
@@ -60,7 +67,7 @@ create the Empty Barrel
 ## Room 37. LOOK.BAS 3700 and 3750.
 
 create the Barrel Exit
-  a room
+  a room, dark while not lit-up
   room name:
     Exit from empty barrel
   exits, one-way: northwest to the East End of Cylindrical Room, out to the East End of Cylindrical Room
@@ -78,7 +85,7 @@ create the Barrel Exit
 ## Room 38. LOOK.BAS 3800 and 3850.
 
 create the Recording Studio
-  a room
+  a room, dark while not lit-up
   room name:
     Recording studio
   exits, one-way: south to the East End of Cylindrical Room, out to the East End of Cylindrical Room
@@ -88,7 +95,7 @@ create the Recording Studio
 ## Room 39. LOOK.BAS 3900 and 3950.
 
 create the East End of Cylindrical Room
-  a room
+  a room, dark while not lit-up
   room name:
     E. end of cylindrical room
   exits, one-way: north to the Recording Studio, east to the Barrel Exit, west to the West End of Cylindrical Room
@@ -100,7 +107,7 @@ create the East End of Cylindrical Room
 ## Room 40. LOOK.BAS 4000 and 4050.
 
 create the West End of Cylindrical Room
-  a room
+  a room, dark while not lit-up
   room name:
     W. end of cylindrical room
   exits, one-way: east to the East End of Cylindrical Room
@@ -118,7 +125,7 @@ create the West End of Cylindrical Room
 ## Room 77. LOOK.BAS 7700 and 7750.
 
 create the Dark Room
-  a room
+  a room, dark while not sun-lights
   room name:
     Dark room
   exits, one-way: down to the West End of Cylindrical Room

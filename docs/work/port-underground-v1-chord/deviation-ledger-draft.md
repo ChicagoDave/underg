@@ -47,6 +47,93 @@ Each of the seven has the line it shows when the game starts; the other line
 is named in a comment on its block and is Phase 4's to deliver, by whatever
 route Phase 4 finds. Spiked.
 
+## Deviations Chord imposes on the verbs (Phase 4, 2026-11-10)
+
+"Compared" means the same commands were played through the oracle and the port
+by `tests/test_verbs_against_oracle.py` or by hand with `scripts/oracle_run.py`
+and `scripts/story_run.py`.
+
+**L-6. The parser's own two refusals are the platform's.** A word the 1979
+program does not know gets "I don't know what that means."; a noun that is
+neither here nor carried gets "It isn't here." The port prints "I don't
+understand that." and "You can't see any such thing.", which are parser
+texts outside the overridable message catalog. A line the parser rejects is
+also not a turn, where line 1010 counts every input line. Compared.
+
+**L-7. Nothing is asked.** The original asks "Do you want to continue?" after
+a death, "Are you sure?" on QUIT and "Do you want the lamp?" from the woman.
+Chord has no question a story can put to the player. After a death the port
+goes on as if the answer were yes; the lamp offer is not made.
+
+**L-8. SCORE says less.** The first line matches the original number for
+number (compared). The second line's tail, "for the next rating you need N
+more points", is arithmetic on the score and is left off; the class letter is
+printed.
+
+**L-9. LIGHT and OFF do not print the room again.** The original jumps to
+line 980 after both. A body cannot ask for the room to be described.
+
+**L-10. The safe's combination is typed `two-seven-three`.** A grammar
+pattern cannot hold `2-7-3` (`parse.action-pattern`).
+
+**L-11. A reply of several lines is several paragraphs.** Each `phrase` a
+body speaks is its own paragraph, so INVEN's lines and SCORE's two lines have
+blank lines between them.
+
+**L-12. The noun comes second.** G1: `LAMP LIGHT` is not understood.
+
+## Findings for the `sharpee` ratchet log (Phase 4)
+
+Each was hit while authoring and is worked around in `story/verbs.chord`,
+where a comment says how.
+
+- An action's `must` and `refuse` lines are all tried before its body,
+  whatever order they are written in; the analyzer accepts a `refuse` after a
+  `change` in an action body and it then does not behave as written.
+- `the item is a <story trait>` compiles and is always false.
+- A room has one exit per direction even when each carries its own `while`
+  (`analysis.duplicate-exit`); the same for two passages sharing a command.
+- A name ending in a number cannot be the subject of a condition
+  (`the Room 85 is entered`), and a name holding `can` ends at that word.
+- The story header takes only `on every turn` clauses, and an entity's `on`
+  clause may not change anything and then refuse, so "leaving this room is
+  fatal while the Gnome is here" has no clause form.
+- `kill the player` and `is deadly` end the game; nothing in Chord revives.
+- A counter prints in a phrase only as `the player's <counter>`, each passed
+  by its own `with`.
+- An entity's `phrase taking-taken:` does not replace the stock message.
+
+## Phase 4: done and not done
+
+Done and compared against the oracle: TAKE (with its order of refusals, the
+bottle and water pair, the worn things), DROP, INVEN, LIGHT and OFF, darkness
+by line 980's rule, SHOOT with and without a target at the robot, POUR in the
+mine, the death at the robot and waking in the basement, the 25 points of a
+treasure in the building, and the default reply of every verb.
+
+Also compared: the elevator and its lever both ways, the rock and the Gnome,
+READ MESSAGE, the safe and its combination, the silver. FILL was looked at in
+the oracle: at the lake it ends the program silently (line 2560 writes past
+the end of `X%`), so the port ends the game there, with the platform's ending
+text where the original prints nothing.
+
+Written from the listing but not yet compared: THROW's special cases, FEED,
+the drop cases (cat and rat, dog and bone, dwarf and coal, the vault, the
+well, the cheese, the sun on the ice, room 85), OPEN with the key, RUB, PUSH
+(the spaceship, the cart, the lever), JUMP, the safe, the two fatal exits,
+the guardians (Gnome, dog, dwarf, ice), room 58 sealing behind you, the
+ending at room 87.
+
+Not written:
+- The two computed exits (G3, G4).
+- The rat's bite (line 2010). Its test is a bitwise AND of two differences
+  and has to be read off the oracle, not off the listing.
+- The lamp running down past the warning: the woman's offer, the recharge.
+- The one-in-three fatal accident of line 992 when a dark room is described.
+- Object 0 in the decode (it is authored in `treasures.chord`, by hand).
+- The second presence line of the seven stateful objects (L-5).
+- "What about it?" for a noun typed alone.
+
 ## Not deviations, but worth knowing
 
 - **Presence lines are gated on not being held.** A `phrase present:` line
@@ -59,26 +146,16 @@ route Phase 4 finds. Spiked.
   passage, and each names itself. It is never taken, so nothing shows.
 - **Room 85 has no heading and no description** (O-7, reproduced). The
   compiler warns `analysis.room-no-description`; that warning is expected.
-  What the platform prints as the heading of a room with no `room name` has
-  not been looked at in play, because nothing leads to room 85 yet.
 
-## Left for Phase 4, recorded so it is not mistaken for done
+## Still open from Phase 3
 
-- **The two computed exits** (room 54 southeast, room 60 west; G4 and G3) are
-  not authored. A comment marks each in `ancient-city.chord`.
-- **Exits that change during play** (G2): the elevator, room 33, has no exits
-  declared; room 58's sealing is not authored. The "door is closed" exits
-  (rooms 2 and 19) are blocked unconditionally.
-- **Darkness** (line 980) is not authored. No room is `dark`.
 - **Words.** Each thing answers to the original's words and to the whole word
   each five-letter stub stands for (`plati` and `platinum`). The entity names
   also answer, which admits words the original does not have. The one that
   matters is the cat's leash: O-1 says LEASH must reach the rat and nothing
   else, and the leash's own name now competes for it.
-- **Carried names.** INVEN prints "Platinum wire." in the original and
-  "a platinum wire" here. Each carried name is in a comment on its block.
 - **The water** (object 19) starts in room 1 beside the bottle, as the data
-  has it, and so is listed as "a water". It belongs with POUR and FILL.
-- **Fixtures and creatures** are all `a thing, scenery`. The woman, the dwarf,
-  the Gnome, the dog, the rat and the cat are not `a person`; the verbs that
-  act on them will decide.
+  has it, and so is listed as "a water".
+- **Fixtures and creatures** are all `a thing, scenery`; none is `a person`.
+  The verbs written so far did not need them to be.
+- **Room 85's heading** has still not been looked at in play.
