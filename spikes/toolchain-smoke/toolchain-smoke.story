@@ -21,6 +21,7 @@ create the Clearing
   A small clearing, ringed by trees. The path runs back south.
 
 create the Lamp
+  a thing
   aka lantern
   in the Path
 

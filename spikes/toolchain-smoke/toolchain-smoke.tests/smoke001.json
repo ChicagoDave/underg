@@ -1,0 +1,53 @@
+{
+  "cards": [
+    {
+      "assertions": {
+        "channels": [
+          {
+            "id": "info.title",
+            "is": "Toolchain Smoke"
+          }
+        ]
+      },
+      "id": "smkopen1",
+      "type": "opening"
+    },
+    {
+      "assertions": {
+        "contains": [
+          "Path",
+          "A short path of packed earth."
+        ]
+      },
+      "id": "smkboot1",
+      "type": "boot"
+    },
+    {
+      "assertions": {
+        "states": [
+          "player.inventory contains Lamp"
+        ]
+      },
+      "command": "take lamp",
+      "id": "smktake1",
+      "type": "turn"
+    },
+    {
+      "assertions": {
+        "contains": [
+          "A small clearing, ringed by trees."
+        ],
+        "notContains": [
+          "You can't go that way."
+        ],
+        "states": [
+          "player.location = Clearing"
+        ]
+      },
+      "command": "north",
+      "id": "smknrth1",
+      "type": "turn"
+    }
+  ],
+  "id": "smoke001"
+}

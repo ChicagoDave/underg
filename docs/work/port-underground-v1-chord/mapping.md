@@ -179,7 +179,8 @@ reproduce the story as coded, so the port carries the collision: `LEASH` and
 cat (object 32, "Cat on leash"). No ledger entry is needed — Chord can express
 this natively with `aka`. Registered as **O-1** in `original-issues.md`.
 
-**G9 — BLOCKING: Chord cannot give two rooms the same printed name.**
+**G9 — CLOSED 2026-11-10 by Chord 4.0.1's `room name:` block (see the re-read
+below). Was BLOCKING: Chord cannot give two rooms the same printed name.**
 `analysis.duplicate-entity` refuses a second `create` of an existing name
 (verified: `spikes/duplicate-names/`), and Chord has no construct separating an
 entity's identifier from the name it prints — the grammar has no `printed name`,
@@ -210,6 +211,87 @@ with the supporting evidence in `chord-gap-g9.md`, for the `sharpee` repo. The
 natural fix is a language one — a display-name construct in Chord, which would
 be a ratchet-log entry in `sharpee` — and the owner of that language is also the
 owner of this port.
+
+## Re-read against Chord 4.0.1 (2026-11-10)
+
+Everything above was written against Chord 3.6.0 (Sharpee 5.4.1). The port now
+consumes `@sharpee/devkit` 5.6.0, which carries Chord 4.0.1. This section
+records what that changes. Grammar references are to
+`sharpee/packages/chord/chord.ebnf` on `main` at `ad4094967`; "spiked" means
+built and played here on the published 5.6.0, and anything not spiked says so.
+
+**Closed**
+
+- **G9, same printed name.** Closed by the `room name:` block (ebnf line 1354).
+  Spiked: `spikes/room-name/` (three rooms heading `Mine`, a three-room group
+  heading the maze line). Detail in `chord-gap-g9.md`.
+- **IN and OUT as exits.** The meta-command table above sends IN and OUT to
+  `going`, but 3.6.0 had no `in`/`out` exit directions, which this document
+  missed. 4.0 added them (sharpee GH #568). Not spiked here.
+- **DOOR and BARRIER.** The two pseudo-direction columns have a direct target
+  now: a `passage … end passage` block (ebnf line 1419), an exit the player
+  takes by typing its command, with its own `while`, `blocked` and `deadly`
+  lines. This replaces "custom direction vocabulary" in the meta-command table.
+  Not spiked here.
+- **JUMP, LEAP, HOP, DIVE.** `jumping` is a stock verb in 4.0 that a room or
+  thing answers with a clause, so it no longer needs a `define action`. The
+  synonyms still need grammar. Not spiked here.
+
+**New in 4.0 that changes how Phase 3 is written**
+
+- **Room groups and exit tables.** `rooms <stem> <first> to <last>` in a region
+  (ebnf line 1368) declares the maze (61 to 71) and the dead ends (72 to 76)
+  once each, with their exits in an `exits, one-way` table (line 1397).
+  `sharpee/packages/chord/tests/fixtures/maze-sixteen.story` is this game's
+  rooms 61 to 76 written that way. A table row cannot carry a blocked or deadly
+  exit (`parse.exit-row-blocked`), so refusal-coded exits stay on the room.
+- **Every thing names its kind.** `create the Lamp` with no kind noun is
+  `analysis.missing-kind-noun`; all 45 objects need `a thing` or another kind.
+  Found by `spikes/toolchain-smoke/`, which is migrated and green again (4
+  cards passing, 7 assertions passing).
+- **Test trees are a directory.** `<id>.tests/` with a `manifest.json` and one
+  file per run of cards replaces the single `<id>.tests.json`. Phase 6's card
+  generator writes that shape. The old `toolchain-smoke.tests.json` is still
+  on disk and is read by nothing.
+
+**Unchanged: still no declarative target**
+
+- **G1, positional symmetry.** Patterns are still positional. Reversed
+  patterns per verb remain the route.
+- **G2, the map mutates at run time.** `exit` is still `DIRECTION to <name>`
+  (ebnf line 1453): a fixed destination. A blocked exit can be conditional
+  (`<dir> is blocked while <cond>`, line 940), which may cover room 58's
+  sealing; room 33's "south leads back where you came from" has no form.
+- **G3, the random visited room.** The only random place is still `a random
+  adjacent room` (line 2261), and no condition reads whether a room has been
+  visited.
+- **G4, the score-gated exit.** No conditional destination. Whether a
+  condition can read the score was not checked.
+- **G5, five-character truncation.** Unchanged; prefixes through `aka`.
+- **G6, the death loop** and **G7, the lamp timer.** Not re-examined beyond
+  the grammar: `kill the player`, `define timer` and `when … expires` are all
+  present, as they were in 3.6.0.
+
+**Not a gap: the original's short-name-on-revisit is brief mode, which Sharpee
+does not have by decision.** The original prints a room's long text on the
+first entry and on LOOK, and only its short name on a later entry (line 990).
+That is the teletype brief mode. Sharpee prints the heading and the description
+on every entry and every LOOK: `verbose` is always true
+(`sharpee/packages/stdlib/src/actions/standard/looking/looking-data.ts:143`,
+"the teletype-era brief/verbose modes are not a Sharpee feature", David,
+2026-10-12; `going.ts:662` the same), and the heading is one authored name
+printed wherever a room description is (sharpee ADR-349 D3). So each room is
+authored the plain way: the short name (line `room*100+50`) as its `room name`,
+the long text (line `room*100`) as its description. The port's output differs
+from the original on every first entry (a heading the original does not print)
+and every later entry (a description the original does not print); that is one
+deviation-ledger entry covering all 87 rooms, decided by the platform, not a
+choice this port makes. `spikes/seen-unseen/` tried the other route, the long
+text in a `first time` block with no description: a later entry then matches
+the original, but LOOK prints only the name and the compiler warns
+`analysis.room-no-description` on every room, so it is not the way to write it.
+An earlier draft of this section called this G10 and asked for a decision; the
+platform had already made it.
 
 ## Phase 3 entry state
 

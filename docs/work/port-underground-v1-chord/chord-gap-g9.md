@@ -1,7 +1,7 @@
 # Chord gap: an entity's identifier and its printed name cannot differ
 
 **Found:** 2026-09-14, porting UNDERGROUND V1 (1979) to Chord 3.6.0.
-**Status:** blocking Phase 3 of `docs/work/port-underground-v1-chord/plan.md`.
+**Status:** CLOSED 2026-11-10. Chord 4.0.1 (`@sharpee/devkit` 5.6.0) carries a `room name:` block, the shape of candidate 2 below: the `create` head stays the identifier and the block supplies the printed name. `spikes/room-name/room-name.story` builds gate-clean on the published 5.6.0 and plays: three rooms heading `Mine` and a three-room group heading `You are in a maze of twisty little passages, all alike.`, each walked with `sharpee play`. The original spike, `spikes/duplicate-names/`, still fails with `analysis.duplicate-entity`, as it should. Was: blocking Phase 3 of `docs/work/port-underground-v1-chord/plan.md`.
 **Written for:** the `sharpee` repo. This file is the evidence; the decision and
 any ratchet-log entry belong there.
 

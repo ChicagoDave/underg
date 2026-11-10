@@ -8,8 +8,8 @@
     "test": "sharpee build --test"
   },
   "devDependencies": {
-    "@sharpee/devkit": "5.4.1",
-    "@sharpee/platform-browser": "^5.4.1",
-    "@sharpee/sharpee": "^5.4.1"
+    "@sharpee/devkit": "5.6.0",
+    "@sharpee/platform-browser": "^5.6.0",
+    "@sharpee/sharpee": "^5.6.0"
   }
 }
