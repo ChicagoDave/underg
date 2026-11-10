@@ -1,0 +1,56 @@
+## The abandoned mine.
+
+## Room 24. LOOK.BAS 2400 and 2450.
+
+create the Mine Enterance
+  a room
+  room name:
+    Mine enterance
+  exits, one-way: northeast to the East-West Tunnel 22, southeast to the East-West Tunnel 21, up to the Mine 25, down to the Mine 25
+
+  You are at the enterance to an abandoned mine. Exits go NW and SW,{br}
+  and a dark mine corridor is below.
+
+## Room 25. LOOK.BAS 2500 and 2550.
+
+create the Mine 25
+  a room
+  room name:
+    Mine
+  exits, one-way: up to the Mine Enterance, down to the Mine 26
+
+  You are in a dark mine corridor.  the corridor continues{br}
+  up and down. The floor is a grating.
+
+## Room 26. LOOK.BAS 2600 and 2650.
+
+create the Mine 26
+  a room
+  room name:
+    Mine
+  exits, one-way: up to the Mine 25, down to the Mine 27
+
+  You are in a dark mine corridor.  the corridor continues{br}
+  up and down. The floor is a grating.
+
+## Room 27. LOOK.BAS 2700 and 2750.
+
+create the Mine 27
+  a room
+  room name:
+    Mine
+  exits, one-way: up to the Mine 26, down to the Carbide Room
+
+  You are in a dark mine corridor.  the corridor continues{br}
+  up and down. The floor is a grating.
+
+## Room 28. LOOK.BAS 2800 and 2850.
+
+create the Carbide Room
+  a room
+  room name:
+    Carbide room
+  exits, one-way: up to the Mine 27, out to the Mine 27
+
+  This room is the bottom of the mine. The ground contains{br}
+  deposits of carbide (CaC) and gold.The only exit is up.

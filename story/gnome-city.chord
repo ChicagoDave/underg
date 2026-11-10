@@ -1,0 +1,73 @@
+## The City of Gnome.
+
+## Room 78. LOOK.BAS 7800 and 7850.
+
+create the Gate
+  a room
+  room name:
+    Gate
+  exits, one-way: north to the City of Gnome, south to the Sphere Room
+
+  You are at the gate of the City of Gnome, one of the three{br}
+  ancient underground cities. On your west is a steep cliff.
+
+## Room 79. LOOK.BAS 7900 and 7950.
+
+create the City of Gnome
+  a room
+  room name:
+    City of Gnome
+  exits, one-way: north to the Alaska Room, east to the Closet 80, south to the Gate
+
+  You are in the City of Gnome.There are passages north and south.
+
+## Room 80. LOOK.BAS 8000 and 8050.
+
+create the Closet 80
+  a room
+  room name:
+    Closet
+  exits, one-way: west to the City of Gnome, out to the City of Gnome
+
+  You are in one of the closets in the City of Gnome.
+
+## Room 81. LOOK.BAS 8100 and 8150.
+
+create the Closet 81
+  a room
+  room name:
+    Closet
+  exits, one-way: south to the Room 83, out to the Room 83
+
+  You are in one of the closets in the City of Gnome.
+
+## Room 82. LOOK.BAS 8200 and 8250.
+
+create the Alaska Room
+  a room
+  room name:
+    Alaska room
+  exits, one-way: north to the Room 84, south to the City of Gnome
+
+  This is the Alaska room. The temperature is a balmy 40 degrees{br}
+  below zero (233 degrees Kelvin).
+
+## Room 83. LOOK.BAS 8300 and 8350.
+
+create the Room 83
+  a room
+  room name:
+    This room has exits NW and North.
+  exits, one-way: north to the Closet 81, northwest to the Room 84
+
+  This room has exits NW and North.
+
+## Room 84. LOOK.BAS 8400 and 8450.
+
+create the Room 84
+  a room
+  room name:
+    You are in a room with exits S and SE.
+  exits, one-way: west to the Alaska Room, northwest to the Room 83
+
+  You are in a room with exits S and SE.

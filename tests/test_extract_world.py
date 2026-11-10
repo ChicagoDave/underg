@@ -176,6 +176,26 @@ class WorldExtractionTests(unittest.TestCase):
             )
         self.assertEqual(self.world["objects"][32]["inventory_name"], "Cat on leash.")
 
+    def test_a_printing_line_runs_on_into_the_next_line(self) -> None:
+        """DOES: follow a room's text across a line with no closing goto.
+
+        LOOK.BAS 5400 prints four strings and has no goto; 5401 prints the
+        fifth and then jumps. Likewise 5700 and 5701. Stopping at the first
+        line left both signs open-quoted. The expected endings are read off
+        lines 5401 and 5701 of the 1979 source."""
+        city = self.world["rooms"][54]["description"]
+        self.assertEqual(len(city), 5)
+        self.assertEqual(city[-1], '           on this road."')
+        vault = self.world["rooms"][57]["description"]
+        self.assertEqual(len(vault), 4)
+        self.assertEqual(
+            vault[-1],
+            '        anyone who attemps to open it will be immediately removed."',
+        )
+        # A line that does close with a goto must not run on: room 39's text
+        # ends at its own third string, not at room 39's short name on 3950.
+        self.assertEqual(self.world["rooms"][39]["description"][-1], '"GET ME OUT OF HERE!!!"')
+
     def test_a_short_data_block_is_rejected(self) -> None:
         """REJECTS WHEN: the DATA block is not exactly 1263 values.
 

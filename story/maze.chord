@@ -1,0 +1,36 @@
+## The maze, rooms 61 to 76: eleven rooms that print the same line and
+## five dead ends. Each kind is declared once; the 1979 exits are a one-way
+## table, because the matrix gives no exit a way back.
+
+create the Maze
+  a region
+
+  rooms Maze 61 to 71
+    room name:
+      You are in a maze of twisty little passages, all alike.
+
+    You are in a maze of twisty little passages, all alike.
+
+  rooms Dead End 72 to 76
+    room name:
+      Dead end.
+
+    Dead end.
+
+  exits, one-way
+    the Maze 61: east to the Maze 62, west to the Maze 63, south to the Sphere Room
+    the Maze 62: north to the Maze 63, east to the Dead End 73, west to the Maze 61, south to the Dead End 72
+    the Maze 63: north to the Maze 64, east to the Maze 62, west to the Maze 67, south to the Maze 61
+    the Maze 64: east to the Maze 65, west to the Maze 64, south to the Maze 63
+    the Maze 65: east to the Maze 66, west to the Maze 64
+    the Maze 66: north to the Maze 66, east to the Maze 66, west to the Maze 66, south to the Maze 66, up to the Maze 65, down to the Dead End 74
+    the Maze 67: north to the Maze 68, east to the Maze 70, west to the Maze 63
+    the Maze 68: north to the Maze 69, east to the Maze 67, west to the Maze 68, south to the Maze 68
+    the Maze 69: north to the Dark Room, west to the Maze 68
+    the Maze 70: north to the Dead End 75, south to the Maze 67
+    the Maze 71: north to the Maze 71, east to the Dead End 76, west to the Maze 70, south to the Dead End 75
+    the Dead End 72: north to the Maze 62, out to the Maze 62
+    the Dead End 73: west to the Maze 62, out to the Maze 62
+    the Dead End 74: down to the Dead End 74, out to the Dead End 74
+    the Dead End 75: north to the Maze 71, out to the Maze 71
+    the Dead End 76: west to the Maze 71, out to the Maze 71

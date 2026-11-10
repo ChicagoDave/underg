@@ -293,6 +293,27 @@ the original, but LOOK prints only the name and the compiler warns
 An earlier draft of this section called this G10 and asked for a decision; the
 platform had already made it.
 
+## Found while authoring the world (Phase 3, 2026-11-10)
+
+Spiked in `spikes/world-shape/` on the published 5.6.0. The first four are
+candidates for the `sharpee` ratchet log; how the port lives with each is in
+`deviation-ledger-draft.md`.
+
+- **One `phrase present` per thing**, even with different `while` gates
+  (`analysis.duplicate-phrase`). Seven objects need two.
+- **A `present` line shows for a thing the player is holding.** Presence is
+  "somewhere in the player's room". Gating on `not the player holds …` fixes it.
+- **A takeable thing with a `present` line is still put in the contents list**,
+  so it is announced twice. No construct removes the list for it.
+- **A leading `{br}` in a `present` line is stripped**, so a presence line
+  cannot start on its own line.
+- **Confirmed working, no longer "not spiked":** `in` and `out` exits, an exit
+  to the room itself, `passage` blocks for DOOR and BARRIER (blocked ones
+  included), `import` of region files, a thing with no placement.
+- **A decode defect, fixed:** the extractor stopped at a printing line with no
+  closing `goto`, so rooms 54 and 57 lost their last line. `world.json` now
+  carries both; the suite is 13 extractor tests, not 12.
+
 ## Phase 3 entry state
 
 Rooms, exits, room text, and object placements are decoded and verified.

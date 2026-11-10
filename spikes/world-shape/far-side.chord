@@ -1,0 +1,9 @@
+## Q11: a region file pulled in by `import`.
+
+create the Far Side
+  a room
+  room name:
+    You are on the far side of the chasm. A passage goes east to west.
+  exits, one-way: out to the Top of Ramp
+
+  You are on the far side of the chasm. A passage goes east to west.

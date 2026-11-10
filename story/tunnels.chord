@@ -1,0 +1,128 @@
+## The tunnels under the cave mouth, down to the bog and the ramp.
+
+## Room 10. LOOK.BAS 1000 and 1050.
+
+create the Observation Platform
+  a room
+  room name:
+    Observation platform
+  exits, one-way: down to the Stair Room
+
+  You are standing on an observation platform overlooking a{br}
+  forest with both a lake and a building.
+
+## Room 11. LOOK.BAS 1100 and 1150.
+
+create the Light Room
+  a room
+  room name:
+    Light room
+  exits, one-way: northeast to the Top of Ramp, out to the Mine 27
+
+  You are in a room with white,glowing chemicals on the walls.{br}
+  The room is filled with a blinding light.There is an exit NE.
+
+## Room 15. LOOK.BAS 1500 and 1550.
+
+create the Tunnel
+  a room
+  room name:
+    Tunnel
+  exits, one-way: north to the Junction of Tunnels, south to the Cave Enterance, up to the Cave Enterance, down to the Junction of Tunnels, in to the Junction of Tunnels, out to the Cave Enterance
+
+  You are in a dark north-south tunnel.
+
+## Room 16. LOOK.BAS 1600 and 1650.
+
+create the Junction of Tunnels
+  a room
+  room name:
+    Junction of tunnels
+  exits, one-way: north to the Elevator, east to the East-West Tunnel 21, west to the Control Room, south to the Tunnel, northeast to the East-West Tunnel 22, southwest to the Diagonal Passage, up to the Tunnel
+
+  You are at the junction of three tunnels, bearings N-S,{br}
+  E-W, and NE-SW.
+
+## Room 17. LOOK.BAS 1700 and 1750.
+
+create the Diagonal Passage
+  a room
+  room name:
+    Diagonal passage
+  exits, one-way: northeast to the Junction of Tunnels, southwest to the Top of Ramp
+
+  You are in a diagonal (NE-SW) passage.
+
+## Room 18. LOOK.BAS 1800 and 1850.
+
+create the Top of Ramp
+  a room
+  room name:
+    Top of ramp.
+  exits, one-way: north to the Light Room, east to the Diagonal Passage, south to the Edge of Bog, southeast to the North of Door, southwest to the Cave Exit, down to the Cave Exit, out to the Cave Exit
+
+  You are in a room at the top of a long, steep ramp.{br}
+  Passages lead north,south,east, and SE.
+
+## Room 19. LOOK.BAS 1900 and 1950.
+
+create the North of Door
+  a room
+  room name:
+    North of door
+  exits, one-way: north to the Top of Ramp
+  south is blocked: door-is-closed
+  in is blocked: door-is-closed
+  out is blocked: door-is-closed
+
+  passage to the North of Door
+    grammar
+      door
+    blocked: door-is-closed
+  end passage
+
+  You are at the north end of a large door.{br}
+  The door is locked.
+
+## Room 20. LOOK.BAS 2000 and 2050.
+
+create the Edge of Bog
+  a room
+  room name:
+    Edge of bog
+  exits, one-way: northeast to the Top of Ramp
+  west is blocked: drown-yourself
+  south is blocked: drown-yourself
+  southwest is blocked: drown-yourself
+
+  You are at the edge of a large bog.A passage leads NE.
+
+## Room 21. LOOK.BAS 2100 and 2150.
+
+create the East-West Tunnel 21
+  a room
+  room name:
+    E/W tunnel
+  exits, one-way: east to the Mine Enterance, west to the Junction of Tunnels, up to the Stair Room
+
+  You are in an E/W tunnel with stairs going up.
+
+## Room 22. LOOK.BAS 2200 and 2250.
+
+create the East-West Tunnel 22
+  a room
+  room name:
+    E/W tunnel
+  exits, one-way: east to the Mine Enterance, west to the Junction of Tunnels, up to the Stair Room
+
+  You are in an E/W tunnel with stairs going up.
+
+## Room 23. LOOK.BAS 2300 and 2350.
+
+create the Stair Room
+  a room
+  room name:
+    You are in a small room with stairs going north,south,and up.
+  exits, one-way: north to the East-West Tunnel 22, south to the East-West Tunnel 21, up to the Observation Platform
+
+  You are in a small room with stairs going north,south,and up.

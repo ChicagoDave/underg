@@ -1,0 +1,127 @@
+## The elevator, the sphere room and the spinning barrel.
+
+## Room 33. LOOK.BAS 3300 and 3350.
+
+create the Elevator
+  a room
+  room name:
+    Elevator
+
+  You are in an elevator.
+
+## Room 34. LOOK.BAS 3400 and 3450.
+
+create the Sphere Room
+  a room
+  room name:
+    Sphere room
+  exits, one-way: north to the Maze 61, east to the Barrel Enterance, west to the Mountain Passage, south to the Elevator, in to the Gate
+  down is blocked: cannot-reach-hole
+
+  passage to the Barrel Enterance
+    grammar
+      barrier
+  end passage
+
+  This room has the shape of a giant sphere, with holes in all of the{br}
+  major directions.
+
+## Room 35. LOOK.BAS 3500 and 3550.
+
+create the Barrel Enterance
+  a room
+  room name:
+    Enterance to empty barrel
+  exits, one-way: east to the Empty Barrel, west to the Sphere Room, down to the Empty Barrel
+
+  passage to the Empty Barrel
+    grammar
+      door
+  end passage
+
+  You are in a room to the west of an empty barrel-shaped room.
+
+## Room 36. LOOK.BAS 3600 and 3650.
+
+create the Empty Barrel
+  a room
+  room name:
+    Empty barrel
+  exits, one-way: north to the Barrel Exit, down to the Empty Barrel
+  east is blocked: barrel-spins
+
+  passage to the Empty Barrel
+    grammar
+      door
+  end passage
+
+  You are in a large empty barrel.
+
+## Room 37. LOOK.BAS 3700 and 3750.
+
+create the Barrel Exit
+  a room
+  room name:
+    Exit from empty barrel
+  exits, one-way: northwest to the East End of Cylindrical Room, out to the East End of Cylindrical Room
+  west is blocked: barrel-spins
+  in is blocked: barrel-spins
+
+  passage to the Barrel Exit
+    grammar
+      barrier
+    blocked: barrel-spins
+  end passage
+
+  You are east of the empty barrel.A passage goes NW.
+
+## Room 38. LOOK.BAS 3800 and 3850.
+
+create the Recording Studio
+  a room
+  room name:
+    Recording studio
+  exits, one-way: south to the East End of Cylindrical Room, out to the East End of Cylindrical Room
+
+  This is a former recording studio for Gnome Records L.T.D.
+
+## Room 39. LOOK.BAS 3900 and 3950.
+
+create the East End of Cylindrical Room
+  a room
+  room name:
+    E. end of cylindrical room
+  exits, one-way: north to the Recording Studio, east to the Barrel Exit, west to the West End of Cylindrical Room
+
+  You are at the east end of a long,cylindrical room{br}
+  with a passage to the north. Written here is{br}
+  "GET ME OUT OF HERE!!!"
+
+## Room 40. LOOK.BAS 4000 and 4050.
+
+create the West End of Cylindrical Room
+  a room
+  room name:
+    W. end of cylindrical room
+  exits, one-way: east to the East End of Cylindrical Room
+  up is blocked: cannot-reach-hole
+
+  passage to the Sphere Room
+    grammar
+      barrier
+  end passage
+
+  You are at the west end of the cylindrical room,{br}
+  with a hole on the ceiling. There is an empty barrel fastened{br}
+  to the floor.
+
+## Room 77. LOOK.BAS 7700 and 7750.
+
+create the Dark Room
+  a room
+  room name:
+    Dark room
+  exits, one-way: down to the West End of Cylindrical Room
+
+  You are in an extremely dark room, filled with black gas{br}
+  which obscures your vision. There is a hole going down>

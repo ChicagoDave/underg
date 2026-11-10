@@ -1,0 +1,168 @@
+## Objects 16 to 32, the things that can be carried.
+
+## Object 16. Carried name: "Cat's leash.". Words: none.
+
+create the cat's leash
+  a thing
+  in the Closet 81
+
+  phrase present while not the player holds the cat's leash:
+    There is a cat's leash here.
+
+## Object 17. Carried name: "Electric lamp.". Words: LAMP.
+## Its line changes with state: lit, it is "There is a lit lamp here.". Phase 4.
+
+create the electric lamp
+  a thing, switchable, light-source
+  aka lamp
+  in the Building
+
+  phrase present while not the player holds the electric lamp:
+    There is an electric lamp here.
+
+## Object 18. Carried name: "Glass bottle.". Words: BOTTL.
+## Its line changes with state: without the water it is "There is an empty bottle here.". Phase 4.
+
+create the glass bottle
+  a thing
+  aka bottl, bottle
+  in the Building
+
+  phrase present while not the player holds the glass bottle:
+    There is a bottle of water here.
+
+## Object 19. Carried name: "Water in the bottle.". Words: WATER.
+## Its line changes with state: the bottle's line speaks for it; it has none of its own. Phase 4.
+
+create the water
+  a thing
+  in the Building
+
+## Object 20. Carried name: "Pair of sunglasses.". Words: SUNGL, GLASS.
+
+create the sunglasses
+  a thing
+  aka sungl, glass, glasses
+  in the Basement
+
+  phrase present while not the player holds the sunglasses:
+    There is a pair of sunglasses here.
+
+## Object 21. Carried name: "Rock.". Words: ROCK.
+
+create the rock
+  a thing
+  in the Path
+
+  phrase present while not the player holds the rock:
+    There is a rock here.
+
+## Object 22. Carried name: "Laser pistol.". Words: LASER, PISTO, GUN.
+
+create the laser pistol
+  a thing
+  aka laser, pisto, pistol, gun
+  in the Cave Enterance
+
+  phrase present while not the player holds the laser pistol:
+    There is a laser pistol here.
+
+## Object 23. Carried name: "Lump of coal.". Words: LUMP, COAL.
+
+create the lump of coal
+  a thing
+  aka lump, coal
+  in the Mine 26
+
+  phrase present while not the player holds the lump of coal:
+    There is a lump of coal here.
+
+## Object 24. Carried name: "Minuature sun in container.". Words: SUN.
+
+create the minuature sun
+  a thing
+  aka sun
+  in the Light Room
+
+  phrase present while not the player holds the minuature sun:
+    There is a minuature sun here.
+
+## Object 25. Carried name: "Radiation-proof container.". Words: CONTA.
+
+create the radiation-proof container
+  a thing
+  aka conta, container
+  in the Waiting Room
+
+  phrase present while not the player holds the radiation-proof container:
+    There is a radiation-proof container here.
+
+## Object 26. Carried name: "Space gloves.". Words: GLOVE.
+
+create the space gloves
+  a thing
+  aka glove, gloves
+  in the Waiting Room
+
+  phrase present while not the player holds the space gloves:
+    There is a pair of astronauts' gloves here.
+
+## Object 27. Carried name: "Remote-control box.". Words: BOX, BUTTO.
+
+create the remote-control box
+  a thing
+  aka box, butto, button
+  in the Control Room
+
+  phrase present while not the player holds the remote-control box:
+    There is a box here, with a button, marked "Spaceship Remote Control".
+
+## Object 28. Carried name: "Old skeleton's bone.". Words: BONE.
+
+create the bone
+  a thing
+  in the Maze 69
+
+  phrase present while not the player holds the bone:
+    There is a bone (probably from an old skeleton) here.
+
+## Object 29. Carried name: "Piece of cheese.". Words: CHEES.
+
+create the piece of cheese
+  a thing
+  aka chees, cheese
+  in the Maze 68
+
+  phrase present while not the player holds the piece of cheese:
+    There is a piece of cheese here.
+
+## Object 30. Carried name: "Penny.". Words: PENNY, COIN.
+
+create the penny
+  a thing
+  aka coin
+  in the Building
+
+  phrase present while not the player holds the penny:
+    There is a penny here.
+
+## Object 31. Carried name: "Dead rat.". Words: LEASH, RAT.
+## Its line changes with state: once fed it is "There is a dead rat here.". Phase 4.
+
+create the rat
+  a thing
+  aka leash
+  in the North-South Room
+
+  phrase present while not the player holds the rat:
+    There is a hungry rat here.
+
+## Object 32. Carried name: "Cat on leash.". Words: CAT.
+## Its line changes with state: once the rat is dead it is "there is a hungry cat here.". Phase 4.
+
+create the cat
+  a thing
+  in the Room 83
+
+  phrase present while not the player holds the cat:
+    There is a cat here.

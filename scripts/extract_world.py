@@ -76,6 +76,8 @@ DATA_RE = re.compile(r"^DATA(.*)$", re.IGNORECASE)
 # text contains a quoted phrase.
 PRINT_RE = re.compile(r"&\s*(\"([^\"]*)\"|'([^']*)')")
 GOTO_ONLY_RE = re.compile(r"^goto\s*(\d+)$", re.IGNORECASE)
+# A line whose last statement is a goto does not fall through to the next line.
+TRAILING_GOTO_RE = re.compile(r":\s*goto\s*\d+\s*$", re.IGNORECASE)
 # LOOK.BAS room lines run 100..8750; 10000 upward is the object sweep every
 # room description jumps to when it is done. So `goto10000` TERMINATES a room
 # line, and following it would give that room the object table's first line.
@@ -151,10 +153,16 @@ def _resolve_text(lines: dict[int, str], number: int, seen: frozenset[int] = fro
         return _resolve_text(lines, target, seen | {number})
 
     printed = [m.group(2) if m.group(2) is not None else m.group(3) for m in PRINT_RE.finditer(text)]
+    following = [n for n in sorted(lines) if n > number]
     if printed:
+        # A printing line that does not end in a goto runs on into the next
+        # numbered line, as any BASIC line does. Rooms 54 and 57 are this
+        # shape: 5400 prints four strings and 5401 prints the fifth before its
+        # `goto10000`. Stopping at 5400 cut the sign off mid-quotation.
+        if not TRAILING_GOTO_RE.search(text) and following:
+            return printed + _resolve_text(lines, following[0], seen | {number})
         return printed
 
-    following = [n for n in sorted(lines) if n > number]
     if following:
         return _resolve_text(lines, following[0], seen | {number})
     return []

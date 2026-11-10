@@ -906,7 +906,8 @@
         "You are in the center of the ancient city. there are enterable",
         "buildings on your east, west, and south. There is a path to the",
         "north, and a road goins NW, where it is written:",
-        "        \"You must have at least 380 points to travel"
+        "        \"You must have at least 380 points to travel",
+        "           on this road.\""
       ],
       "exits": {
         "north": 53,
@@ -954,7 +955,8 @@
       "description": [
         "You are standing south of the vault of the ancient city, which",
         "contains it's most valuable treasure. written on the vault:",
-        "        \"This vault is designed to keep out all human intruders."
+        "        \"This vault is designed to keep out all human intruders.",
+        "        anyone who attemps to open it will be immediately removed.\""
       ],
       "exits": {
         "east": 54,

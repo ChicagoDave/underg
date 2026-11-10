@@ -1,0 +1,146 @@
+## Objects 1 to 15, the treasures.
+
+## Object 1. Carried name: "Platinum wire.". Words: WIRE, COIL, PLATI.
+
+create the platinum wire
+  a thing
+  aka wire, coil, plati, platinum
+  in the Control Room
+
+  phrase present while not the player holds the platinum wire:
+    There is a coil of platinum wire here!
+
+## Object 2. Carried name: "Uranium in container.". Words: URANI.
+
+create the uranium
+  a thing
+  aka urani
+  in the Strange Planet
+
+  phrase present while not the player holds the uranium:
+    There is a pile of uranium here!
+
+## Object 3. Carried name: "Ancient statue.". Words: STATU.
+
+create the ancient statue
+  a thing
+  aka statu, statue
+
+  phrase present while not the player holds the ancient statue:
+    There is an ancient statue here!
+
+## Object 4. Carried name: "Gold nuggets.". Words: GOLD, NUGGE.
+
+create the gold nuggets
+  a thing
+  aka gold, nugge, nuggets, nugget
+
+  phrase present while not the player holds the gold nuggets:
+    There are gold nuggets here!
+
+## Object 5. Carried name: "Gold record.". Words: RECOR.
+
+create the gold record
+  a thing
+  aka recor, record
+  in the Recording Studio
+
+  phrase present while not the player holds the gold record:
+    There is a solid gold record here!
+
+## Object 6. Carried name: "Gold garbage can.". Words: CAN.
+
+create the gold garbage can
+  a thing
+  aka can
+  in the Garbage Dump
+
+  phrase present while not the player holds the gold garbage can:
+    There is a solid gold garbage can here!
+
+## Object 7. Carried name: "Gold pet's dish.". Words: DISH.
+
+create the gold pet's dish
+  a thing
+  aka dish
+  in the Closet 81
+
+  phrase present while not the player holds the gold pet's dish:
+    There is a gold pet's dish here!
+
+## Object 8. Carried name: "Gnomes' silver.". Words: SILVE.
+## Its line changes with state: in room 80 it is "There is silver in the safe!". Phase 4.
+
+create the Gnomes' silver
+  a thing
+  aka silve, silver
+
+  phrase present while not the player holds the Gnomes' silver:
+    There is silver here!
+
+## Object 9. Carried name: "Large diamonds.". Words: DIAMO.
+
+create the large diamonds
+  a thing
+  aka diamo, diamonds, diamond
+
+  phrase present while not the player holds the large diamonds:
+    There are large diamonds here!
+
+## Object 10. Carried name: "Gold telescope.". Words: TELES.
+
+create the gold telescope
+  a thing
+  aka teles, telescope
+  in the Observatory
+
+  phrase present while not the player holds the gold telescope:
+    There is a solid gold telescope here!
+
+## Object 11. Carried name: "Large emerald.". Words: EMERA.
+
+create the large emerald
+  a thing
+  aka emera, emerald
+  in the Chasm Rim
+
+  phrase present while not the player holds the large emerald:
+    There is a large emerald here!
+
+## Object 12. Carried name: "Rare coins.". Words: COINS.
+
+create the rare coins
+  a thing
+  aka coins
+
+  phrase present while not the player holds the rare coins:
+    There are rare coins here!
+
+## Object 13. Carried name: "Rare stamps.". Words: STAMP.
+
+create the rare stamps
+  a thing
+  aka stamp, stamps
+  in the Post Office
+
+  phrase present while not the player holds the rare stamps:
+    There are rare stamps here!
+
+## Object 14. Carried name: "Black pearl.". Words: PEARL.
+
+create the black pearl
+  a thing
+  aka pearl
+  in the Dark Room
+
+  phrase present while not the player holds the black pearl:
+    There is a black pearl here!
+
+## Object 15. Carried name: "Golden key.". Words: KEY.
+
+create the golden key
+  a thing
+  aka key
+
+  phrase present while not the player holds the golden key:
+    There is a golden key here!

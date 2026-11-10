@@ -1,0 +1,66 @@
+## The ancient spaceport, the spaceship and where it lands.
+
+## Room 13. LOOK.BAS 1300 and 1350.
+
+create the Observatory
+  a room
+  room name:
+    Observatory
+  exits, one-way: east to the Waiting Room, out to the Waiting Room
+
+  This was an observatory for the people of the ancient cities.
+
+## Room 14. LOOK.BAS 1400 and 1450.
+
+create the Spaceship
+  a room
+  room name:
+    Spaceship
+  exits, one-way: in to the Strange Planet, out to the Strange Planet
+
+  You are in spaceship lit by red and blue lights on it's{br}
+  sides. The spaceship's manual controls are damaged.
+
+## Room 29. LOOK.BAS 2900 and 2950.
+
+create the Control Room
+  a room
+  room name:
+    Control room
+  exits, one-way: west to the Waiting Room, southeast to the Junction of Tunnels
+
+  This room was once the control room for an ancient spaceport.{br}
+  There are cspace maps, tracking devices, and other{br}
+  intricate devices on the walls.
+
+## Room 30. LOOK.BAS 3000 and 3050.
+
+create the Waiting Room
+  a room
+  room name:
+    Waiting room
+  exits, one-way: north to the Observatory, west to the Launching Area, northeast to the Control Room, in to the Waiting Room
+
+  This was a waiting room for passengers on spaceships.{br}
+  There are doors to the north,west,and NE.
+
+## Room 31. LOOK.BAS 3100 and 3150.
+
+create the Launching Area
+  a room
+  room name:
+    Launching area
+  exits, one-way: east to the Waiting Room, out to the Waiting Room
+
+  You are on a launching area for spaceships.
+
+## Room 32. LOOK.BAS 3200 and 3250.
+
+create the Strange Planet
+  a room
+  room name:
+    Strange planet
+  exits, one-way: in to the Spaceship
+  out is deadly: cyanide-atmosphere
+
+  You are on a building on some strange planet. A door goes out.

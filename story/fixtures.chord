@@ -1,0 +1,123 @@
+## Objects 33 to 45, the fixtures and creatures. None can be carried.
+
+## Object 33. No carried name. Words: WOMAN, GIRL, PERSO, FEMAL.
+
+create the woman
+  a thing, scenery
+  aka girl, perso, person, femal, female
+
+  phrase present:
+    There is a woman standing here.
+
+## Object 34. No carried name. Words: VAULT.
+## Its line changes with state: opened, it is "The vault is open.". Phase 4.
+
+create the vault
+  a thing, scenery
+  in the Vault of City
+
+  phrase present:
+    The vault is closed.
+
+## Object 35. No carried name. Words: DWARF.
+
+create the dwarf
+  a thing, scenery
+  in the Dwarf City
+
+  phrase present:
+    A dwarf guards the way north.
+
+## Object 36. No carried name. Words: DOG.
+
+create the dog
+  a thing, scenery
+  in the Room 84
+
+  phrase present:
+    There is a dog lying on the floor.
+
+## Object 37. No carried name. Words: GNOME.
+
+create the Gnome
+  a thing, scenery
+  in the Gate
+
+  phrase present:
+    A Gnome is here.
+
+## Object 38. No carried name. Words: SAFE.
+
+create the safe
+  a thing, scenery
+  in the Closet 80
+
+  phrase present:
+    There is a safe here.
+
+## Object 39. No carried name. Words: MESSA.
+
+create the message
+  a thing, scenery
+  aka messa
+  in the City of Gnome
+
+  phrase present:
+    There is a message written here.
+
+## Object 40. No carried name. Words: ICE.
+
+create the ice
+  a thing, scenery
+  in the Alaska Room
+
+  phrase present:
+    The floor of this room is covered with ice.
+
+## Object 41. No carried name. Words: ROBOT.
+
+create the robot
+  a thing, scenery
+  in the Junction of Tunnels
+
+  phrase present:
+    There is a robot here.
+
+## Object 42. No carried name. Words: CART, WAGON.
+
+create the cart
+  a thing, scenery
+  aka wagon
+  in the Edge of Bog
+
+  phrase present:
+    There is a cart here.
+
+## Object 43. No carried name. Words: LEVER, SWITC.
+
+create the lever
+  a thing, scenery
+  aka switc, switch
+  in the Elevator
+
+  phrase present:
+    There is a lever on the wall.
+
+## Object 44. No carried name. Words: COMPU.
+
+create the computer
+  a thing, scenery
+  aka compu
+  in the Control Room
+
+  phrase present:
+    The north wall of this room is a giant computer.
+
+## Object 45. No carried name. Words: WALL.
+
+create the wall
+  a thing, scenery
+  in the Room 86
+
+  phrase present:
+    The north wall looks vulnerable.

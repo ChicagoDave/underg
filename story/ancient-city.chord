@@ -1,0 +1,124 @@
+## The ancient city, its vault, and the rooms past the space warp.
+
+## Room 53. LOOK.BAS 5300 and 5350.
+
+create the City Enterance
+  a room
+  room name:
+    Enterance to city
+  exits, one-way: north to the Hall of Doors, northeast to the City, out to the City
+
+  passage to the Hall of Doors
+    grammar
+      door
+  end passage
+
+  You are at the enterance to a large and beautiful ancient city.
+
+## Room 54. LOOK.BAS 5400 and 5450.
+
+create the City
+  a room
+  room name:
+    City
+  exits, one-way: north to the City Enterance, south to the Vault of City, northeast to the Space Warp Enterance, northwest to the Post Office
+
+  You are in the center of the ancient city. there are enterable{br}
+  buildings on your east, west, and south. There is a path to the{br}
+  north, and a road goins NW, where it is written:{br}
+  "You must have at least 380 points to travel{br}
+  on this road."
+
+## Room 54, southeast: code -10, not authored here. Line 3090 gates on score: above 380 points the destination is room 86, otherwise the woman ends the game outright.
+
+## Room 55. LOOK.BAS 5500 and 5550.
+
+create the Post Office
+  a room
+  room name:
+    This was the post office for the ancient city.
+  exits, one-way: south to the City
+
+  This was the post office for the ancient city.
+
+## Room 56. LOOK.BAS 5600 and 5650.
+
+create the Space Warp Enterance
+  a room
+  room name:
+    Space warp enterance
+  exits, one-way: north to the City, northeast to the Square Room, in to the Square Room
+
+  You are at the south edge of the city. On your south is a{br}
+  space warp, used for instant transportation in the city long ago.
+
+## Room 57. LOOK.BAS 5700 and 5750.
+
+create the Vault of City
+  a room
+  room name:
+    Vault of city
+  exits, one-way: east to the City, south to the Square Room
+
+  You are standing south of the vault of the ancient city, which{br}
+  contains it's most valuable treasure. written on the vault:{br}
+  "This vault is designed to keep out all human intruders.{br}
+  anyone who attemps to open it will be immediately removed."
+
+## Room 58. LOOK.BAS 5800 and 5850.
+
+create the Square Room
+  a room
+  room name:
+    You are in a perfectly square room with exits in four directions.
+  exits, one-way: north to the One-Exit Passage 59, east to the Room 85, west to the One-Exit Passage 60
+  south is deadly: inside-volcano
+
+  You are in a perfectly square room with exits in four directions.
+
+## Room 59. LOOK.BAS 5900 and 5950.
+
+create the One-Exit Passage 59
+  a room
+  room name:
+    You are in a passage with only one exit.
+  exits, one-way: north to the Observation Platform
+  northeast is blocked: passage-blocked
+
+  You are in a passage with only one exit.
+
+## Room 60. LOOK.BAS 6000 and 6050.
+
+create the One-Exit Passage 60
+  a room
+  room name:
+    You are in a passage with only one exit.
+  east is blocked: passage-blocked
+
+  You are in a passage with only one exit.
+
+## Room 60, west: code -9, not authored here. Line 2960 draws a random room 1-85 that the player has already visited and moves them there.
+
+## Room 85. LOOK.BAS 8500 and 8550.
+
+create the Room 85
+  a room
+
+## Room 86. LOOK.BAS 8600 and 8650.
+
+create the Room 86
+  a room
+  room name:
+    You are in a room which exits to the south.
+  exits, one-way: west to the City
+
+  You are in a room which exits to the south.
+
+## Room 87. LOOK.BAS 8700 and 8750.
+
+create the Room 87
+  a room
+  room name:
+    You are in a room with four walls and no exits.
+
+  You are in a room with four walls and no exits.

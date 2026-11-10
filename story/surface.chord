@@ -1,0 +1,122 @@
+## The surface: the building, the forest paths and the lake.
+
+## Room 1. LOOK.BAS 100 and 150.
+
+create the Building
+  a room
+  room name:
+    Building
+  exits, one-way: east to the Outside Building, down to the Basement, out to the Outside Building
+
+  passage to the Outside Building
+    grammar
+      door
+  end passage
+
+  You are in a one-room building.Stairs lead down.
+
+## Room 2. LOOK.BAS 200 and 250.
+
+create the Basement
+  a room
+  room name:
+    Basement
+  exits, one-way: up to the Building
+  north is blocked: door-is-closed
+  in is blocked: door-is-closed
+  out is blocked: door-is-closed
+
+  passage to the Basement
+    grammar
+      door
+    blocked: door-is-closed
+  end passage
+
+  This is the basement of the building.To the north is a great door{br}
+  which appears to be locked from the other side.
+
+## Room 3. LOOK.BAS 300 and 350.
+
+create the Path
+  a room
+  room name:
+    Path
+  exits, one-way: north to the Forest 7, east to the Lake Shore, west to the Cave Enterance, south to the Outside Building
+
+  You are on a path which winds through the forest.The path{br}
+  here bends from south to west.
+
+## Room 4. LOOK.BAS 400 and 450.
+
+create the Cave Enterance
+  a room
+  room name:
+    cave enterance
+  exits, one-way: north to the Tunnel, south to the Path, down to the Tunnel, in to the Tunnel, out to the Path
+
+  The path here goes into a cave tunnel.It exits to the south.
+
+## Room 5. LOOK.BAS 500 and 550.
+
+create the Cave Exit
+  a room
+  room name:
+    cave exit
+  exits, one-way: north to the Outside Building, east to the Forest 7, west to the Path, south to the Forest 6
+  up is blocked: cant-get-up-ramp
+  down is blocked: cant-get-up-ramp
+  in is blocked: cant-get-up-ramp
+
+  You are in the forest.To the west is the exit to a cave,{br}
+  with a steep ramp preventing entry into the cave.
+
+## Room 6. LOOK.BAS 600 and 650.
+
+create the Forest 6
+  a room
+  room name:
+    Forest.
+  exits, one-way: north to the Lake Shore, east to the Cave Exit, west to the Outside Building, south to the Forest 7
+
+  you are in a dense forest, with trees all around.
+
+## Room 7. LOOK.BAS 700 and 750.
+
+create the Forest 7
+  a room
+  room name:
+    Forest.
+  exits, one-way: north to the Path, east to the Forest 7, west to the Cave Exit, south to the Forest 6
+
+  you are in a dense forest, with trees all around.
+
+## Room 8. LOOK.BAS 800 and 850.
+
+create the Outside Building
+  a room
+  room name:
+    Outside building
+  exits, one-way: north to the Path, east to the Forest 6, west to the Building, south to the Cave Exit, in to the Building
+
+  passage to the Building
+    grammar
+      door
+  end passage
+
+  you are on a path which winds north into a dense forest.{br}
+  The west end of the path goes into a small building.
+
+## Room 9. LOOK.BAS 900 and 950.
+
+create the Lake Shore
+  a room
+  room name:
+    Lake shore
+  exits, one-way: west to the Path, south to the Forest 6
+  north is blocked: drown-yourself
+  east is blocked: drown-yourself
+  northeast is blocked: drown-yourself
+  down is blocked: drown-yourself
+  in is blocked: drown-yourself
+
+  You are on the southwest shore of a small lake.

@@ -1,0 +1,20 @@
+## What the game says when a way is refused or fatal. One key per code of
+## UNDERG.BAS line 2870; the texts are lines 2880 to 2950.
+
+define phrases en-US
+  door-is-closed:
+    The door is closed.
+  drown-yourself:
+    I wouldn't advise you to drown yourself.
+  cant-get-up-ramp:
+    You can't get up the ramp.
+  barrel-spins:
+    The barrel's spinning motion prevents you from moving this way.
+  cannot-reach-hole:
+    You cannot reach the hole.
+  cyanide-atmosphere:
+    You are on the surface on the planet, which has an atmosphere of cyanide gas.
+  passage-blocked:
+    This passage has been somehow blocked.
+  inside-volcano:
+    You are INSIDE an active volcano. Lava flies about in all directions.
