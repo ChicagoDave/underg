@@ -1,7 +1,7 @@
 # Session Plan: Port UNDERGROUND V1 (1979 BASIC-PLUS) to Chord, gated on branch-tester parity
 
 **Created**: 2026-09-14
-**Plan Status**: ACTIVE
+**Plan Status**: ABANDONED (2026-11-10, owner ruling, session c1f744: "abandon the current plan" - the port was judged very bad and the work taken back to ../sharpee; a new port waits on a new Chord version and a code-generation primer)
 **Overall scope**: Port Gary Kleppe's UNDERGROUND V1 (RSTS/E BASIC-PLUS, 14-Mar-79) — 87 rooms x 14-column exit/attribute matrix, 45 object placements, ~20 parser verbs, all text — to Chord (Sharpee monorepo; **language version 3.6.0**, which is versioned separately from the `@sharpee/*` package lockstep — `packages/chord` v5.4.1 is the compiler's package version, not the language's), producing the branch-stories deliverable shape (`.story` entry, per-region `.chord` files, `.config.json` with IFID, `.tests.json` cards) with a deviation ledger recording every place Chord cannot reproduce the original's wording. Acceptance is gated on `@sharpee/branch-tester` running a card corpus generated from `bplus.c` (the verified BASIC-PLUS interpreter oracle), not on hand-written assertions.
 **Bounded contexts touched**: N/A — this is a content/language port (world data + parser-verb semantics into a story-authoring DSL), not domain-driven service work. Framed in plain technical terms per the "DDD does not apply" checklist (infrastructure/content-port shape, no bounded-context model in play).
 **Key domain language**: N/A (plain technical framing chosen; IF/Chord terms — room, exit, object, verb, deviation ledger, card, oracle — are used because they are what the source material and target language call these things, not as DDD artifacts).
@@ -157,7 +157,7 @@ the line-975 restoration stays recorded as upstream, separate from both.
 - **Entry state**: `underg.story` builds; the oracle (Phase 1) is trusted and scriptable.
 - **Deliverable**: a script/tool that drives `bplus.c` with scripted command sequences, captures its real output, and converts that output into `opening`/`boot`/`turn` cards (`contains`/`notContains`/`states` assertions, `branches` where V1's paths diverge) — never hand-written prose. An initial corpus covering the main walkthrough plus the highest-value branches, scaled against the existing worked examples (fernhill 84 turns, ides-of-march 37, secret-letter 564) — Underground's 87-room scale suggests a corpus toward the secret-letter end of that range.
 - **Exit state**: the generation tooling exists and is reusable; a first run of `underg.tests.json` against the Chord port produces a baseline pass/fail report (not required to be green yet).
-- **Status**: CURRENT (since 2026-11-10)
+- **Status**: ABANDONED (2026-11-10, not started)
 
 ### Phase 7: Parity closure
 - **Tier**: Large
@@ -166,4 +166,4 @@ the line-975 restoration stays recorded as upstream, separate from both.
 - **Entry state**: Phase 6's baseline report exists, naming every current mismatch.
 - **Deliverable**: iterate the `.chord` files and/or the card corpus (expanding coverage where the baseline found gaps) until the full `underg.tests.json` card set passes under branch-tester; every remaining, unavoidable difference from the original recorded as a final deviation-ledger entry with its reason; a closing note comparing this port's scale (rooms, verbs, cards) against the worked examples it followed.
 - **Exit state**: the branch-tester parity gate passes; the deviation ledger is complete and closed; the port meets the acceptance gate stated in the goal.
-- **Status**: PENDING
+- **Status**: ABANDONED (2026-11-10, not started)
