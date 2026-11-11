@@ -1,7 +1,11 @@
 # Deviation ledger: running draft
 
 Started in Phase 3 (2026-11-10), against Chord 4.0.1 on `@sharpee/devkit`
-5.6.0. Phase 5 turns this into the ledger in the `underg.story` header.
+5.6.0. Since Phase 5 (2026-11-10) the ledger is the header of
+`story/underg.story`, one short entry per L number; this file keeps the longer
+note behind each number and what was spiked or compared. A new deviation gets
+a number in both, and `tests/test_story_assembly.py` fails when the two lists
+differ.
 
 Under the governing principle in `plan.md`, an entry here is one thing only: a
 place where the port's output or world differs from the 1979 program because
@@ -189,6 +193,19 @@ not.
 
 **L-18. BARRE and BARRIER.** The original's word is BARRE; both are taken.
 
+**L-19. Room 85 prints "Nameless Room".** The original prints nothing at all
+in room 85 (O-7). A room with no `room name:` block shows the name it was
+created under, so the port prints that one line on entry and on LOOK. Seen in
+play, Phase 5 (the square room, E, LOOK), against the oracle's silence for the
+same commands. An empty `room name:` block was not tried.
+
+**L-20. The words a thing answers to.** The original reads the first five
+letters of a noun (G5) and so takes any word beginning with them. Each thing
+here answers to the original's stubs and to the whole word each stands for
+(`plati` and `platinum`), not to every word with that beginning. The names the
+things were created under also answer, which admits words the original does
+not have.
+
 Not written:
 - The random exit west of room 60 (G3): nothing reads whether a room has been
   visited.
@@ -214,11 +231,9 @@ Not written:
 
 ## Still open from Phase 3
 
-- **Words.** Each thing answers to the original's words and to the whole word
-  each five-letter stub stands for (`plati` and `platinum`). The entity names
-  also answer, which admits words the original does not have.
+- **Words.** Now L-20.
 - **The water** (object 19) starts in room 1 beside the bottle, as the data
-  has it, and so is listed as "a water".
+  has it, and so is listed as "a water". Part of L-4.
 - **Fixtures and creatures** are all `a thing, scenery`; none is `a person`.
   The verbs written so far did not need them to be.
-- **Room 85's heading** has still not been looked at in play.
+- **Room 85's heading.** Looked at in Phase 5; now L-19.
