@@ -136,5 +136,63 @@ class WalksEndWhereTheOriginalDoes(unittest.TestCase):
         self.assertEqual(got, want)
 
 
+class CorrectedSlips(unittest.TestCase):
+    """O-1 and O-8 to O-11: five places where the port does what the 1979 line
+    evidently meant, by owner rulings of 2026-11-10. Each test shows both
+    halves: the oracle still has the slip, and the port has the correction. If
+    the oracle half ever fails, the source or the interpreter changed and the
+    ruling needs looking at again."""
+
+    def test_fill_at_the_lake_puts_the_water_back_in_hand(self) -> None:
+        walk = ["W", "TAKE BOTTLE", "E", "N", "E", "POUR", "FILL"]
+        oracle = oracle_run.run([*walk, "INVEN"]).splitlines()
+        self.assertEqual(oracle[-1], "Nothing happens.", "the original stops dead at FILL")
+        replies = story_run.run([*walk, "INVEN"])
+        self.assertEqual(replies[-3][1], ["Nothing happens."])
+        self.assertEqual(replies[-2][1], ["Done."])
+        self.assertEqual(replies[-1][1], ["Glass bottle.", "Water in the bottle."])
+
+    def test_fill_away_from_water_is_still_refused(self) -> None:
+        walk = ["W", "TAKE BOTTLE", "FILL"]
+        self.assertEqual(oracle_run.run(walk).splitlines()[-1], "With what? Saliva?")
+        self.assertEqual(story_run.run(walk)[-1][1], ["With what? Saliva?"])
+
+    def test_jump_in_an_ordinary_room_does_nothing(self) -> None:
+        oracle = oracle_run.run(["JUMP", "LOOK"]).splitlines()
+        self.assertEqual(oracle[-1], "The laser beam strikes it's target and disintegrates it.")
+        replies = story_run.run(["JUMP", "LOOK"])
+        self.assertEqual(replies[1][1], ["Nothing happens."])
+        self.assertEqual(replies[2][1][0], "Outside building", "and the game goes on")
+
+    def test_the_legend_is_on_the_penny_not_the_water(self) -> None:
+        walk = ["W", "TAKE PENNY", "TAKE BOTTLE", "READ PENNY", "READ WATER"]
+        oracle = oracle_run.run(walk).splitlines()
+        self.assertEqual(oracle[-5:], ["There is nothing written on it.", "In god we trust", "Liberty", "1979", ""])
+        replies = story_run.run(walk)
+        self.assertEqual(replies[-2][1], ["In god we trust", "Liberty", "1979"])
+        self.assertEqual(replies[-1][1], ["There is nothing written on it."])
+
+    TO_THE_RAT = ["W", "TAKE LAMP", "LIGHT", "E", "N", "W", "TAKE LASER", "IN", "N", "SHOOT", "N",
+                  "PUSH LEVER", "S", "W", "S", "SE", "W", "N", "N", "W"]
+
+    def test_a_hungry_rat_bites_when_you_walk_away(self) -> None:
+        """O-11. In the original you leave the rat's room unharmed; in the
+        port the hungry rat bites, and you wake in the basement."""
+        oracle = oracle_run.run([*self.TO_THE_RAT, "N"]).splitlines()
+        self.assertIn("garbage dump", oracle[-3])
+        replies = story_run.run([*self.TO_THE_RAT, "N", "INVEN"])
+        self.assertEqual(replies[-2][1][:3],
+                         ["As you walk away, the rat bites you and you die.", "You are dead.", "Basement"])
+        self.assertEqual(replies[-1][1], [], "everything carried went back to the building")
+
+    def test_leash_means_the_leash(self) -> None:
+        """O-1. In the original TAKE LEASH is aimed at the rat ("Don't be
+        stupid."); in the port the rat's room has no leash to take."""
+        self.assertEqual(oracle_run.run([*self.TO_THE_RAT, "TAKE LEASH"]).splitlines()[-1], "Don't be stupid.")
+        replies = story_run.run([*self.TO_THE_RAT, "TAKE LEASH", "TAKE RAT"])
+        self.assertEqual(replies[-2][1], ["You can't see any such thing."])
+        self.assertEqual(replies[-1][1], ["Don't be stupid."])
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -46,6 +46,9 @@ CONDITIONAL_EXITS_ADDED = {
     (57, "west"),          # 2985: the vault, once the cat has opened it
     (86, "north"),         # 2460: the hole blasted in the wall
 }
+#   A word the port gives to a different object than the source does, by
+#   owner ruling (original-issues.md O-1): word -> the object that answers.
+CORRECTED_WORDS = {"LEASH": 16}
 #   The two fatal exits, which are actions so that dying can be survived:
 DEADLY_AS_ACTIONS = {(32, "out"), (58, "south")}
 
@@ -163,9 +166,14 @@ def compare(world: dict, names: dict, ir: dict) -> list[str]:
         if fixture != any(trait["name"] == "scenery" for trait in entity["traits"]):
             problems.append(f"{where}: scenery is wrong; objects 33 to 45 are fixtures and no others")
 
-        for word in obj["vocabulary"]:
+        words = [w for w in obj["vocabulary"] if CORRECTED_WORDS.get(w, number) == number]
+        words += [w for w, owner in CORRECTED_WORDS.items() if owner == number and w not in words]
+        for word in words:
             if word.lower() != entity["name"].lower() and word.lower() not in entity["aka"]:
                 problems.append(f"{where}: does not answer to {word}")
+        for word, owner in CORRECTED_WORDS.items():
+            if owner != number and word.lower() in entity["aka"]:
+                problems.append(f"{where}: answers to {word}, which the port gives to object {owner}")
 
         present = phrases.get(f"{entity['id']}.present")
         got_text = present["variants"][0]["text"] if present else None

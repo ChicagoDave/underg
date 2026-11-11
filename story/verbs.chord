@@ -34,9 +34,10 @@ end trait
 
 ## GET, TAKE, CARRY and WEAR, lines 2085 to 2170. The count of line 2095
 ## refuses a tenth thing; it is kept on the player because nothing in Chord
-## counts what a person holds. Line 2140, which would make the cat need its
-## leash, cannot be reached in the original (2130 jumps past it), so it is
-## not here either.
+## counts what a person holds. CORRECTED (O-12): line 2140, which makes the
+## cat need its leash, cannot be reached in the original, because 2110 sends
+## every ordinary thing to 2130 and 2130 jumps past it. The port reads 2110
+## as `then2140`: a cat with no leash carried gets line 2150's refusal.
 
 define action picking-up
   grammar
@@ -56,6 +57,7 @@ define action picking-up
   refuse when the item is the uranium and not the player holds the space gloves: bare-hands
   refuse when the item is the minuature sun and not the player holds the radiation-proof container: nothing-to-carry
   refuse when the item is the uranium and not the player holds the radiation-proof container: nothing-to-carry
+  refuse when the item is the cat and not the player holds the leash: nothing-to-carry
   raise the player's burden by 1
   lower the player's score by 25 when (the item is the something valuable or the item is the platinum wire or the item is the uranium or the item is the ancient statue or the item is the gold nuggets or the item is the gold record or the item is the gold garbage or the item is the gold pet's dish or the item is the silver or the item is the large diamonds or the item is the gold telescope or the item is the large emerald or the item is the rare coins or the item is the rare stamps or the item is the black pearl or the item is the golden key) and the player is in the Building
   raise the player's burden by 1 when the item is the glass bottle and the water is here and not the player holds the water
@@ -624,7 +626,7 @@ define action pouring
     pour
   change the narrator to quiet
   lower the player's burden by 1 when the player holds the water
-  remove the water
+  move the water offstage
   change the narrator to speaking when the player is in the Carbide Room and the narrator is quiet
   phrase mine-explodes when the narrator is speaking
   change the story to dying when the narrator is speaking
@@ -649,7 +651,7 @@ define action pouring-it
   refuse when the item is not the water: are-you-crazy
   change the narrator to quiet
   lower the player's burden by 1 when the player holds the water
-  remove the water
+  move the water offstage
   change the narrator to speaking when the player is in the Carbide Room and the narrator is quiet
   phrase mine-explodes when the narrator is speaking
   change the story to dying when the narrator is speaking
@@ -668,25 +670,31 @@ define action pouring-it
   change the narrator to spoken when the narrator is speaking
   phrase nothing-happens when the narrator is quiet
 
-## FILL, lines 2550 to 2560. At the lake and the bog line 2560 writes
-## X%(19%), past the end of a twelve-element array; the error trap at 3200
-## ends the program without a word. The oracle does exactly that, so FILL
-## where there is water ends the game.
+## FILL, lines 2550 to 2560. CORRECTED (O-8): line 2560 reads X%(19%)=-1%,
+## which is past the end of X% and ends the 1979 program without a word. One
+## letter off from O%(19%)=-1%, "the water is carried", and that is what the
+## port does: at the lake or the bog the water is in hand, and "Done."
 
 define action filling
   grammar
     fill
   refuse when the player is not in the Lake Shore and the player is not in the Edge of Bog: saliva
-  lose
+  raise the player's burden by 1 when not the player holds the water
+  move the water to the Adventurer
+  phrase done
 
 define action filling-it
   grammar
     fill the item
   refuse when the item is not the glass bottle: are-you-crazy
   refuse when the player is not in the Lake Shore and the player is not in the Edge of Bog: saliva
-  lose
+  raise the player's burden by 1 when not the player holds the water
+  move the water to the Adventurer
+  phrase done
 
-## READ, lines 2570 to 2640. READ WATER prints the penny's legend, as coded.
+## READ, lines 2570 to 2640. CORRECTED (O-10): line 2610 tests object 19,
+## the water, and prints a coin's legend. The port reads it as object 30,
+## the penny.
 
 define action reading-it
   grammar
@@ -694,7 +702,7 @@ define action reading-it
   refuse without item: what
   refuse when the item is the gold record: record-label
   refuse when the item is the glass bottle: bottle-label
-  refuse when the item is the water: penny-legend
+  refuse when the item is the penny: penny-legend
   refuse when the item is the vault: suggest-look
   refuse when the item is the message: safe-message
   refuse nothing-written
@@ -762,8 +770,10 @@ define action pressing
   change the narrator to spoken when the narrator is speaking
   phrase nothing-happens when the narrator is quiet
 
-## JUMP, LEAP, HOP and DIVE, lines 2850 to 2860. Off a height it kills. Anywhere
-## else the original falls into the laser code with no target and stops.
+## JUMP, LEAP, HOP and DIVE, lines 2850 to 2860. Off a height it kills.
+## CORRECTED (O-9): anywhere else line 2860 is `goto2450`, the middle of the
+## laser code, which prints a laser line and stops the program. 2540 with two
+## digits swapped: "Nothing happens.", which is what the port says.
 
 define action leaping
   grammar
@@ -782,7 +792,7 @@ define action leaping
   change the narrator to spoken when the player is in the Gate
   phrase splat when the narrator is spoken
   change the story to dying when the narrator is spoken
-  lose disintegrates when the narrator is quiet
+  phrase nothing-happens when the narrator is quiet
 
 ## 2-7-3, lines 1290 to 1300.
 
@@ -891,6 +901,21 @@ define action leaving-the-robot while the player is in the Junction of Tunnels a
     u
     climb
   phrase robot-fires
+  change the story to dying
+
+## Line 2010, the rat's bite. CORRECTED (O-11): the line tests
+## `X%(11%)-30% AND O%(31%)-X%(0%)`, "the rat is not hungry and the rat is not
+## here", which a hungry rat in the room never satisfies; the oracle lets you
+## walk out. Read with `=` for each `-` it is the guardian the message
+## describes: leave the room of a hungry rat and it bites.
+
+define action leaving-the-rat while the player is in the North-South Room and the rat is here and the rat is hungry
+  grammar
+    north
+    n
+    northeast
+    ne
+  phrase rat-bites
   change the story to dying
 
 ## Line 2020: the dwarf lets you go any way but north.
@@ -1110,6 +1135,8 @@ define phrases en-US
   three-deaths:
     Sorry, but people who are incompetent enough to die three times in the{br}
     same game don't deserve the chance to make it four.
+  rat-bites:
+    As you walk away, the rat bites you and you die.
   deadly-knife:
     As you go, you are intercepted by a deadly knife.
   dog-barks:

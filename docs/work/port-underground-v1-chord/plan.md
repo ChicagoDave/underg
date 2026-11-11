@@ -55,6 +55,20 @@ who notices that the leash cannot be picked up finds the record and stops rather
 than "fixing" it. It is deliberately separate from the repo's own DevArch issue
 store, which holds D-n items we intend to fix.
 
+**Exception, by owner ruling 2026-11-10: six slips are corrected, not
+reproduced.** Asked whether FILL ending the program, JUMP firing
+the laser and READ WATER printing a coin's legend should stay as coded, David
+answered "not this time - let's infer the correct actions for the bugs". They
+are O-8, O-9 and O-10 in `original-issues.md`, disposition CORRECTED, each with
+the line as written and the reading inferred. The principle stands for
+everything else; a further correction needs its own ruling. A second ruling
+the same day ("yes those two as well") added O-1, LEASH naming the rat, which
+reverses the 2026-09-14 answer on G8 above, and O-11, the rat's bite that can
+never happen. A third added O-12: the cat needs its leash, as the unreachable
+line 2140 says. Where the port is
+CORRECTED the oracle and the port differ on purpose, so Phases 6 and 7 must
+not generate cards from the oracle for those commands.
+
 The one thing this principle does not license is inventing behaviour where the
 source is absent rather than wrong. `LOOK.BAS` 10370-10500 and a handful of
 `UNDERG.BAS` lines are reconstructed rather than transcribed (see

@@ -2,13 +2,16 @@
 
 ## Object 0. Carried name: "Something valuable." Word: ME.
 ## Line 70 sets O%(0%)=39%, outside the DATA block, so the decode does not
-## hold it. It lies unannounced in the room whose wall reads "GET ME OUT OF
-## HERE!!!", and TAKE ME picks it up.
+## hold it. It lies in the room whose wall reads "GET ME OUT OF HERE!!!",
+## announced by LOOK.BAS line 10000, and TAKE ME picks it up.
 
 create the something valuable
   a thing, portable, treasure
   aka me
   in the East End of Cylindrical Room
+
+  phrase present while not the player holds the something valuable:
+    There is something extremely valuable here!
 
 ## Object 1. Carried name: "Platinum wire.". Words: WIRE, COIL, PLATI.
 

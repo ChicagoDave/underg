@@ -1,9 +1,12 @@
 ## Objects 16 to 32, the things that can be carried.
 
-## Object 16. Carried name: "Cat's leash.". Words: none.
+## Object 16. Carried name: "Cat's leash.". Words: none in the source.
+## CORRECTED (O-1): line 1780 gives LEASH to object 31, the rat. The port
+## gives it to the leash.
 
 create the cat's leash
   a thing, portable
+  aka leash
   in the Closet 81
 
   phrase present while not the player holds the cat's leash:
@@ -152,7 +155,6 @@ create the penny
 
 create the rat
   a thing, portable
-  aka leash
   in the North-South Room
   states: hungry, dead
 

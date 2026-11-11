@@ -112,12 +112,13 @@ mine, the death at the robot and waking in the basement, the 25 points of a
 treasure in the building, and the default reply of every verb.
 
 Also compared: the elevator and its lever both ways, the rock and the Gnome,
-READ MESSAGE, the safe and its combination, the silver. FILL was looked at in
-the oracle: at the lake it ends the program silently (line 2560 writes past
-the end of `X%`), so the port ends the game there, with the platform's ending
-text where the original prints nothing.
+READ MESSAGE, the safe and its combination, the silver.
 
-Written from the listing but not yet compared: THROW's special cases, FEED,
+Corrected by owner ruling, so the port and the oracle differ on purpose (O-1
+and O-8 to O-12 in `original-issues.md`): LEASH, FILL where there is water,
+JUMP in an ordinary room, READ WATER and READ PENNY, the rat's bite.
+
+Written from the listing but not yet compared: the cat needing its leash (O-12, not yet played in the port either), THROW's special cases, FEED,
 the drop cases (cat and rat, dog and bone, dwarf and coal, the vault, the
 well, the cheese, the sun on the ice, room 85), OPEN with the key, RUB, PUSH
 (the spaceship, the cart, the lever), JUMP, the safe, the two fatal exits,
@@ -126,8 +127,6 @@ ending at room 87.
 
 Not written:
 - The two computed exits (G3, G4).
-- The rat's bite (line 2010). Its test is a bitwise AND of two differences
-  and has to be read off the oracle, not off the listing.
 - The lamp running down past the warning: the woman's offer, the recharge.
 - The one-in-three fatal accident of line 992 when a dark room is described.
 - Object 0 in the decode (it is authored in `treasures.chord`, by hand).
@@ -151,9 +150,7 @@ Not written:
 
 - **Words.** Each thing answers to the original's words and to the whole word
   each five-letter stub stands for (`plati` and `platinum`). The entity names
-  also answer, which admits words the original does not have. The one that
-  matters is the cat's leash: O-1 says LEASH must reach the rat and nothing
-  else, and the leash's own name now competes for it.
+  also answer, which admits words the original does not have.
 - **The water** (object 19) starts in room 1 beside the bottle, as the data
   has it, and so is listed as "a water".
 - **Fixtures and creatures** are all `a thing, scenery`; none is `a person`.

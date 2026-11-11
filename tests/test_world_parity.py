@@ -146,10 +146,19 @@ class ParityCheckBites(_Compiled):
         self.assertTrue(any("object 30 " in p and "scenery" in p for p in found), found)
 
     def test_a_lost_word_is_reported(self) -> None:
-        """LEASH names the rat in the 1979 source (O-1); losing it is a fix."""
         ir = self.broken()
-        self.entity(ir, "rat")["aka"].remove("leash")
-        self.assertTrue(any("object 31 " in p and "LEASH" in p for p in self.problems(ir)))
+        self.entity(ir, "platinum wire")["aka"].remove("coil")
+        self.assertTrue(any("object 1 " in p and "COIL" in p for p in self.problems(ir)))
+
+    def test_leash_names_the_leash_and_not_the_rat(self) -> None:
+        """O-1, CORRECTED: the source gives LEASH to the rat; the port gives
+        it to the leash. Either half going back is reported."""
+        ir = self.broken()
+        self.entity(ir, "rat")["aka"].append("leash")
+        self.entity(ir, "cat's leash")["aka"].remove("leash")
+        found = self.problems(ir)
+        self.assertTrue(any("object 31 " in p and "answers to LEASH" in p for p in found), found)
+        self.assertTrue(any("object 16 " in p and "does not answer to LEASH" in p for p in found), found)
 
     def test_changed_and_ungated_presence_lines_are_reported(self) -> None:
         ir = self.broken()

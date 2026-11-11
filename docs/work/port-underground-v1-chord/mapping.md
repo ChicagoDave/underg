@@ -178,6 +178,8 @@ reproduce the story as coded, so the port carries the collision: `LEASH` and
 `RAT` both resolve to the rat, and the leash is takeable only as part of the
 cat (object 32, "Cat on leash"). No ledger entry is needed — Chord can express
 this natively with `aka`. Registered as **O-1** in `original-issues.md`.
+**Reversed 2026-11-10:** the owner ruled that O-1 is corrected, so in the port
+`LEASH` names the leash and `RAT` the rat. See O-1 for the ruling.
 
 **G9 — CLOSED 2026-11-10 by Chord 4.0.1's `room name:` block (see the re-read
 below). Was BLOCKING: Chord cannot give two rooms the same printed name.**

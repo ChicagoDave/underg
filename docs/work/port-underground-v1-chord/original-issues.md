@@ -18,15 +18,18 @@ find it here and stop, rather than "fixing" it.
 | REPRODUCE | Carried into the port exactly as the original behaves |
 | RESTORED-UPSTREAM | Corrected in the recovered source before this repo received it; the port inherits the correction. Recorded so the divergence from the 14-Mar-79 listing stays visible |
 | BLOCKED | Chord 3.6.0 cannot express it; the deviation ledger carries the entry and names the missing construct |
+| CORRECTED | The port does what the line evidently meant, by owner ruling for that item. The oracle still does what the line says, so the two differ here on purpose |
 
-Nothing is ever dispositioned FIX without an explicit owner ruling that
-overrides the governing principle for that item.
+Nothing is ever dispositioned CORRECTED without an explicit owner ruling that
+overrides the governing principle for that item. David's rulings of 2026-11-10 cover O-8, O-9 and
+O-10 ("let's infer the correct actions for the bugs"), then O-1 and O-11
+("yes those two as well"), then O-12 ("yes").
 
 ---
 
 ## O-1 — `LEASH` addresses the rat; the leash has no word
 
-**Disposition: REPRODUCE** · `UNDERG.BAS` 1780, 1790 · found 2026-09-14
+**Disposition: CORRECTED** (2026-11-10; was REPRODUCE by the ruling of 2026-09-14) · `UNDERG.BAS` 1780, 1790 · found 2026-09-14
 
 ```
 1780 IFA$="LEASH"THENT%=31%:GOTO1980
@@ -40,6 +43,17 @@ of object 32, "Cat on leash".
 
 Chord expresses this natively: give the rat an `aka leash`. No ledger entry
 needed.
+
+Ruling of 2026-11-10 (David, asked whether the correction should reach this
+item: "yes those two as well"). Inferred intent: line 1780 should read
+`T%=16%`. In the port `LEASH` names the cat's leash and only `RAT` names the
+rat. The oracle still answers `TAKE LEASH` in the rat's room with "Don't be
+stupid."; the port has no leash there to take.
+
+Line 2140, which would make the cat need its leash, is the leash's only use
+and cannot be reached in the source. That is O-12.
+
+---
 
 ## O-2 — line 975 absent from the 14-Mar-79 listing
 
@@ -122,6 +136,100 @@ This one bit during extraction: following `goto10000` as if it were a
 delegation gave room 85 the object table's first line, which reads plausibly
 enough to pass unnoticed. `tests/test_extract_world.py` now asserts no room
 carries that string.
+
+---
+
+## O-8 — `FILL` where there is water ends the program
+
+**Disposition: CORRECTED** · `UNDERG.BAS` 2560 · found 2026-11-10
+
+```
+2560 X%(19%)=-1%:goto2170
+```
+
+`X%` is dimensioned to 11 (13 in `LOOK.BAS`). Subscript 19 is an error, the
+trap at line 1005 sends it to 3200, and the program ends without printing
+anything. Seen in the oracle: at the lake shore, `FILL` produces no output and
+no later command is answered. The line is transcribed, not reconstructed.
+
+Inferred intent: `O%(19%)=-1%`, one letter away. Object 19 is the water and
+-1 means carried, so FILL at the lake (room 9) or the bog (room 20) puts the
+water back in hand and says "Done." The port does that and nothing more: it
+does not add a check that the bottle is held, because the line has none.
+
+## O-9 — `JUMP` in an ordinary room fires the laser and ends the program
+
+**Disposition: CORRECTED** · `UNDERG.BAS` 2860 · found 2026-11-10
+
+```
+2850 IFX%(0%)=10%or ... then&"A A A A a a a a a . . .                    <splat>":GOTO3050
+2860 goto2450
+```
+
+Away from the eight high places, line 2860 jumps to 2450, the middle of the
+SHOOT handler, with no target. Seen in the oracle: "The laser beam strikes
+it's target and disintegrates it." and then nothing more.
+
+Inferred intent: `goto2540`, the same four digits with two swapped. Line 2540
+is "Nothing happens." The port says that.
+
+## O-10 — `READ WATER` prints a coin's legend
+
+**Disposition: CORRECTED** · `UNDERG.BAS` 2610 · found 2026-11-10
+
+```
+2610 ifT%=19%then&"In god we trust":&"Liberty":&"1979":&:goto1000
+```
+
+Object 19 is the water; "In god we trust / Liberty / 1979" is what is written
+on a penny, object 30. Seen in the oracle: `READ WATER` prints the legend and
+`READ PENNY` prints "There is nothing written on it."
+
+Inferred intent: `T%=30%`. In the port `READ PENNY` prints the legend and
+`READ WATER` prints "There is nothing written on it."
+
+## O-11 — the rat's bite cannot happen
+
+**Disposition: CORRECTED** · `UNDERG.BAS` 2010 · found 2026-11-10
+
+```
+2010 IFX%(11%)-30%ANDO%(31%)-X%(0%)THEN&"As you walk away, the rat bites you and you die.":GOTO3050
+```
+
+`X%(11%)` is 30 while the rat is hungry, so the left side is zero and the
+whole test is false exactly when the rat could bite. Seen in the oracle: you
+walk into the hungry rat's room (46) and out again unharmed. Once the rat is
+dead the two subtractions are ANDed bit by bit, which is no test of anything.
+
+Inferred intent: `=` for each `-`, "the rat is hungry and the rat is here".
+In the port, leaving room 46 by either of its exits while the hungry rat is
+there prints the line and kills you. Feed it the cheese first.
+
+## O-12 — the cat never needs its leash
+
+**Disposition: CORRECTED** · `UNDERG.BAS` 2110 to 2150 · found 2026-11-10
+
+```
+2110 ift%<>24%andt%<>2%then2130elseifo%(26%)+1%then&"You can't touch that with bare hands.":goto1000
+2120 IFO%(25%)+1%THEN2150
+2130 GOTO2160
+2140 IFT%-32%ORO%(16%)=-1%THEN2160
+2150 &"You have nothing in which to carry that.":GOTO1000
+```
+
+Line 2140 says: take the thing unless it is the cat and the leash is not
+carried. Nothing reaches it. Every thing but the sun and the uranium goes
+from 2110 to 2130, and 2130 jumps over 2140 to the take at 2160. So the cat
+is picked up bare-handed and the leash does nothing in the game.
+
+Ruling of 2026-11-10 (David, asked whether the cat should require the leash as
+the unreachable line intended: "yes"). Inferred intent: line 2110 should read
+`then2140`. In the port, TAKE CAT without the leash in hand gets line 2150's
+"You have nothing in which to carry that."; with it, the cat is taken.
+
+Not yet compared with the oracle or played in the port: reaching a fed cat
+takes the cheese, the rat, the sun and the ice first. The oracle side of the
+claim is from the listing.
 
 ---
 
