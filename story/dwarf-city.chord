@@ -27,17 +27,21 @@ create the Dwarf Door
   passage to the Short Passage
     grammar
       barrier
+      barre
   end passage
 
   You are standing west of a large door, probably built by dwarfs.
 
-## Room 51. LOOK.BAS 5100 and 5150.
+## Room 51. LOOK.BAS 5100 and 5150. CORRECTED (O-15): the transcribed line
+## 510 sends north and east to the well and nothing back. The paper
+## (07192603 p2, `510DATA,50,52,,,,,,,,,50,,`) sends east and OUT to the
+## dwarf's door and west to the well, and that is what is authored here.
 
 create the Short Passage
   a room, dark while not lit-up
   room name:
     you are in a short passage running E/W.
-  exits, one-way: north to the Well, east to the Well
+  exits, one-way: east to the Dwarf Door, west to the Well, out to the Dwarf Door
 
   you are in a short passage running E/W.
 

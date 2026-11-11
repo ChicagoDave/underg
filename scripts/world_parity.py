@@ -49,6 +49,10 @@ CONDITIONAL_EXITS_ADDED = {
 #   A word the port gives to a different object than the source does, by
 #   owner ruling (original-issues.md O-1): word -> the object that answers.
 CORRECTED_WORDS = {"LEASH": 16}
+#   A room whose exits the port takes from the paper and not from the
+#   transcribed DATA line, by owner ruling (original-issues.md O-15):
+#   room -> {direction: destination room}.
+CORRECTED_EXITS = {51: {"east": 50, "west": 52, "out": 50}}
 #   The two fatal exits, which are actions so that dying can be survived:
 DEADLY_AS_ACTIONS = {(32, "out"), (58, "south")}
 
@@ -108,7 +112,8 @@ def compare(world: dict, names: dict, ir: dict) -> list[str]:
         if got_text != want_text:
             problems.append(f"{where}: description is {got_text!r}, the original prints {want_text!r}")
 
-        want_exits = {(_direction_key(d), room_ids.get(t)) for d, t in room["exits"].items()}
+        exits = CORRECTED_EXITS.get(number, room["exits"])
+        want_exits = {(_direction_key(d), room_ids.get(t)) for d, t in exits.items()}
         want_blocked: dict[str, str] = {}
         want_deadly: dict[str, str] = {}
         for direction, refusal in room["refusals"].items():
@@ -185,8 +190,9 @@ def compare(world: dict, names: dict, ir: dict) -> list[str]:
             want_text = obj["presence"][0] if obj["presence"] else None
             if got_text != want_text:
                 problems.append(f"{where}: presence line is {got_text!r}, the original prints {want_text!r}")
-        if present and fixture == ("condition" in present):
-            problems.append(f"{where}: a carried thing's presence line must stop while it is held, a fixture's never does")
+        # A fixture's line may be gated too, on its own state (the vault, L-5).
+        if present and not fixture and "condition" not in present:
+            problems.append(f"{where}: a carried thing's presence line must stop while it is held")
 
     return problems
 

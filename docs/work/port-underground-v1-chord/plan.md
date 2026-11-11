@@ -55,7 +55,7 @@ who notices that the leash cannot be picked up finds the record and stops rather
 than "fixing" it. It is deliberately separate from the repo's own DevArch issue
 store, which holds D-n items we intend to fix.
 
-**Exception, by owner ruling 2026-11-10: six slips are corrected, not
+**Exception, by owner ruling 2026-11-10: eight slips are corrected, not
 reproduced.** Asked whether FILL ending the program, JUMP firing
 the laser and READ WATER printing a coin's legend should stay as coded, David
 answered "not this time - let's infer the correct actions for the bugs". They
@@ -65,7 +65,11 @@ everything else; a further correction needs its own ruling. A second ruling
 the same day ("yes those two as well") added O-1, LEASH naming the rat, which
 reverses the 2026-09-14 answer on G8 above, and O-11, the rat's bite that can
 never happen. A third added O-12: the cat needs its leash, as the unreachable
-line 2140 says. Where the port is
+line 2140 says. A fourth ("again - infer the correct response") added O-13:
+the command typed after the ice or the woman stops you keeps its noun. A fifth
+("B") added O-15: room 51's exits come from the scanned sheets, where the
+transcribed line 510 leaves no way back from the well; `UNDERG.BAS` is left as
+transcribed. Where the port is
 CORRECTED the oracle and the port differ on purpose, so Phases 6 and 7 must
 not generate cards from the oracle for those commands.
 
@@ -129,9 +133,10 @@ the line-975 restoration stays recorded as upstream, separate from both.
 - **Entry state**: Phase 2's verb mapping exists; Phase 3's world is loadable (verbs need rooms/objects to test against, but see the note below on ordering).
 - **Deliverable**: every verb from Phase 2's inventory implemented per its assigned target — stdlib reuse via grammar aliases where the mapping said so, `define action` for the rest, refusals via `must`/`refuse when`, reactions via actor-explicit `on the player <gerund>` / `after the player <gerund>` clauses (ADR-327 — no bare `it`), and a documented, per-verb decision on the line-975 bug and any other V1-FINDINGS.md parser idiosyncrasy that verb touches.
 - **Exit state**: every verb the original parser accepted has a Chord equivalent or a documented, ledger-recorded gap; the story is playable by hand start-to-end.
+- **Demonstrated**: 2026-11-10 (session b5d946) — `python3 -m unittest discover -s tests` runs 61 tests, all passing. `StartToEnd` plays the port from the first move to the ending in 272 commands with no refusal: 125, 325 and 400 points after the three trips, all sixteen treasures listed in the building, the road at 381 points, the wall, the woman and the closing text held to `UNDERG.BAS` 3140 to 3144. `WalksEndWhereTheOriginalDoes` plays 34 walks through both the oracle and the port and compares what is carried, the score and the turn count; `CorrectedSlips` shows both halves of each owner-ruled difference (O-1, O-8 to O-13, O-15); `PastTheRat` holds the cat, vault and key to the listing. Gaps are ledgered in `deviation-ledger-draft.md` (L-6 to L-18 and "Not written": the random exit west of room 60, the woman's lamp offer, the dark-room accident). `npx sharpee compose story/underg.story --check` gate-clean on Chord 4.0.1 (one warning, room 85); `scripts/world_parity.py` OK; `scripts/oracle-smoke.sh` OK (run 2026-11-11T02:24:01Z, before the ledger edits that followed). [verified: work-summary-writer rerun 2026-11-11T02:26:08Z — unittest Ran 61 tests OK, world_parity OK 87 rooms / 45 objects, compose --check gate-clean (one warning, room 85), oracle-smoke OK] [StartToEnd/walk details: reported by session, carried by the passing suite]
 - **Corrections to earlier phases found here** (2026-11-10): Phase 3 started the player in room 1; line 70 and the oracle's transcript say room 8, and the scaffold, the story and its test now do. Phase 2's decode cut the volcano's text (line 2950) at its first sentence; the extractor now carries both printed lines. Three room identifiers changed in `story/world-map.json` (59, 60, 85), because a name ending in a number cannot be the subject of a Chord condition.
 - **Progress** (2026-11-10, not complete): `story/verbs.chord` holds one action per 1979 handler, with the death-and-continue loop, the lamp timer, darkness and the moving exits; `tests/test_verbs_against_oracle.py` plays the same walks through the oracle and the port and compares what is carried and the score. What is compared, what is written but not yet compared, and what is not written are listed in `deviation-ledger-draft.md` under "Phase 4: done and not done". The phase stays CURRENT until that last list is empty or ledgered.
-- **Status**: CURRENT (since 2026-11-10)
+- **Status**: DONE
 - **Note on ordering**: Phases 3 and 4 both depend only on Phase 2's output, not on each other — they are listed sequentially for narrative simplicity, not because rooms must exist before verbs. A session could interleave them per-region (author a region's rooms, then its region-specific verb behavior) if that proves more tractable once Phase 2's map is in hand.
 
 ### Phase 5: Story assembly and initial deviation ledger

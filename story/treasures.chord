@@ -88,8 +88,17 @@ create the Gnomes' silver
   a thing, portable, treasure
   aka silve, silver
 
-  phrase present while not the player holds the Gnomes' silver:
+  phrase present while not the player is in the Closet 80 and not the player holds the Gnomes' silver:
     There is silver here!
+
+## Line 10080's other line (L-5), spoken by a thing the player always carries.
+
+create the silver's other line
+  a thing
+  in the Adventurer
+
+  phrase present while the Gnomes' silver is here and the player is in the Closet 80 and not the player holds the Gnomes' silver:
+    There is silver in the safe!
 
 ## Object 9. Carried name: "Large diamonds.". Words: DIAMO.
 

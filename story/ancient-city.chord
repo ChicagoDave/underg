@@ -29,7 +29,7 @@ create the City
   "You must have at least 380 points to travel{br}
   on this road."
 
-## Room 54, southeast: code -10, not authored here. Line 3090 gates on score: above 380 points the destination is room 86, otherwise the woman ends the game outright.
+## Room 54, southeast: code -10, line 3090. The score-gated road is the action `taking-the-road` in verbs.chord.
 
 ## Room 55. LOOK.BAS 5500 and 5550.
 

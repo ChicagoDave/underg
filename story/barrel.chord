@@ -28,6 +28,7 @@ create the Sphere Room
   passage to the Barrel Enterance
     grammar
       barrier
+      barre
   end passage
 
   This room has the shape of a giant sphere, with holes in all of the{br}
@@ -77,6 +78,7 @@ create the Barrel Exit
   passage to the Barrel Exit
     grammar
       barrier
+      barre
     blocked: barrel-spins
   end passage
 
@@ -116,6 +118,7 @@ create the West End of Cylindrical Room
   passage to the Sphere Room
     grammar
       barrier
+      barre
   end passage
 
   You are at the west end of the cylindrical room,{br}

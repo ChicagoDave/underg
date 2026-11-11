@@ -21,8 +21,17 @@ create the electric lamp
   aka lamp
   in the Building
 
-  phrase present while not the player holds the electric lamp:
+  phrase present while the electric lamp is dormant and not the player holds the electric lamp:
     There is an electric lamp here.
+
+## Line 10170's other line (L-5), spoken by a thing the player always carries.
+
+create the lamp's other line
+  a thing
+  in the Adventurer
+
+  phrase present while the electric lamp is here and the electric lamp is shining and not the player holds the electric lamp:
+    There is a lit lamp here.
 
 ## Object 18. Carried name: "Glass bottle.". Words: BOTTL.
 ## Its line changes with state: without the water it is "There is an empty bottle here.". Phase 4.
@@ -32,8 +41,17 @@ create the glass bottle
   aka bottl, bottle
   in the Building
 
-  phrase present while not the player holds the glass bottle:
+  phrase present while the water is here and not the player holds the glass bottle:
     There is a bottle of water here.
+
+## Line 10180's other line (L-5), spoken by a thing the player always carries.
+
+create the bottle's other line
+  a thing
+  in the Adventurer
+
+  phrase present while the glass bottle is here and not the water is here and not the player holds the glass bottle:
+    There is an empty bottle here.
 
 ## Object 19. Carried name: "Water in the bottle.". Words: WATER.
 ## Its line changes with state: the bottle's line speaks for it; it has none of its own. Phase 4.
@@ -158,8 +176,19 @@ create the rat
   in the North-South Room
   states: hungry, dead
 
-  phrase present while not the player holds the rat:
+  phrase present while the rat is hungry:
     There is a hungry rat here.
+
+## Line 10310's other line. A thing has one presence line (L-5), so the second
+## is spoken by a thing the player always carries and never sees: a carried
+## thing's presence line shows in whatever room the player is in.
+
+create the rat's other line
+  a thing
+  in the Adventurer
+
+  phrase present while the rat is here and the rat is dead and not the player holds the rat:
+    There is a dead rat here.
 
 ## Object 32. Carried name: "Cat on leash.". Words: CAT.
 ## Its line changes with state: once the rat is dead it is "there is a hungry cat here.". Phase 4.
@@ -169,6 +198,15 @@ create the cat
   in the Room 83
   states: aloof, hungry, fed
 
-  phrase present while not the player holds the cat:
+  phrase present while not the cat is hungry and not the player holds the cat:
     There is a cat here.
+
+## Line 10320's other line (L-5), spoken by a thing the player always carries.
+
+create the cat's other line
+  a thing
+  in the Adventurer
+
+  phrase present while the cat is here and the cat is hungry:
+    there is a hungry cat here.
 

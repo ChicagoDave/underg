@@ -23,7 +23,9 @@ find it here and stop, rather than "fixing" it.
 Nothing is ever dispositioned CORRECTED without an explicit owner ruling that
 overrides the governing principle for that item. David's rulings of 2026-11-10 cover O-8, O-9 and
 O-10 ("let's infer the correct actions for the bugs"), then O-1 and O-11
-("yes those two as well"), then O-12 ("yes").
+("yes those two as well"), then O-12 ("yes"), then O-13 ("again - infer the
+correct response"), then O-15 ("B": correct room 51's exits in the port only,
+from the paper).
 
 ---
 
@@ -201,6 +203,23 @@ whole test is false exactly when the rat could bite. Seen in the oracle: you
 walk into the hungry rat's room (46) and out again unharmed. Once the rat is
 dead the two subtractions are ANDed bit by bit, which is no test of anything.
 
+**The other half, found 2026-11-10 (session b5d946), played in the oracle.**
+"No test of anything" understated it. Once the rat is dead `X%(11%)-30%` is 1
+(2 once the cat has eaten), and `1 AND (O%(31%)-X%(0%))` is true whenever the
+rat's room number and yours differ by an odd number. With the rat dead in room
+46 you may step into room 45 or 47 and are bitten on the way out of either;
+carried, it bites on the way out of every even-numbered room, 46 included; and
+after the death it lies in the building or the chasm and bites again from the
+basement or the building. **Nothing after the rat's death can be played in
+this listing as the oracle runs it**: not the cat, the vault, the golden key,
+the door it opens, or the 381 points the road to the ending asks for (sixteen
+treasures at 25 make 400; without the key, 375). The existing CORRECTED ruling
+already gives the port its behaviour (only a hungry rat bites), so the port
+plays through; what changes is verification. `PastTheRat` in
+`tests/test_verbs_against_oracle.py` plays the port alone and holds each reply
+to the listing line that prints it, and
+`test_after_the_rat_dies_the_original_kills_you` shows both halves.
+
 Inferred intent: `=` for each `-`, "the rat is hungry and the rat is here".
 In the port, leaving room 46 by either of its exits while the hungry rat is
 there prints the line and kills you. Feed it the cheese first.
@@ -227,9 +246,143 @@ the unreachable line intended: "yes"). Inferred intent: line 2110 should read
 `then2140`. In the port, TAKE CAT without the leash in hand gets line 2150's
 "You have nothing in which to carry that."; with it, the cat is taken.
 
-Not yet compared with the oracle or played in the port: reaching a fed cat
-takes the cheese, the rat, the sun and the ice first. The oracle side of the
-claim is from the listing.
+Played in the port 2026-11-10 (session b5d946, `PastTheRat`): a fed cat with
+no leash in hand is refused with line 2150's words, and taken once the leash
+is carried. The oracle side stays a reading of the listing, because a fed cat
+cannot be reached in the oracle at all (O-11, the other half).
+
+---
+
+## O-13 — after the ice or the woman stops you, the next command loses its noun
+
+**Disposition: CORRECTED** · `UNDERG.BAS` 1001, 2000, 2040, 2060 · found 2026-11-10
+
+```
+1001 INPUTLINE#1%,A$:...X%=INSTR(X%,A$," "):LSETA$(0%)=LEFT(A$,X%-1%):...
+2000 X%=M%(X%(0%),Y%):IFX%<=0%THEN2870
+2040 ifO%(40%)=x%(0%)then&"The ice is to slippery for you to move on.":goto1000
+```
+
+Line 1001 looks for the first space starting at whatever `X%` was left
+holding. Lines 2040 and 2060 go back for input with `X%` still the number of
+the room you tried to enter, so the search starts past the end of the next
+line typed: the first word comes out empty and the verb lands where the noun
+belongs. Seen in the oracle: in the Alaska room, N ("The ice is to
+slippery..."), then DROP SUN answers "What?" and the sun stays in hand. A
+second DROP SUN works, and a one-word command is unharmed.
+
+The same thing happens after line 992's "I can't see a thing.", which also
+returns for input with `X%` holding a room number: in the dark room (77), TAKE
+PEARL typed straight after walking in answers "What?" (seen in the oracle).
+
+Ruling of 2026-11-10 (David, asked whether the port should reproduce it:
+"again - infer the correct response"). Inferred intent: the search for the
+first space starts at the start of the line. In the port the command after a
+refused move is read whole, and DROP SUN straight after the ice's refusal
+drops the sun and melts the ice. Both halves are in `CorrectedSlips`
+(`test_the_command_after_the_ice_keeps_its_noun`). No other oracle walk in
+the tests types a two-word command straight after either refusal, and
+Phases 6 and 7 must not generate one.
+
+## O-14 — a bottle emptied by POUR is full again once dropped
+
+**Disposition: REPRODUCE** · `UNDERG.BAS` 2240 · found 2026-11-10
+
+```
+2240 O%(T%)=X%(0%):O%(37%-T%)=X%(0%)ifT%=18%ORT%=19%:...
+```
+
+Dropping the bottle sets the water down with it whether or not the water was
+being carried. POUR sends the water to room 0; DROP BOTTL brings it back, and
+TAKE BOTTL then picks up both. "There is an empty bottle here." (LOOK.BAS
+10180) can therefore hardly ever be seen. Carried over as coded and compared
+(`SHORT_WALKS`, "the bottle is full again once dropped"). It makes the
+corrected FILL (O-8) one of two ways to get the water back.
+
+## O-15 — nothing leads back from the well
+
+**Disposition: CORRECTED** (in the port only; `UNDERG.BAS` is left as transcribed) · `UNDERG.BAS` 510, 520 · found 2026-11-10
+
+```
+507 DATA51,,,,49,,,,,,,51,51,51
+510 DATA52,52,,,,,,,,,,,,
+520 DATA,,51,,,,,,,,,51,,
+```
+
+Room 51 ("you are in a short passage running E/W.") has two exits, north and
+east, and both go to the well (52). The well leads only back to 51. All
+fourteen directions were tried from each room in the oracle. So whoever walks
+north through the dwarf's door can never return: the rare coins that the penny
+buys at the well cannot be carried out, and a death there leaves any treasure
+in hand behind (line 3051).
+
+With the coins out of reach the most that can lie in the building is fifteen
+treasures, 375 points, and the road to the ending wants more than 380 (line
+3090). Together with O-11's other half this means this listing, as the oracle
+runs it, cannot be won. The port carries the map as coded, so today it cannot
+be won either.
+
+That is a statement about the 14-Mar-79 printout as transcribed, not about the
+game. David, 2026-11-10: "I 100% remember winning the game in high school",
+and "I remember the well being a puzzle" (it is one here: the coal for the
+dwarf, the penny for the well, the coins). The listing is one dated revision
+among several (`original/README-reconstruction.md`), and its DATA block was
+checked for count and range, not value by value against the scan.
+
+**Ruling of 2026-11-10: check the paper first.** Offered a correction, David
+chose to have line 510 read off the scans before ruling. To read: line 510
+(and 507, 520) on `07192605` p1-2, with the second copies of the DATA block on
+`07192603` and `07192606`; and, for O-11, line 2010 on `07192605` and on the
+verb-handler sheets `07192600` to `07192602`. The scans are not in this
+repository and were not found on this machine (searched by sheet name,
+session b5d946). Until they are read the port keeps the listing's exits.
+
+The room's own text suggests line 510 was meant to send east to the well and
+west back to the door (`DATA,52,50`), where it sends north and east to the
+well.
+
+**The paper, read 2026-11-10 (session b5d946).** The scans are in
+`gschmidl/interactive-fiction` on GitHub, under `Unfinished or Lost/Underground
+(Scans)/reconstruction/V1`. Line 510 is not Gary's slip; it is a slip in the
+transcription.
+
+- `07192605` p1 (the 14-Mar-79 listing): line 510 is the last line on the page
+  and the sheet break cuts it in half. The top half that survives begins
+  `510DATA,5` - a leading comma, which the transcribed `510 DATA52,52,,,` does
+  not have.
+- `07192603` p2 (another listing pass) has the line whole and clear:
+  `510DATA,50,52,,,,,,,,,50,,`. North nothing, east to the dwarf's door (50),
+  west to the well (52), OUT to the door.
+
+So on paper room 51 has its way back, and the coins can be carried out.
+
+**Ruling of 2026-11-10 (David, offered a fix to the source, a fix in the port
+only, or re-basing on `07192603`: "B").** The port takes room 51's exits from
+the paper: east and OUT to the dwarf's door, west to the well, nothing north.
+`original/UNDERG.BAS`, the oracle and `extracted/world.json` keep the
+transcribed line, so here the oracle and the port differ on purpose, like the
+other CORRECTED items, and Phases 6 and 7 must not generate oracle cards that
+walk past room 51. In the code: `story/dwarf-city.chord` (room 51),
+`CORRECTED_EXITS` in `scripts/world_parity.py`, and
+`test_the_way_back_from_the_well` in `CorrectedSlips`, which shows both
+halves. Sheet `07192603` is evidence for the corrections, not the port's
+base.
+
+**Sheet `07192603` is a different revision, and it already has four of the
+corrections this register inferred.** Read off pages 3 and 5:
+
+| Line | `07192603` | 14-Mar-79 as transcribed | Register |
+|---|---|---|---|
+| 2010 | `IFX%(11%)=30%ANDO%(31%)=X%(0%)THEN` | `-` for each `=` | O-11, as inferred |
+| 1780 | `"LEASH"THENT%=16%` | `T%=31%` | O-1, as inferred |
+| 2110 | `then2140` (and no line 2130) | `then2130`, `2130 GOTO2160` | O-12, as inferred |
+| 1001 | `X%=INSTR(1%,A$," ")` | `INSTR(X%,...)` | O-13, as inferred |
+
+It also differs where nothing was inferred (line 70 starts the lamp counter at
+-50; line 180 sends OUT of the light room to 18, not 27; line 1960 goes to
+1000; line 1270's arithmetic), so it is not simply the same listing. Its
+header is torn off and its date is not known; the fixes suggest it is the
+later one. Not checked: every other line of either sheet.
 
 ---
 

@@ -38,6 +38,8 @@ end trait
 ## cat need its leash, cannot be reached in the original, because 2110 sends
 ## every ordinary thing to 2130 and 2130 jumps past it. The port reads 2110
 ## as `then2140`: a cat with no leash carried gets line 2150's refusal.
+## Line 2090 refuses objects 33 to 45. `the item is scenery` compiles and is
+## never true here, so each fixture is named.
 
 define action picking-up
   grammar
@@ -47,7 +49,8 @@ define action picking-up
     wear the item
   refuse without item: what
   refuse when the player holds the item: not-here
-  refuse when the item is scenery: dont-be-stupid
+  refuse when the item is the Adventurer: not-here
+  refuse when the item is the woman or the item is the vault or the item is the dwarf or the item is the dog or the item is the Gnome or the item is the safe or the item is the message or the item is the ice or the item is the robot or the item is the cart or the item is the lever or the item is the computer or the item is the wall: dont-be-stupid
   refuse when the item is the rat and the rat is hungry: dont-be-stupid
   refuse when the item is the cat and the cat is aloof: dont-be-stupid
   refuse when the item is the cat and the cat is hungry: dont-be-stupid
@@ -68,6 +71,60 @@ define action picking-up
   phrase now-wearing when the item is the sunglasses
   phrase now-wearing when the item is the space gloves
   phrase done when the item is not the sunglasses and the item is not the space gloves
+
+## Room 77 is dark whatever is carried (line 980), and the original takes a
+## thing whether or not it can be seen. The platform's parser cannot name what
+## it cannot see, so the pearl, which lies there and is one of the sixteen
+## treasures, has its own words in that room (L-16).
+
+define action groping-for-the-pearl while the player is in the Dark Room and the black pearl is in the Dark Room
+  grammar
+    take pearl
+    get pearl
+    carry pearl
+    wear pearl
+  refuse when the player's burden > 8: too-many
+  raise the player's burden by 1
+  move the black pearl to the Adventurer
+  phrase done
+
+## Line 1630: ME is the one word for object 0. The platform reads "me" as the
+## player, so TAKE, DROP and THROW with ME are spelled out, with the
+## original's refusals (lines 1985, 2090 and 2190) in each.
+
+define condition me-is-elsewhere: not the something valuable is here
+
+define action taking-me
+  grammar
+    take me
+    get me
+    carry me
+    wear me
+  refuse when me-is-elsewhere: not-here
+  refuse when the player holds the something valuable: not-here
+  refuse when the player's burden > 8: too-many
+  raise the player's burden by 1
+  lower the player's score by 25 when the player is in the Building
+  move the something valuable to the Adventurer
+  phrase done
+
+define action dropping-me
+  grammar
+    drop me
+    throw me
+    toss me
+    give me
+  refuse when me-is-elsewhere: not-here
+  the player must hold the something valuable: not-carrying
+  lower the player's burden by 1
+  raise the player's score by 25 when the player is in the Building
+  move the something valuable here
+  phrase done
+
+define action naming-me
+  grammar
+    me
+  phrase what-about-it
 
 define action picking-up-nothing
   grammar
@@ -248,6 +305,8 @@ create the umpire
 ## marking which answer has been given.
 
 ## DROP, lines 2180 to 2250. The special cases come in the original's order.
+## Line 2240 sets the water down with the bottle whether or not the water was
+## carried, so a bottle emptied by POUR is full again once dropped (O-14).
 ## A thing dropped is a thing dropped: every case but room 85's still lands
 ## the thing here before it is eaten, taken or thrown down a well.
 
@@ -255,6 +314,7 @@ define action dropping-it
   grammar
     drop the item
   refuse without item: what
+  refuse when the item is the Adventurer: not-here
   the player must hold the item: not-carrying
   refuse when the item is the large emerald: emerald-stuck
   refuse when the item is the radiation-proof container and the player holds the minuature sun: drop-contents-first
@@ -271,7 +331,7 @@ define action dropping-it
   lower the player's burden by 1
   lower the player's burden by 1 when the item is the glass bottle and the player holds the water
   lower the player's burden by 1 when the item is the water and the player holds the glass bottle
-  move the water here when the item is the glass bottle and the player holds the water
+  move the water here when the item is the glass bottle
   move the glass bottle here when the item is the water and the player holds the glass bottle
   raise the player's score by 25 when (the item is the something valuable or the item is the platinum wire or the item is the uranium or the item is the ancient statue or the item is the gold nuggets or the item is the gold record or the item is the gold garbage or the item is the gold pet's dish or the item is the silver or the item is the large diamonds or the item is the gold telescope or the item is the large emerald or the item is the rare coins or the item is the rare stamps or the item is the black pearl or the item is the golden key) and the player is in the Building
   move the item here
@@ -309,6 +369,8 @@ define action dropping-it
   change the rat to dead when the cat is hungry and the rat is hungry
   phrase done when the narrator is quiet
 
+## `win` does not stop a body, so the throw that ends the game in room 87
+## (line 2260 to 3140) also retires the umpire, or the ending is spoken twice.
 ## THROW, TOSS and GIVE, lines 2260 to 2270. A rock thrown at something
 ## living has its own outcomes; anything else thrown is dropped, by the same
 ## lines as DROP (the original jumps to 2210).
@@ -319,6 +381,7 @@ define action throwing-it
     toss the item
     give the item
   refuse without item: what
+  refuse when the item is the Adventurer: not-here
   the player must hold the item: not-carrying
   refuse when the item is the rock and the robot is here and not the Gnome is here and not the woman is here and not the dwarf is here: rock-bounces
   refuse when the item is the rock and the dog is here and not the Gnome is here and not the woman is here and not the dwarf is here: spca
@@ -331,6 +394,8 @@ define action throwing-it
   phrase woman-catches-laser when the item is the laser pistol and the woman is here
   raise the player's score by 100 when the item is the laser pistol and the woman is here and the player is in the Room 87
   win game-is-yours when the item is the laser pistol and the woman is here and the player is in the Room 87
+  change the umpire to satisfied when the item is the laser pistol and the woman is here and the player is in the Room 87
+  change the narrator to spoken when the item is the laser pistol and the woman is here and the player is in the Room 87
   change the narrator to speaking when the item is the rock and the Gnome is here and the narrator is quiet
   phrase rock-hits-gnome when the narrator is speaking
   remove the Gnome when the narrator is speaking
@@ -354,7 +419,7 @@ define action throwing-it
   lower the player's burden by 1 when the umpire is watching
   lower the player's burden by 1 when the item is the glass bottle and the player holds the water and the umpire is watching
   lower the player's burden by 1 when the item is the water and the player holds the glass bottle and the umpire is watching
-  move the water here when the item is the glass bottle and the player holds the water and the umpire is watching
+  move the water here when the item is the glass bottle and the umpire is watching
   move the glass bottle here when the item is the water and the player holds the glass bottle and the umpire is watching
   raise the player's score by 25 when (the item is the something valuable or the item is the platinum wire or the item is the uranium or the item is the ancient statue or the item is the gold nuggets or the item is the gold record or the item is the gold garbage or the item is the gold pet's dish or the item is the silver or the item is the large diamonds or the item is the gold telescope or the item is the large emerald or the item is the rare coins or the item is the rare stamps or the item is the black pearl or the item is the golden key) and the player is in the Building and the umpire is watching
   move the item here when the umpire is watching
@@ -400,8 +465,8 @@ define action swallowing
     eat the item
   refuse without item: what
   the player must hold the item: not-carrying
-  refuse when the item is the water: water-polluted
-  refuse when the item is not the piece of cheese: dont-be-funny
+  refuse when the item is the water and the player holds the item: water-polluted
+  refuse when the item is not the piece of cheese and the player holds the item: dont-be-funny
   phrase cheese-poisoned
   change the story to dying
 
@@ -456,6 +521,30 @@ define action killing-nothing
     attac
   refuse what
 
+## A verb typed with no noun: lines 2180, 2500, 2570 and 2650 answer "What?",
+## and line 2820 falls through to 2540's "Nothing happens." for PUSH. A
+## pattern with a slot does not match the bare word, so each has its own action.
+
+define action dropping-nothing
+  grammar
+    drop
+    throw
+    toss
+    give
+    drink
+    eat
+    rub
+    read
+    feed
+  refuse what
+
+define action pressing-nothing
+  grammar
+    push
+    press
+    pull
+  refuse nothing-happens
+
 ## SHOOT and FIRE, lines 2410 to 2490, with a target named.
 
 define action shooting
@@ -468,6 +557,7 @@ define action shooting
   raise the player's shots by 1
   change the narrator to quiet
   lose chain-reaction when the target is the uranium
+  change the narrator to spoken when the target is the uranium
   change the narrator to speaking when the target is the rat and the narrator is quiet
   phrase laser-alarm when the narrator is speaking
   change the story to dying when the narrator is speaking
@@ -849,6 +939,22 @@ define action leaving-the-docked-ship while the player is in the Spaceship and t
     door
   move the player to the Waiting Room
 
+## Room 54, southeast: code -10, line 3090 (G4). Above 380 points the road
+## leads to room 86; at 380 or below the woman ends the game.
+
+define action taking-the-road while the player is in the City
+  grammar
+    southeast
+    se
+  lose read-the-signs when the player's score < 381
+  move the player to the Room 86 when the player's score > 380
+
+  phrases en-US
+    read-the-signs:
+      A woman appears in the next room. She says,{br}
+      "Come back to this game when you learn to read signs..."{br}
+      As she disappears, your surroundings seem to fade...
+
 define action boarding-the-docked-ship while the player is in the Waiting Room and the Spaceship is at-port
   grammar
     west
@@ -946,6 +1052,13 @@ define action crapping
   phrases en-US
     toilet:
       Does this room look like a toilet?
+
+## Line 1980: a noun typed with no verb.
+
+define action naming-it
+  grammar
+    the item
+  phrase what-about-it
 
 define action helling
   grammar

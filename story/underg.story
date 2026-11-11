@@ -58,7 +58,7 @@ story
     raise the player's deaths by 1
     change the story to alive
     lose three-deaths when the player's deaths > 2
-    move the player to the Basement
+    move the player to the Basement when the player's deaths < 3
   end on
 
 ## Rooms, exits, objects and their 1979 text load from the region and object

@@ -17,8 +17,17 @@ create the vault
   states: sealed, forced
   in the Vault of City
 
-  phrase present:
+  phrase present while the vault is sealed:
     The vault is closed.
+
+## Line 10330's other line (L-5), spoken by a thing the player always carries.
+
+create the vault's other line
+  a thing
+  in the Adventurer
+
+  phrase present while the vault is here and the vault is forced:
+    The vault is open.
 
 ## Object 35. No carried name. Words: DWARF.
 

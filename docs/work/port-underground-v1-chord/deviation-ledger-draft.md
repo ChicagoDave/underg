@@ -102,36 +102,102 @@ where a comment says how.
 - A counter prints in a phrase only as `the player's <counter>`, each passed
   by its own `with`.
 - An entity's `phrase taking-taken:` does not replace the stock message.
+- `the item is scenery` in a `refuse` compiles and is never true, so every
+  fixture could be picked up until each was named.
+- `lose` does not stop the body: lines after it still speak.
+- A `refuse` is tried before a `must`, so "you aren't carrying it" has to be
+  written into each later refusal's condition.
+- A grammar line with a slot does not match the bare verb, and `refuse without
+  item` never fires for it; the bare verb needs an action of its own.
+- A comment inside a `define action` block is a parse error.
+- `win` does not stop the body either; the ending was spoken twice.
+- `refuse when not …` is refused by the analyzer and `<thing> must be here` is
+  not a form; "it is not here" needs a named condition.
+- A grammar line of two plain words (`take pearl`) is taken ahead of the
+  slotted pattern, which is what L-16 and L-17 rest on.
 
 ## Phase 4: done and not done
 
-Done and compared against the oracle: TAKE (with its order of refusals, the
-bottle and water pair, the worn things), DROP, INVEN, LIGHT and OFF, darkness
-by line 980's rule, SHOOT with and without a target at the robot, POUR in the
-mine, the death at the robot and waking in the basement, the 25 points of a
-treasure in the building, and the default reply of every verb.
-
-Also compared: the elevator and its lever both ways, the rock and the Gnome,
-READ MESSAGE, the safe and its combination, the silver.
+Done and compared against the oracle (every one a walk in
+`tests/test_verbs_against_oracle.py`): TAKE with its order of refusals, the
+bottle and water pair, the worn things and the thirteen fixtures ("Don't be
+stupid."); DROP and THROW with their special cases (the sun on the ice, the
+bone and the dog, the coal and the dwarf, the cheese with the cat and with the
+rat, room 85, the emerald, the rock at the Gnome, the
+robot, the dog and the dwarf); FEED; KILL; SHOOT with and without a target;
+RUB; PUSH (lever, cart, the remote-control box, the computer shot first); OPEN
+in each room that answers; READ; EAT and DRINK; POUR and FILL; LIGHT and OFF;
+JUMP where it kills; every verb with no noun and a noun with no verb; INVEN
+and SCORE; darkness by line 980's rule; the guardians (robot, Gnome, dog,
+dwarf, ice); the spaceship, the planet and its two deaths; the vault's way
+into room 58, room 58 sealing behind you, the volcano; the road out of the
+City below 381 points; the death and waking in the basement, and the third death ending the game; the 25 points of
+a treasure in the building; the second presence lines of the lamp, the silver
+and the rat.
 
 Corrected by owner ruling, so the port and the oracle differ on purpose (O-1
 and O-8 to O-12 in `original-issues.md`): LEASH, FILL where there is water,
-JUMP in an ordinary room, READ WATER and READ PENNY, the rat's bite.
+JUMP in an ordinary room, READ WATER and READ PENNY, the rat's bite, the cat
+and its leash, (O-13) the command typed after the ice stops you, and (O-15)
+the short passage's exits, which is what lets the coins out of the well.
 
-Written from the listing but not yet compared: the cat needing its leash (O-12, not yet played in the port either), THROW's special cases, FEED,
-the drop cases (cat and rat, dog and bone, dwarf and coal, the vault, the
-well, the cheese, the sun on the ice, room 85), OPEN with the key, RUB, PUSH
-(the spaceship, the cart, the lever), JUMP, the safe, the two fatal exits,
-the guardians (Gnome, dog, dwarf, ice), room 58 sealing behind you, the
-ending at room 87.
+Played in the port alone, each reply held to its line of the listing, because
+the original cannot be played past the rat's death (O-11, the other half): the
+cat eating the rat, the cat needing its leash, the cat opening the vault, the
+golden key, the door in room 19, "The vault is open.", "there is a hungry cat
+here.".
+
+Played start to end in the port (`StartToEnd` in
+`tests/test_verbs_against_oracle.py`): sixteen treasures carried to the
+building in three trips for 400 points, the road out of the City above 380
+points, the wall shot through in room 86, the woman asking for the laser in
+room 87, and the ending, spoken once and held to lines 3140 to 3144. The walk
+is 272 commands and none is refused. It cannot be played in the oracle (O-11,
+O-15).
+
+Written from the listing and neither compared nor played: the woman as a
+target (THROW ROCK, KILL, SHOOT, PUSH) and "You are somehow paralyzed by the
+woman."
+
+**L-13. The penny in the well says nothing.** Line 2990 prints the room again
+(where the coins now lie). A body cannot ask for the room to be described
+(L-9), so DROP PENNY at the well prints nothing; LOOK shows the coins.
+
+**L-14. The second presence lines come out of a carried thing.** A thing has
+one presence line (L-5), so the other line of the lamp, the bottle, the
+silver, the rat, the cat and the vault each belongs to a thing the player
+always carries and never sees, gated on the state. The lines print in the
+original's order in every walk compared.
+
+**L-15. A noun the player cannot see is not "What about it?".** A noun typed
+alone gets line 1980's reply when the thing is in the room or in hand;
+otherwise the platform's "You can't see any such thing." (L-6), where the
+original says "What about it?" for any word it knows.
+
+**L-16. What cannot be seen cannot be named.** In a dark room the platform's
+parser answers "You can't see any such thing." for a thing lying there, where
+the original takes it. Room 77 is dark whatever is carried and holds the
+pearl, so TAKE PEARL has its own words in that room and is compared with the
+oracle. Nothing else is given this treatment: a thing dropped in a dark room
+stays there until there is light.
+
+**L-17. ME is spelled out.** ME is the original's one word for object 0. The
+platform reads "me" as the player, so TAKE, GET, CARRY, WEAR, DROP, THROW,
+TOSS and GIVE with ME, and ME alone, are their own actions with the original's
+refusals. Compared. FEED, KILL, SHOOT, RUB, READ, EAT and PUSH with ME are
+not.
+
+**L-18. BARRE and BARRIER.** The original's word is BARRE; both are taken.
 
 Not written:
-- The two computed exits (G3, G4).
-- The lamp running down past the warning: the woman's offer, the recharge.
+- The random exit west of room 60 (G3): nothing reads whether a room has been
+  visited.
+- The lamp running down past the warning: the woman's offer, the recharge
+  (L-7).
 - The one-in-three fatal accident of line 992 when a dark room is described.
+  `one chance in 3` exists as a condition, but nothing fires when a room is
+  described, only on every turn.
 - Object 0 in the decode (it is authored in `treasures.chord`, by hand).
-- The second presence line of the seven stateful objects (L-5).
-- "What about it?" for a noun typed alone.
 
 ## Not deviations, but worth knowing
 
