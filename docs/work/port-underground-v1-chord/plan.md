@@ -157,7 +157,7 @@ the line-975 restoration stays recorded as upstream, separate from both.
 - **Entry state**: `underg.story` builds; the oracle (Phase 1) is trusted and scriptable.
 - **Deliverable**: a script/tool that drives `bplus.c` with scripted command sequences, captures its real output, and converts that output into `opening`/`boot`/`turn` cards (`contains`/`notContains`/`states` assertions, `branches` where V1's paths diverge) — never hand-written prose. An initial corpus covering the main walkthrough plus the highest-value branches, scaled against the existing worked examples (fernhill 84 turns, ides-of-march 37, secret-letter 564) — Underground's 87-room scale suggests a corpus toward the secret-letter end of that range.
 - **Exit state**: the generation tooling exists and is reusable; a first run of `underg.tests.json` against the Chord port produces a baseline pass/fail report (not required to be green yet).
-- **Status**: PENDING
+- **Status**: CURRENT (since 2026-11-10)
 
 ### Phase 7: Parity closure
 - **Tier**: Large
