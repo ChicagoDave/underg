@@ -146,7 +146,7 @@ the line-975 restoration stays recorded as upstream, separate from both.
 - **Entry state**: Phases 3 and 4 complete — world and verbs both load and run.
 - **Deliverable**: `underg.story` wiring the region imports in arbitration order (ADR-251; imports are a paste at their own position, so order is semantic — per the secret-letter precedent), `underg.config.json` with a freshly minted IFID (ADR-074), the player declared `playable` and assigned via a `before the game starts … end before` block (ADR-327 D9/D10 — `create the player` is removed), and a complete first-pass deviation ledger in the `.story` header (secret-letter convention) enumerating every wording departure introduced in Phases 3-4 and why, plus the line-975 bug decision from Phase 1.
 - **Exit state**: `underg.story` builds clean end-to-end with no analysis errors; the ledger accounts for every deviation introduced so far.
-- **Status**: PENDING
+- **Status**: CURRENT (since 2026-11-10)
 
 ### Phase 6: Oracle-driven card generation tooling
 - **Tier**: Large
